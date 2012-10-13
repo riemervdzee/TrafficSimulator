@@ -1,5 +1,4 @@
 #include <GL/glfw.h>
-#include <stdlib.h>
 
 const unsigned int gWindowWidth = 1024;
 const unsigned int gWindowHeight = 768;
@@ -12,28 +11,30 @@ int main()
 	if( !glfwInit() )
 	{
 		// could not init glfw
-		exit( EXIT_FAILURE );
+		return 0;
 	}
 
 	// create a window
 	if( glfwOpenWindow(gWindowWidth, gWindowHeight, 8, 8, 8, 8, 24, 8, GLFW_WINDOW) == GL_FALSE)
 	{
-		// could not open window!
-		exit( EXIT_FAILURE );
+        // terminate glfw
+        glfwTerminate();
+        return 0;
 	}
 
+	// set window styles
+	glfwSetWindowTitle("TrafficSimulator 2012/2013");
+
 	// init OpenGL
-	glClearColor(1.0f, 0, 0, 1.0f);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	// main loop
 	while( running )
 	{
-		// update
-		if( !glfwGetKey( GLFW_KEY_ESC ) && glfwGetWindowParam( GLFW_OPENED) )
+		if( glfwGetKey( GLFW_KEY_ESC ) == GLFW_PRESS )
 		{
 			running = 0;
 		}
-
 
 		// draw
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -44,5 +45,5 @@ int main()
 	glfwTerminate();
 
 	// exit the app
-	exit( EXIT_SUCCESS );
+	return 0;
 }
