@@ -1,0 +1,15 @@
+[
+	{
+		"time": 0,
+		"type": "car",
+		"from": "N3",
+		"to": "S"
+	}
+	,
+	{
+		"time": 10,
+		"type": "car",
+		"from": "S3",
+		"to": "N"
+	}
+]

@@ -46,8 +46,8 @@
     <IntDir>Interm\</IntDir>
     <ExtensionsToDeleteOnClean>$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
     <TargetName>$(ProjectName)D</TargetName>
-    <LibraryPath>C:\Users\Wilds\Desktop\TrafficSimulator\Source\Libs\glfw-2.7.6\lib-msvc100;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\Users\Wilds\Desktop\TrafficSimulator\Source\Libs\glfw-2.7.6\include;$(ExecutablePath)</ExecutablePath>
+    <LibraryPath>C:\Users\Wilds\Desktop\TrafficSim\Source\Libs\glfw-2.7.6\lib-msvc100;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\Users\Wilds\Desktop\TrafficSim\Source\Libs\glfw-2.7.6\include\GL;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -63,15 +63,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Wilds\Desktop\TrafficSimulator\Source\Libs\glfw-2.7.6\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Wilds\Desktop\TrafficSim\Source\Libs\glfw-2.7.6\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>Interm/$(TargetName).pdb</ProgramDatabaseFile>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Wilds\Desktop\TrafficSim\Source\Libs\glfw-2.7.6\lib-msvc100;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>

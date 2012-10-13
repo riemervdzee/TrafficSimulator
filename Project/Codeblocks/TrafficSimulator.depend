@@ -1,6 +1,6 @@
 # depslib dependency file v1.0
-1350120001 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\main.cpp
-	<GL/glfw.h>
+1350135991 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\main.cpp
+	"../../Source/TrafficSimulator/CApplication.h"
 
 1350117863 c:\users\wilds\desktop\trafficsim\source\libs\glfw-2.7.6\include\gl\glfw.h
 	<OpenGL/gl3.h>
@@ -9,4 +9,120 @@
 	<GL3/gl3.h>
 	<GL/gl.h>
 	<GL/glu.h>
+
+1350125390 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\json\json.h
+	<cpptl/config.h>
+	"config.h"
+	"forwards.h"
+	"forwards.h"
+	<string>
+	<vector>
+	<map>
+	<cpptl/smallmap.h>
+	<cpptl/forwards.h>
+	"features.h"
+	"value.h"
+	<deque>
+	<stack>
+	<string>
+	<iostream>
+	"value.h"
+	<vector>
+	<string>
+	<iostream>
+
+1350125865 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json-forwards.h
+	<cpptl/config.h>
+	"config.h"
+
+1350125865 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json.h
+	<cpptl/config.h>
+	"config.h"
+	"forwards.h"
+	"forwards.h"
+	<string>
+	<vector>
+	<map>
+	<cpptl/smallmap.h>
+	<cpptl/forwards.h>
+	"features.h"
+	"value.h"
+	<deque>
+	<stack>
+	<string>
+	<iostream>
+	"value.h"
+	<vector>
+	<string>
+	<iostream>
+
+1304372844 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\config.h
+	<cpptl/config.h>
+
+1304372844 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\forwards.h
+	"config.h"
+
+1304372818 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\features.h
+	"forwards.h"
+
+1304372844 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\value.h
+	"forwards.h"
+	<string>
+	<vector>
+	<map>
+	<cpptl/smallmap.h>
+	<cpptl/forwards.h>
+
+1350129409 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\jsoncpp.cpp
+	"json/json.h"
+	<json/reader.h>
+	<json/value.h>
+	"json_tool.h"
+	<utility>
+	<cstdio>
+	<cassert>
+	<cstring>
+	<iostream>
+	<stdexcept>
+	<stdlib.h>
+	<assert.h>
+	<json/value.h>
+	<json/writer.h>
+	"json_batchallocator.h"
+	<iostream>
+	<utility>
+	<stdexcept>
+	<cstring>
+	<cassert>
+	<cpptl/conststring.h>
+	<cstddef>
+	"json_internalarray.inl"
+	"json_internalmap.inl"
+	"json_valueiterator.inl"
+	<json/writer.h>
+	"json_tool.h"
+	<utility>
+	<assert.h>
+	<stdio.h>
+	<string.h>
+	<iostream>
+	<sstream>
+	<iomanip>
+
+1350133606 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.h
+	<iostream>
+	<fstream>
+	<GL/glfw.h>
+	<json/json-forwards.h>
+	<json/json.h>
+
+1350133728 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
+	"CApplication.h"
+
+1350133491 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.h
+	<Windows.h>
+	<mmsystem.h>
+
+1330081902 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.cpp
+	"Timer.h"
 
