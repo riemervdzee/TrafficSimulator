@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1350135991 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\main.cpp
+1350136281 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\main.cpp
 	"../../Source/TrafficSimulator/CApplication.h"
 
 1350117863 c:\users\wilds\desktop\trafficsim\source\libs\glfw-2.7.6\include\gl\glfw.h
@@ -109,14 +109,16 @@
 	<sstream>
 	<iomanip>
 
-1350133606 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.h
+1350145586 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.h
 	<iostream>
 	<fstream>
 	<GL/glfw.h>
 	<json/json-forwards.h>
 	<json/json.h>
+	"../../Source/TrafficSimulator/CSimulationController.h"
+	"../../Source/TrafficSimulator/CSimulationModel.h"
 
-1350133728 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
+1350139458 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
 	"CApplication.h"
 
 1350133491 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.h
@@ -125,4 +127,27 @@
 
 1330081902 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.cpp
 	"Timer.h"
+
+1350139637 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
+	"CSimulationController.h"
+
+1350147159 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
+	"../../Source/TrafficSimulator/CSimulationModel.h"
+	"../../Source/TrafficSimulator/CAbstractView.h"
+
+1350140432 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
+	"CSimulationModel.h"
+
+1350146073 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
+	"../../Source/TrafficSimulator/ITrafficSubject.h"
+
+1350146115 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\itrafficsubject.h
+	"../../Source/TrafficSimulator/ITrafficObserver.h"
+
+1350140193 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\itrafficobserver.h
+
+1350147184 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
+	"../../Source/TrafficSimulator/ITrafficObserver.h"
+	"../../Source/TrafficSimulator/CSimulationController.h"
+	"../../Source/TrafficSimulator/CSimulationModel.h"
 

@@ -17,7 +17,7 @@ bool CApplication::Create(unsigned width, unsigned height)
         return false;
 	}
 
-    // set window styles
+    // set window stuff
 	glfwSetWindowTitle("TrafficSimulator 2012/2013 - Riemer v/d Zee & Mark van der Wal");
 
 	// set data members
@@ -25,20 +25,26 @@ bool CApplication::Create(unsigned width, unsigned height)
 	mHeight = height;
 	mIsRunning = true;
 
-	// init subsystems
-	InitGraphics();
+	// create model and controller
+	mModel = new CSimulationModel();
+	mController = new CSimulationController(mModel);
+
+	// add views
+	mController->SetSimulationView(new CSimulationView());
 
 	return true;
 }
 
-void CApplication::InitGraphics()
-{
-	// init OpenGL
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-}
-
 void CApplication::Destroy()
 {
+    // Destroy model and controller
+    if(mModel)
+        delete mModel;
+
+    if(mController)
+        delete mController;
+
+    // Terminate glfw
     glfwTerminate();
 }
 
@@ -48,6 +54,9 @@ void CApplication::AdvanceFrame()
     {
         mIsRunning = false;
     }
+
+    // update model
+    mModel->UpdateSim();
 
     // draw
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
