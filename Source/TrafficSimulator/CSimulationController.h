@@ -1,10 +1,9 @@
 #ifndef CSIMULATIONCONTROLLER_H
 #define CSIMULATIONCONTROLLER_H
 
-#include "../../Source/TrafficSimulator/CAbstractView.h"
-
 class CSimulationModel;
 class CSimulationView;
+class CNetworkView;
 
 class CSimulationController
 {
@@ -12,7 +11,7 @@ public:
     CSimulationController(CSimulationModel* model)
     : mModel( model ), mAppIsRunning(false) {}
 
-    void SetNetworkView(CAbstractView *view);
+    void SetNetworkView(CNetworkView *view);
     void SetSimulationView(CSimulationView *view);
 
     void LoadInputFile(const char* fileName);

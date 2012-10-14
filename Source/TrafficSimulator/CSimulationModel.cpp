@@ -1,5 +1,6 @@
 #include "../../Source/TrafficSimulator/CSimulationModel.h"
 #include "../../Source/TrafficSimulator/CSimulationView.h"
+#include "../../Source/TrafficSimulator/CNetworkView.h"
 
 CSimulationModel::CSimulationModel()
 {
@@ -16,7 +17,7 @@ CSimulationModel::~CSimulationModel()
         delete mNetworkView;
 }
 
-void CSimulationModel::RegisterNetworkView(CAbstractView* observer)
+void CSimulationModel::RegisterNetworkView(CNetworkView* observer)
 {
     if(observer != 0)
         mNetworkView = observer;
@@ -32,6 +33,7 @@ void CSimulationModel::UpdateSim()
 {
     // update views and simulation
     mSimulationView->Update(1.0f);
+    mNetworkView->UpdateNetwork();
 
     // draw
     mSimulationView->Draw();

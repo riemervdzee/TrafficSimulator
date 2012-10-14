@@ -1,7 +1,7 @@
 #ifndef CSIMULATIONMODEL_H
 #define CSIMULATIONMODEL_H
 
-class CAbstractView;
+class CNetworkView;
 class CSimulationView;
 
 class CSimulationModel
@@ -11,7 +11,7 @@ public:
     ~CSimulationModel();
 
     // inhereted
-    void RegisterNetworkView(CAbstractView* observer);
+    void RegisterNetworkView(CNetworkView* observer);
     void RegisterSimulationView(CSimulationView* observer);
 
     // simulation updating
@@ -23,8 +23,8 @@ private:
     void NotifySimulation(){};
 
 private:
-    CAbstractView   *mNetworkView;
-    CSimulationView   *mSimulationView;
+    CNetworkView    *mNetworkView;
+    CSimulationView *mSimulationView;
 };
 
 #endif // CSIMULATIONMODEL_H

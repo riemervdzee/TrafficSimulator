@@ -114,11 +114,12 @@
 	<json/json-forwards.h>
 	<json/json.h>
 
-1350206355 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
+1350212650 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
 	"../../Source/TrafficSimulator/CApplication.h"
 	"../../Source/TrafficSimulator/CSimulationController.h"
 	"../../Source/TrafficSimulator/CSimulationModel.h"
 	"../../Source/TrafficSimulator/CSimulationView.h"
+	"../../Source/TrafficSimulator/CNetworkView.h"
 
 1350133491 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.h
 	<Windows.h>
@@ -127,21 +128,22 @@
 1330081902 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.cpp
 	"Timer.h"
 
-1350206346 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
+1350211238 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
 	"../../Source/TrafficSimulator/CSimulationController.h"
 	"../../Source/TrafficSimulator/CSimulationModel.h"
 	"../../Source/TrafficSimulator/CSimulationView.h"
+	"../../Source/TrafficSimulator/CNetworkView.h"
 	<iostream>
 	<fstream>
 
-1350205697 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
-	"../../Source/TrafficSimulator/CAbstractView.h"
+1350211170 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
 
-1350206334 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
+1350211508 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
 	"../../Source/TrafficSimulator/CSimulationModel.h"
 	"../../Source/TrafficSimulator/CSimulationView.h"
+	"../../Source/TrafficSimulator/CNetworkView.h"
 
-1350205591 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
+1350211123 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
 
 1350194481 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\itrafficsubject.h
 
@@ -149,12 +151,19 @@
 
 1350209229 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
-1350206465 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+1350212728 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
 	"../../Source/TrafficSimulator/CSimulationView.h"
 	"../../Source/TrafficSimulator/CSimulationController.h"
 	"../../Source/TrafficSimulator/CSimulationModel.h"
-
-1350209089 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.h
 	<GL/glfw.h>
+	<cmath>
+
+1350212713 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.h
+	"../../Source/TrafficSimulator/CAbstractView.h"
+
+1350210992 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cnetworkview.cpp
+	"CNetworkView.h"
+
+1350211499 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
 	"../../Source/TrafficSimulator/CAbstractView.h"
 

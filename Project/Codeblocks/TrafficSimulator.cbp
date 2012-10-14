@@ -49,12 +49,15 @@
 		<Unit filename="..\..\Source\TrafficSimulator\CAbstractView.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CApplication.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CApplication.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\CNetworkView.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\CNetworkView.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationController.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationController.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationModel.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationModel.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationView.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationView.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\TrafficDefs.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\jsoncpp.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\main.cpp" />
 		<Extensions>

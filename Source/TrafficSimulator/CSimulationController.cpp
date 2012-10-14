@@ -1,11 +1,12 @@
 #include "../../Source/TrafficSimulator/CSimulationController.h"
 #include "../../Source/TrafficSimulator/CSimulationModel.h"
 #include "../../Source/TrafficSimulator/CSimulationView.h"
+#include "../../Source/TrafficSimulator/CNetworkView.h"
 
 #include <iostream>
 #include <fstream>
 
-void CSimulationController::SetNetworkView(CAbstractView *view)
+void CSimulationController::SetNetworkView(CNetworkView *view)
 {
     if(view != 0)
     {

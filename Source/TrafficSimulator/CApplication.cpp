@@ -2,6 +2,7 @@
 #include "../../Source/TrafficSimulator/CSimulationController.h"
 #include "../../Source/TrafficSimulator/CSimulationModel.h"
 #include "../../Source/TrafficSimulator/CSimulationView.h"
+#include "../../Source/TrafficSimulator/CNetworkView.h"
 
 bool CApplication::Create(unsigned width, unsigned height)
 {
@@ -23,6 +24,8 @@ bool CApplication::Create(unsigned width, unsigned height)
     // set window stuff
 	glfwSetWindowTitle("TrafficSimulator 2012/2013 - Riemer v/d Zee & Mark van der Wal");
 
+	std::cout << "GLFW window created @ " << width << "x" << height << std::endl;
+
 	// set data members
 	mWidth = width;
 	mHeight = height;
@@ -32,8 +35,14 @@ bool CApplication::Create(unsigned width, unsigned height)
 	mController = new CSimulationController(mModel);
 	mController->SetRunning(true);
 
+	std::cout << "Model created!\nController created!\n";
+
 	// add views
-	mController->SetSimulationView( new CSimulationView() );
+	mController->SetSimulationView( new CSimulationView(width, height) );
+	mController->SetNetworkView( new CNetworkView() );
+
+	std::cout << "Added a simulation view!\n";
+	std::cout << "Added a network view!\n";
 
 	return true;
 }

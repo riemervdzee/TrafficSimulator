@@ -1,0 +1,41 @@
+#ifndef TRAFFICDEFS_H
+#define TRAFFICDEFS_H
+
+enum DIRECTION
+{
+    NORTH - 0,
+    SOUTH,
+    EAST,
+    WEST
+};
+
+enum PARTICIPANTS
+{
+    CAR = 0,
+    BUS,
+    BIKE,
+    PEDESTRIAN
+};
+
+enum TRAFFICLIGHTSTATE
+{
+    PROCEED = 0,
+    PROCEED_BLINKING,
+    STOP,
+    STOP_ALMOST,
+    BUS_STRAIGHT,
+    BUS_LEFT,
+    BUS_RIGHT,
+    BLINKING,
+    OFF
+};
+
+enum PARTICIPANTSTATE
+{
+    GOTOSTOPLIGHT = 0,
+    WAITATSTOPLIGHT,
+    ONCROSSROAD,
+    AFTERCROSSROAD
+}
+
+#endif // TRAFFICDEFS_H
