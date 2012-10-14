@@ -1,16 +1,18 @@
 #ifndef CSIMULATIONMODEL_H
 #define CSIMULATIONMODEL_H
 
-#include "../../Source/TrafficSimulator/ITrafficSubject.h"
+class CAbstractView;
+class CSimulationView;
 
-class CSimulationModel : public ITrafficSubject
+class CSimulationModel
 {
 public:
     CSimulationModel();
+    ~CSimulationModel();
 
     // inhereted
-    void RegisterNetworkView(ITrafficObserver* observer){};
-    void RegisterSimulationView(ITrafficObserver* observer){};
+    void RegisterNetworkView(CAbstractView* observer);
+    void RegisterSimulationView(CSimulationView* observer);
 
     // simulation updating
     void UpdateSim();
@@ -21,8 +23,8 @@ private:
     void NotifySimulation(){};
 
 private:
-    ITrafficObserver   *mNetworkView;
-    ITrafficObserver   *mSimulationView;
+    CAbstractView   *mNetworkView;
+    CSimulationView   *mSimulationView;
 };
 
 #endif // CSIMULATIONMODEL_H

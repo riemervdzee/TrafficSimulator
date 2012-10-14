@@ -55,8 +55,6 @@
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationModel.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationView.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationView.h" />
-		<Unit filename="..\..\Source\TrafficSimulator\ITrafficObserver.h" />
-		<Unit filename="..\..\Source\TrafficSimulator\ITrafficSubject.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\jsoncpp.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\main.cpp" />
 		<Extensions>

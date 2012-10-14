@@ -1,28 +1,28 @@
 #ifndef CABSTRACTVIEW_H
 #define CABSTRACTVIEW_H
 
-#include "../../Source/TrafficSimulator/ITrafficObserver.h"
-#include "../../Source/TrafficSimulator/CSimulationController.h"
-#include "../../Source/TrafficSimulator/CSimulationModel.h"
+class CSimulationController;
+class CSimulationModel;
 
 // abstract view class
-class CAbstractView : public ITrafficObserver
+class CAbstractView
 {
 public:
     CAbstractView()
     {
-        mController = mModel = 0;
+        mController = 0;
+        mModel = 0;
     }
+    virtual ~CAbstractView(){};
 
     void SetController(CSimulationController* contr) { mController = contr; }
     void SetModel(CSimulationModel* model) { mModel = model; }
 
-    virtual ~CAbstractView();
     virtual void UpdatePull() = 0;
 
 protected:
-    CSimulationController   *mController;
-    CSimulationModel        *mModel;
+    CSimulationController   *mController; // VIEWS ARE NOT OWNERS OF THESE POINTERS!
+    CSimulationModel        *mModel; // VIEWS ARE NOT OWNERS OF THESE POINTERS!
 };
 
 #endif // CABSTRACTVIEW_H

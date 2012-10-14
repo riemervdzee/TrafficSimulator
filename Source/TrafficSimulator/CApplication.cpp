@@ -1,4 +1,7 @@
-#include "CApplication.h"
+#include "../../Source/TrafficSimulator/CApplication.h"
+#include "../../Source/TrafficSimulator/CSimulationController.h"
+#include "../../Source/TrafficSimulator/CSimulationModel.h"
+#include "../../Source/TrafficSimulator/CSimulationView.h"
 
 bool CApplication::Create(unsigned width, unsigned height)
 {
@@ -23,14 +26,14 @@ bool CApplication::Create(unsigned width, unsigned height)
 	// set data members
 	mWidth = width;
 	mHeight = height;
-	mIsRunning = true;
 
 	// create model and controller
 	mModel = new CSimulationModel();
 	mController = new CSimulationController(mModel);
+	mController->SetRunning(true);
 
 	// add views
-	mController->SetSimulationView(new CSimulationView());
+	mController->SetSimulationView( new CSimulationView() );
 
 	return true;
 }
@@ -50,61 +53,11 @@ void CApplication::Destroy()
 
 void CApplication::AdvanceFrame()
 {
-    if( glfwGetKey( GLFW_KEY_ESC ) == GLFW_PRESS )
-    {
-        mIsRunning = false;
-    }
-
-    // update model
+    // Updates
     mModel->UpdateSim();
-
-    // draw
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glfwSwapBuffers();
 }
 
-void CApplication::LoadInputFile(const char* fileName)
+bool CApplication::IsRunning()
 {
-    std::ifstream file;
-    std::string fileData;
-    file.open(fileName);
-
-    if(!file.is_open())
-    {
-        std::cout << "Can't open the specified file\n";
-        return;
-    }
-
-    // read in string
-    std::string line;
-    while( !file.eof() )
-    {
-        getline( file, line);
-        fileData += line + "\n";
-    }
-
-    file.close();
-
-    /* JSON CODE
-    // ###### JSON ########
-    Json::Value root;   // will contains the root value after parsing.
-    Json::Reader reader;
-    bool parsingSuccessful = reader.parse( fileData, root );
-    if ( !parsingSuccessful )
-    {
-        // report to the user the failure and their locations in the document.
-        std::cout  << "Failed to parse configuration\n"
-                   << reader.getFormattedErrorMessages();
-        return;
-    }
-
-    for(unsigned int i = 0; i < root.size(); ++i)
-    {
-        const Json::Value &element = root[i];
-        std::cout << element["time"].asInt() << std::endl;
-        std::cout << element["type"].asString() << std::endl;
-        std::cout << element["from"].asString() << std::endl;
-        std::cout << element["to"].asString() << std::endl;
-    }
-    */
+    return (mController ? mController->GetIsRunning() : false);
 }
