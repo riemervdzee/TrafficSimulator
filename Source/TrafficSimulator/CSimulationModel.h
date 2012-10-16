@@ -1,6 +1,8 @@
 #ifndef CSIMULATIONMODEL_H
 #define CSIMULATIONMODEL_H
 
+#include "../../Source/TrafficSimulator/Timer.h"
+
 class CNetworkView;
 class CSimulationView;
 
@@ -25,6 +27,7 @@ private:
 private:
     CNetworkView    *mNetworkView;
     CSimulationView *mSimulationView;
+    CTimer mTimer;
 };
 
 #endif // CSIMULATIONMODEL_H

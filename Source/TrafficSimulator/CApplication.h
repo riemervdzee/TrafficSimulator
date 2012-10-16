@@ -1,6 +1,7 @@
 #ifndef CAPPLICATION_H
 #define CAPPLICATION_H
 
+#include <GL/glew.h>
 #include <GL/glfw.h>
 #include <json/json-forwards.h>
 #include <json/json.h>

@@ -5,25 +5,26 @@
 #include <GL/glfw.h>
 #include <cmath>
 
+#include "../../Source/TrafficSimulator/Math/WildMath.h"
+
+using namespace wmath;
+
 CSimulationView::CSimulationView(int width, int height)
 {
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glEnable(GL_DEPTH_TEST);
 
-/*
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+    	// init camera
+	mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 100.0f);
+	mCamera.LookAt(Vec3(0, 0, 0), Vec3(0, 0, 1), Vec3(0, 1, 0));
 
-    GLfloat zNear = 0.1f;
-    GLfloat zFar = 255.0f;
-    GLfloat aspect = float(width)/float(height);
-    GLfloat fH = tan( float(70.0f / 360.0f * 3.14159f) ) * zNear;
-    GLfloat fW = fH * aspect;
-    glFrustum( -fW, fW, -fH, fH, zNear, zFar );
-    glPushMatrix();*/
+	// create skybox
+	mSkybox.Init("Data\\textures\\miramar", &mCamera);
+}
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+CSimulationView::~CSimulationView()
+{
+    mSkybox.Dispose();
 }
 
 void CSimulationView::UpdatePull()
@@ -38,24 +39,58 @@ void CSimulationView::Update(float dt)
         if(mController)
             mController->SetRunning(false);
     }
+
+    float speed = 16.0;
+
+    // speeding up
+	if( glfwGetKey( GLFW_KEY_LSHIFT ) == GLFW_PRESS)
+	{
+		speed = speed * 4.0f;
+	}
+
+	// rotate
+	int mX, mY;
+	static int mLX = 0;
+	static int mLY = 0;
+
+	glfwGetMousePos(&mX, &mY);
+
+	int mRX = mX - mLX;
+	int mRY = mY - mLY;
+
+    float yawSen = static_cast<float>(mRX) * dt;
+    float pitchSen = static_cast<float>(mRY) * dt;
+
+    mCamera.Rotate(pitchSen, yawSen , 0.0f);
+    mLX = mX;
+    mLY = mY;
+
+    // move camera
+	if(glfwGetKey( 's' ) == GLFW_PRESS)
+	{
+		mCamera.Move(speed * dt);
+	}
+	else if(glfwGetKey( 'w' ) == GLFW_PRESS)
+	{
+		mCamera.Move(-speed * dt);
+	}
+
+	// strafe camera
+	if(glfwGetKey( 'a' ) == GLFW_PRESS)
+	{
+		mCamera.Strafe(-speed * dt);
+	}
+	else if(glfwGetKey( 'd' ) == GLFW_PRESS)
+	{
+		mCamera.Strafe(speed * dt);
+	}
 }
 
 void CSimulationView::Draw()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glTranslatef(0.0f, 2.0f, 1.0f);
-    glRotatef(10.0f, 1.0f, 0.0f, 0.0f);
-
-    glBegin(GL_TRIANGLES);
-        //glColor3f(0.1f, 0.8f, 0.1f);
-        glVertex3f(-1.0f, -1.0f, 0.0);
-        glVertex3f(1.0, -1.0f,  0.0);
-        glVertex3f(0.0, 1.0f, 0.0f);
-    glEnd();
+    mSkybox.Draw();
 
     glfwSwapBuffers();
 }

@@ -6,6 +6,7 @@ CSimulationModel::CSimulationModel()
 {
     mNetworkView = 0;
     mSimulationView = 0;
+    mTimer.Create();
 }
 
 CSimulationModel::~CSimulationModel()
@@ -31,8 +32,10 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
 
 void CSimulationModel::UpdateSim()
 {
+    mTimer.Tick();
+
     // update views and simulation
-    mSimulationView->Update(1.0f);
+    mSimulationView->Update( mTimer.GetDeltaTime() );
     mNetworkView->UpdateNetwork();
 
     // draw

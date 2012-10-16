@@ -3,6 +3,7 @@
 #include "CSimulationModel.h"
 #include "CSimulationView.h"
 #include "CNetworkView.h"
+#include <cstdio>
 
 bool CApplication::Create(unsigned width, unsigned height)
 {
@@ -25,6 +26,14 @@ bool CApplication::Create(unsigned width, unsigned height)
 	glfwSetWindowTitle("TrafficSimulator 2012/2013 - Riemer v/d Zee & Mark van der Wal");
 
 	std::cout << "GLFW window created @ " << width << "x" << height << std::endl;
+
+	// init GLEW
+	GLenum err = glewInit();
+	if(err != GLEW_OK)
+	{
+		printf("Could not initialize GLEW\n");
+		return false;
+	}
 
 	// set data members
 	mWidth = width;
