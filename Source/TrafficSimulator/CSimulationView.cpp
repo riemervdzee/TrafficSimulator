@@ -14,6 +14,9 @@ CSimulationView::CSimulationView(int width, int height)
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glEnable(GL_DEPTH_TEST);
 
+    this->width;
+    this->height;
+
     	// init camera
 	mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 100.0f);
 	mCamera.LookAt(Vec3(0, 0, 0), Vec3(0, 0, 1), Vec3(0, 1, 0));
@@ -61,7 +64,8 @@ void CSimulationView::Update(float dt)
     float yawSen = static_cast<float>(mRX) * dt;
     float pitchSen = static_cast<float>(mRY) * dt;
 
-    mCamera.Rotate(pitchSen, yawSen , 0.0f);
+    mCamera.Rotate(pitchSen * 1000, yawSen * 1000 , 0.0f);
+
     mLX = mX;
     mLY = mY;
 

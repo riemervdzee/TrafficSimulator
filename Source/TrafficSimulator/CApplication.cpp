@@ -71,6 +71,8 @@ void CApplication::Destroy()
 
 void CApplication::AdvanceFrame()
 {
+    glfwPollEvents();
+
     // Updates
     mModel->UpdateSim();
 }

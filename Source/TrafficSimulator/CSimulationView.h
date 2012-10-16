@@ -18,6 +18,7 @@ public:
 private:
     Camera mCamera;
     Skybox mSkybox;
+    int width, height;
 };
 
 #endif // CSIMULATIONVIEW_H

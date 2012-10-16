@@ -32,9 +32,8 @@ private:
 private:
     CNetworkView    *mNetworkView;
     CSimulationView *mSimulationView;
-<<<<<<< HEAD
     CTimer mTimer;
-=======
+
 
     // Queue for participants who are about to join TODO visibility?
     std::priority_queue< CSimulationQueueParticipant> queue;
@@ -57,7 +56,7 @@ public:
     bool operator < ( const CSimulationQueueParticipant &a ) const {
         return time < a.time;
     }
->>>>>>> b0084dda4aa75767362d6a9ae6278e79f7a374f8
+
 };
 
 #endif // CSIMULATIONMODEL_H

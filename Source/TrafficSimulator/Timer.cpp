@@ -16,6 +16,6 @@ void CTimer::Tick()
 {
     float curTime;
     curTime = static_cast<float>( glfwGetTime() );
-    mDeltaTime =  (curTime - mPrevTime) * static_cast<float>( mTimeScale );
+    mDeltaTime =  (curTime - mPrevTime);// * static_cast<float>( mTimeScale );
     mPrevTime = curTime;
 }

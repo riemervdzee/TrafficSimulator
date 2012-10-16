@@ -279,7 +279,7 @@
 	"CSimulationView.h"
 	"CNetworkView.h"
 
-1350378191 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\capplication.cpp
+1350386586 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\capplication.cpp
 	"CApplication.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -328,13 +328,15 @@
 
 1350375889 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
 
-1350383393 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
-	"../../Source/TrafficSimulator/Timer.h"
+1350385550 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
+	<queue>
+	"Timer.h"
+	"TrafficDefs.h"
 
-1350381701 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.h
-	"../../Source/TrafficSimulator/CAbstractView.h"
-	"../../Source/TrafficSimulator/Camera.h"
-	"../../Source/TrafficSimulator/Skybox.h"
+1350385358 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.h
+	"Camera.h"
+	"Skybox.h"
+	"CAbstractView.h"
 
 1350375889 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
@@ -344,8 +346,8 @@
 1347795940 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\wildmath.h
 	<cmath>
 
-1350375889 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
-	"../../Source/TrafficSimulator/CAbstractView.h"
+1350384937 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
+	"CAbstractView.h"
 
 1350375889 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cnetworkview.cpp
 	"CNetworkView.h"
@@ -402,7 +404,7 @@
 1350375889 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\main.cpp
 	"CApplication.h"
 
-1350383534 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+1350386458 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
 	"CSimulationView.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -478,7 +480,7 @@
 	"GL/glew.h"
 	<GL/glfw.h>
 
-1350380897 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\timer.cpp
+1350385772 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\timer.cpp
 	"Timer.h"
 
 1350383577 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\timer.h
@@ -532,4 +534,6 @@
 1350381612 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\util.cpp
 	"Util.h"
 	<fstream>
+
+1350379226 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\trafficdefs.h
 
