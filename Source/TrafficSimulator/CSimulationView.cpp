@@ -1,6 +1,6 @@
-#include "../../Source/TrafficSimulator/CSimulationView.h"
-#include "../../Source/TrafficSimulator/CSimulationController.h"
-#include "../../Source/TrafficSimulator/CSimulationModel.h"
+#include "CSimulationView.h"
+#include "CSimulationController.h"
+#include "CSimulationModel.h"
 
 #include <GL/glfw.h>
 #include <cmath>

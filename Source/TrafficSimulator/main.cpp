@@ -1,4 +1,4 @@
-#include "../../Source/TrafficSimulator/CApplication.h"
+#include "CApplication.h"
 
 int main()
 {

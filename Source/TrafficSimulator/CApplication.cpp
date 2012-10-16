@@ -1,8 +1,8 @@
-#include "../../Source/TrafficSimulator/CApplication.h"
-#include "../../Source/TrafficSimulator/CSimulationController.h"
-#include "../../Source/TrafficSimulator/CSimulationModel.h"
-#include "../../Source/TrafficSimulator/CSimulationView.h"
-#include "../../Source/TrafficSimulator/CNetworkView.h"
+#include "CApplication.h"
+#include "CSimulationController.h"
+#include "CSimulationModel.h"
+#include "CSimulationView.h"
+#include "CNetworkView.h"
 
 bool CApplication::Create(unsigned width, unsigned height)
 {

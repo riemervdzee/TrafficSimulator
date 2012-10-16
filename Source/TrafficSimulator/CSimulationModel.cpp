@@ -1,6 +1,6 @@
-#include "../../Source/TrafficSimulator/CSimulationModel.h"
-#include "../../Source/TrafficSimulator/CSimulationView.h"
-#include "../../Source/TrafficSimulator/CNetworkView.h"
+#include "CSimulationModel.h"
+#include "CSimulationView.h"
+#include "CNetworkView.h"
 
 CSimulationModel::CSimulationModel()
 {

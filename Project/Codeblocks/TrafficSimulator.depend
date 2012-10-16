@@ -167,3 +167,115 @@
 1350211499 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
 	"../../Source/TrafficSimulator/CAbstractView.h"
 
+1350374474 source:c:\trafficsimulator\source\trafficsimulator\cnetworkview.cpp
+	"CNetworkView.h"
+
+1350374474 c:\trafficsimulator\source\trafficsimulator\cnetworkview.h
+	"../../Source/TrafficSimulator/CAbstractView.h"
+
+1350374474 c:\trafficsimulator\source\trafficsimulator\cabstractview.h
+
+1350374922 source:c:\trafficsimulator\source\trafficsimulator\csimulationcontroller.cpp
+	"CSimulationController.h"
+	"CSimulationModel.h"
+	"CSimulationView.h"
+	"CNetworkView.h"
+	<iostream>
+	<fstream>
+
+1350374474 c:\trafficsimulator\source\trafficsimulator\csimulationcontroller.h
+
+1350374474 c:\trafficsimulator\source\trafficsimulator\csimulationmodel.h
+
+1350374474 c:\trafficsimulator\source\trafficsimulator\csimulationview.h
+	"../../Source/TrafficSimulator/CAbstractView.h"
+
+1350374961 source:c:\trafficsimulator\source\trafficsimulator\csimulationmodel.cpp
+	"CSimulationModel.h"
+	"CSimulationView.h"
+	"CNetworkView.h"
+
+1350374474 source:c:\trafficsimulator\source\trafficsimulator\jsoncpp.cpp
+	"json/json.h"
+	<json/reader.h>
+	<json/value.h>
+	"json_tool.h"
+	<utility>
+	<cstdio>
+	<cassert>
+	<cstring>
+	<iostream>
+	<stdexcept>
+	<stdlib.h>
+	<assert.h>
+	<json/value.h>
+	<json/writer.h>
+	"json_batchallocator.h"
+	<iostream>
+	<utility>
+	<stdexcept>
+	<cstring>
+	<cassert>
+	<cpptl/conststring.h>
+	<cstddef>
+	"json_internalarray.inl"
+	"json_internalmap.inl"
+	"json_valueiterator.inl"
+	<json/writer.h>
+	"json_tool.h"
+	<utility>
+	<assert.h>
+	<stdio.h>
+	<string.h>
+	<iostream>
+	<sstream>
+	<iomanip>
+
+1350374474 c:\trafficsimulator\source\libs\jsoncpp-0.6\json\json.h
+	<cpptl/config.h>
+	"config.h"
+	"forwards.h"
+	"forwards.h"
+	<string>
+	<vector>
+	<map>
+	<cpptl/smallmap.h>
+	<cpptl/forwards.h>
+	"features.h"
+	"value.h"
+	<deque>
+	<stack>
+	<string>
+	<iostream>
+	"value.h"
+	<vector>
+	<string>
+	<iostream>
+
+1350374983 source:c:\trafficsimulator\source\trafficsimulator\main.cpp
+	"CApplication.h"
+
+1350374474 c:\trafficsimulator\source\trafficsimulator\capplication.h
+	<GL/glfw.h>
+	<json/json-forwards.h>
+	<json/json.h>
+
+1350374474 c:\trafficsimulator\source\libs\glfw-2.7.6\include\gl\glfw.h
+	<OpenGL/gl3.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL3/gl3.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1350374474 c:\trafficsimulator\source\libs\jsoncpp-0.6\json\json-forwards.h
+	<cpptl/config.h>
+	"config.h"
+
+1350374855 source:c:\trafficsimulator\source\trafficsimulator\capplication.cpp
+	"CApplication.h"
+	"CSimulationController.h"
+	"CSimulationModel.h"
+	"CSimulationView.h"
+	"CNetworkView.h"
+
