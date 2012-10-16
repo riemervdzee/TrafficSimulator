@@ -1,7 +1,7 @@
 #ifndef CSIMULATIONVIEW_H
 #define CSIMULATIONVIEW_H
 
-#include "../../Source/TrafficSimulator/CAbstractView.h"
+#include "CAbstractView.h"
 
 class CSimulationView : public CAbstractView
 {

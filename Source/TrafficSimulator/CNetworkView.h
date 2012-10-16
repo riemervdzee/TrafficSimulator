@@ -1,7 +1,7 @@
 #ifndef CNETWORKVIEW_H
 #define CNETWORKVIEW_H
 
-#include "../../Source/TrafficSimulator/CAbstractView.h"
+#include "CAbstractView.h"
 
 class CNetworkView : public CAbstractView
 {
