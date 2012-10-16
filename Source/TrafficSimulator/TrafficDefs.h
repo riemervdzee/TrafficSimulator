@@ -3,7 +3,7 @@
 
 enum DIRECTION
 {
-    NORTH - 0,
+    NORTH = 0,
     SOUTH,
     EAST,
     WEST
@@ -36,6 +36,6 @@ enum PARTICIPANTSTATE
     WAITATSTOPLIGHT,
     ONCROSSROAD,
     AFTERCROSSROAD
-}
+};
 
 #endif // TRAFFICDEFS_H
