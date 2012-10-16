@@ -1,10 +1,15 @@
 #ifndef CSIMULATIONMODEL_H
 #define CSIMULATIONMODEL_H
 
-#include "../../Source/TrafficSimulator/Timer.h"
+#include <queue>
+
+#include "Timer.h"
+#include "TrafficDefs.h"
 
 class CNetworkView;
 class CSimulationView;
+
+class CSimulationQueueParticipant;
 
 class CSimulationModel
 {
@@ -27,7 +32,32 @@ private:
 private:
     CNetworkView    *mNetworkView;
     CSimulationView *mSimulationView;
+<<<<<<< HEAD
     CTimer mTimer;
+=======
+
+    // Queue for participants who are about to join TODO visibility?
+    std::priority_queue< CSimulationQueueParticipant> queue;
+
+    // Vector for the actual participants TODO visibility?
+    //std::vector<
+};
+
+
+class CSimulationQueueParticipant
+{
+public:
+    int time;
+    PARTICIPANTS type;
+    DIRECTION fromDirection;
+    DIRECTION toDirection;
+    int fromLane;
+    int toLane;
+
+    bool operator < ( const CSimulationQueueParticipant &a ) const {
+        return time < a.time;
+    }
+>>>>>>> b0084dda4aa75767362d6a9ae6278e79f7a374f8
 };
 
 #endif // CSIMULATIONMODEL_H

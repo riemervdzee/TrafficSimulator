@@ -1,9 +1,9 @@
 #ifndef CSIMULATIONVIEW_H
 #define CSIMULATIONVIEW_H
 
-#include "../../Source/TrafficSimulator/CAbstractView.h"
-#include "../../Source/TrafficSimulator/Camera.h"
-#include "../../Source/TrafficSimulator/Skybox.h"
+#include "Camera.h"
+#include "Skybox.h"
+#include "CAbstractView.h"
 
 class CSimulationView : public CAbstractView
 {
