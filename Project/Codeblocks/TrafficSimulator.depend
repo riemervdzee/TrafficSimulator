@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1350136281 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\main.cpp
-	"../../Source/TrafficSimulator/CApplication.h"
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\main.cpp
+	"CApplication.h"
 
-1350117863 c:\users\wilds\desktop\trafficsim\source\libs\glfw-2.7.6\include\gl\glfw.h
+1351333402 c:\users\wilds\desktop\trafficsim\source\libs\glfw-2.7.6\include\gl\glfw.h
 	<OpenGL/gl3.h>
 	<OpenGL/gl.h>
 	<OpenGL/glu.h>
@@ -31,11 +31,11 @@
 	<string>
 	<iostream>
 
-1350125865 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json-forwards.h
+1351333402 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json-forwards.h
 	<cpptl/config.h>
 	"config.h"
 
-1350125865 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json.h
+1351333402 c:\users\wilds\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json.h
 	<cpptl/config.h>
 	"config.h"
 	"forwards.h"
@@ -73,7 +73,7 @@
 	<cpptl/smallmap.h>
 	<cpptl/forwards.h>
 
-1350129409 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\jsoncpp.cpp
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\jsoncpp.cpp
 	"json/json.h"
 	<json/reader.h>
 	<json/value.h>
@@ -109,63 +109,71 @@
 	<sstream>
 	<iomanip>
 
-1350205955 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.h
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.h
+	<GL/glew.h>
 	<GL/glfw.h>
 	<json/json-forwards.h>
 	<json/json.h>
 
-1350212650 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
-	"../../Source/TrafficSimulator/CApplication.h"
-	"../../Source/TrafficSimulator/CSimulationController.h"
-	"../../Source/TrafficSimulator/CSimulationModel.h"
-	"../../Source/TrafficSimulator/CSimulationView.h"
-	"../../Source/TrafficSimulator/CNetworkView.h"
+1351337456 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
+	"CApplication.h"
+	"CSimulationController.h"
+	"CSimulationModel.h"
+	"CSimulationView.h"
+	"CNetworkView.h"
+	<cstdio>
 
-1350133491 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.h
-	<Windows.h>
-	<mmsystem.h>
+1351334247 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.h
+	<GL/glew.h>
+	<GL/glfw.h>
 
-1330081902 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.cpp
+1351334261 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.cpp
 	"Timer.h"
 
-1350211238 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
-	"../../Source/TrafficSimulator/CSimulationController.h"
-	"../../Source/TrafficSimulator/CSimulationModel.h"
-	"../../Source/TrafficSimulator/CSimulationView.h"
-	"../../Source/TrafficSimulator/CNetworkView.h"
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
+	"CSimulationController.h"
+	"CSimulationModel.h"
+	"CSimulationView.h"
+	"CNetworkView.h"
 	<iostream>
 	<fstream>
 
-1350211170 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
+1351337643 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
 
-1350211508 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
-	"../../Source/TrafficSimulator/CSimulationModel.h"
-	"../../Source/TrafficSimulator/CSimulationView.h"
-	"../../Source/TrafficSimulator/CNetworkView.h"
+1351336939 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
+	"CSimulationModel.h"
+	"CSimulationView.h"
+	"CNetworkView.h"
 
-1350211123 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
+	<queue>
+	"Timer.h"
+	"TrafficDefs.h"
 
 1350194481 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\itrafficsubject.h
 
 1350203108 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\itrafficobserver.h
 
-1350209229 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
-1350212728 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
-	"../../Source/TrafficSimulator/CSimulationView.h"
-	"../../Source/TrafficSimulator/CSimulationController.h"
-	"../../Source/TrafficSimulator/CSimulationModel.h"
+1351337934 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+	"CSimulationView.h"
+	"CSimulationController.h"
+	"CSimulationModel.h"
 	<GL/glfw.h>
 	<cmath>
+	"../../Source/TrafficSimulator/Math/WildMath.h"
 
-1350212713 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.h
-	"../../Source/TrafficSimulator/CAbstractView.h"
+1351337892 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.h
+	"Camera.h"
+	"Skybox.h"
+	"CAbstractView.h"
 
-1350210992 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cnetworkview.cpp
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cnetworkview.cpp
 	"CNetworkView.h"
 
-1350211499 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
-	"../../Source/TrafficSimulator/CAbstractView.h"
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
+	"CAbstractView.h"
 
 1350374474 source:c:\trafficsimulator\source\trafficsimulator\cnetworkview.cpp
 	"CNetworkView.h"
@@ -536,4 +544,126 @@
 	<fstream>
 
 1350379226 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\trafficdefs.h
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\libs\glew-1.9.0\src\glew.c
+	<GL/glew.h>
+	<GL/wglew.h>
+	<GL/glxew.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\wglew.h
+	<windows.h>
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\glxew.h
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/Xmd.h>
+	<GL/glew.h>
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\trafficdefs.h
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\camera.h
+	"Math/WildMath.h"
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\wildmath.h
+	<cmath>
+
+1351336892 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\skybox.h
+	<string>
+	<GL/glew.h>
+	"../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h"
+	"../../Source/TrafficSimulator/Renderer/Buffers/IndexBuffer.h"
+	"../../Source/TrafficSimulator/Renderer/Textures/TextureCube.h"
+	"../../Source/TrafficSimulator/Renderer/Shader.h"
+	"../../Source/TrafficSimulator/Camera.h"
+	"../../Source/TrafficSimulator/Util.h"
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\buffers\vertexbuffer.h
+	"GL/glew.h"
+	<GL/glfw.h>
+
+1351336897 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\buffers\indexbuffer.h
+	"GL/glew.h"
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texturecube.h
+	<string>
+	<cstdio>
+	"GL/glew.h"
+	<GL/glfw.h>
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\shader.h
+	"GL/glew.h"
+	<GL/glfw.h>
+	<string>
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\util.h
+	<string>
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\camera.cpp
+	"Camera.h"
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\mat3.cpp
+	"WildMath.h"
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\mat4.cpp
+	"WildMath.h"
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\quat.cpp
+	"WildMath.h"
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\vec2.cpp
+	"WildMath.h"
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\vec3.cpp
+	"WildMath.h"
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\wildmath.cpp
+	"WildMath.h"
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\imgutil.cpp
+	"Imgutil.h"
+	<iostream>
+	<fstream>
+	<cstring>
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\imgutil.h
+	<string>
+	<cstring>
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\shader.cpp
+	"Shader.h"
+	<cstdio>
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.cpp
+	"Texture2D.h"
+	"../imgutil.h"
+
+1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
+	<string>
+	<cstdio>
+	"GL/glew.h"
+	<GL/glfw.h>
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texturescube.cpp
+	"TextureCube.h"
+	"../imgutil.h"
+
+1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\util.cpp
+	"Util.h"
+	<fstream>
 

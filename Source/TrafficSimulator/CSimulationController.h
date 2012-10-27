@@ -10,6 +10,10 @@ class CSimulationController
 public:
     CSimulationController(CSimulationModel* model)
     : mModel( model ), mAppIsRunning(false) {}
+    ~CSimulationController()
+    {
+        mModel = 0;
+    }
 
     void SetNetworkView(CNetworkView *view);
     void SetSimulationView(CSimulationView *view);

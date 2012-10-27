@@ -8,14 +8,12 @@
 void CTimer::Create()
 {
     // gets the time in milliseconds
-    mPrevTime = static_cast<float>( glfwGetTime() );
-    mTimeScale = 0.001;
+    mPrevTime = glfwGetTime();
 }
 
 void CTimer::Tick()
 {
-    float curTime;
-    curTime = static_cast<float>( glfwGetTime() );
-    mDeltaTime =  (curTime - mPrevTime);// * static_cast<float>( mTimeScale );
+    double curTime = glfwGetTime();
+    mDeltaTime = (curTime - mPrevTime);
     mPrevTime = curTime;
 }

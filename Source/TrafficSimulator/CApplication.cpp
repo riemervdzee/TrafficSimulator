@@ -60,10 +60,16 @@ void CApplication::Destroy()
 {
     // Destroy model and controller
     if(mModel)
+    {
         delete mModel;
+        mModel = 0;
+    }
 
     if(mController)
-        delete mController;
+    {
+       delete mController;
+       mController = 0;
+    }
 
     // Terminate glfw
     glfwTerminate();

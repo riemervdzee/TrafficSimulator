@@ -19,6 +19,11 @@ private:
     Camera mCamera;
     Skybox mSkybox;
     int width, height;
+
+    // mouse
+    int mMoveSpeed;
+    int mMidX, mMidY;
+    int mMouseSensitivity;
 };
 
 #endif // CSIMULATIONVIEW_H

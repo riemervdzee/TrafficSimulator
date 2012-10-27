@@ -14,7 +14,7 @@ class CTimer
 {
 public:
 	// constructor/destructor
-	CTimer(): mDeltaTime(0.0f), mTimeScale(0.0), mPrevTime(0.0f) {}
+	CTimer(): mDeltaTime(0.0), mPrevTime(0.0) {}
 
 	// management
 	void Create();
@@ -23,12 +23,11 @@ public:
 	void Tick();
 
 	// getters
-	float GetDeltaTime() const { return mDeltaTime; }
+	double GetDeltaTime() const { return mDeltaTime; }
 
 private:
-	float mDeltaTime;
-	float mPrevTime;
-	double mTimeScale;// data members for normal timer
+	double mDeltaTime;
+	double mPrevTime;
 };
 
 #endif //_CTIMER_H_

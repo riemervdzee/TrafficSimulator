@@ -14,10 +14,18 @@ CSimulationView::CSimulationView(int width, int height)
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glEnable(GL_DEPTH_TEST);
 
-    this->width;
-    this->height;
+    this->width = width;
+    this->height = height;
 
-    	// init camera
+    mMidX = width / 2;
+    mMidY = height / 2;
+
+    mMoveSpeed = 15;
+    glfwSetMousePos(mMidX, mMidY);
+    glfwDisable( GLFW_MOUSE_CURSOR );
+    mMouseSensitivity = 5.0f;
+
+    // init camera
 	mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 100.0f);
 	mCamera.LookAt(Vec3(0, 0, 0), Vec3(0, 0, 1), Vec3(0, 1, 0));
 
@@ -37,37 +45,31 @@ void CSimulationView::UpdatePull()
 
 void CSimulationView::Update(float dt)
 {
-    if( glfwGetKey( GLFW_KEY_ESC ) == GLFW_PRESS )
+    if( glfwGetKey( GLFW_KEY_ESC ) == GLFW_PRESS  )
     {
-        if(mController)
+        if(mController >= 0)
             mController->SetRunning(false);
     }
 
-    float speed = 16.0;
+    int speed = mMoveSpeed;
 
     // speeding up
 	if( glfwGetKey( GLFW_KEY_LSHIFT ) == GLFW_PRESS)
 	{
-		speed = speed * 4.0f;
+		speed = mMoveSpeed * 4.0f;
 	}
 
-	// rotate
-	int mX, mY;
-	static int mLX = 0;
-	static int mLY = 0;
-
+    // ########## CAMERA MOUSE MOVEMENT ###########
+    int mX, mY;
+    int mdX, mdY;
 	glfwGetMousePos(&mX, &mY);
+	glfwSetMousePos(width / 2, height / 2);
 
-	int mRX = mX - mLX;
-	int mRY = mY - mLY;
+	mdX = mX - mMidX;
+	mdY = mY - mMidY;
 
-    float yawSen = static_cast<float>(mRX) * dt;
-    float pitchSen = static_cast<float>(mRY) * dt;
-
-    mCamera.Rotate(pitchSen * 1000, yawSen * 1000 , 0.0f);
-
-    mLX = mX;
-    mLY = mY;
+    mCamera.Rotate(static_cast<float>(mdY) * dt * mMouseSensitivity, static_cast<float>(mdX) * dt * mMouseSensitivity, 0.0f);
+    // ########## END CAMERA MOUSE MOVEMENT ###########
 
     // move camera
 	if(glfwGetKey( 's' ) == GLFW_PRESS)

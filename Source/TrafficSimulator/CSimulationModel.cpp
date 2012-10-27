@@ -12,10 +12,16 @@ CSimulationModel::CSimulationModel()
 CSimulationModel::~CSimulationModel()
 {
     if(mNetworkView)
+    {
         delete mNetworkView;
+        mNetworkView = 0;
+    }
 
     if(mSimulationView)
-        delete mNetworkView;
+    {
+         delete mSimulationView;
+         mSimulationView = 0;
+    }
 }
 
 void CSimulationModel::RegisterNetworkView(CNetworkView* observer)

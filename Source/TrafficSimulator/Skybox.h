@@ -3,7 +3,6 @@
 
 #include <string>
 #include <GL/glew.h>
-#include <GL/glfw.h>
 #include "../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h"
 #include "../../Source/TrafficSimulator/Renderer/Buffers/IndexBuffer.h"
 #include "../../Source/TrafficSimulator/Renderer/Textures/TextureCube.h"
