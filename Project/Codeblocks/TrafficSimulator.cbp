@@ -87,6 +87,11 @@
 		<Unit filename="..\..\Source\TrafficSimulator\Renderer\Textures\TextureCube.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Renderer\Textures\TexturesCube.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\Skybox.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\TDW\TDWDefs.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\TDW\TDWFile.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\TDW\TDWFile.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\TDW\TDWLoader.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\TDW\TDWLoader.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Timer.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\Timer.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\TrafficDefs.h" />

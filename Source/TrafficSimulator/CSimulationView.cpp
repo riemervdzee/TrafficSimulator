@@ -17,6 +17,7 @@ CSimulationView::CSimulationView(int width, int height)
     this->width = width;
     this->height = height;
 
+    // middle of the screen
     mMidX = width / 2;
     mMidY = height / 2;
 
@@ -45,6 +46,7 @@ void CSimulationView::UpdatePull()
 
 void CSimulationView::Update(float dt)
 {
+    // SHUTDOWN SIMULATION
     if( glfwGetKey( GLFW_KEY_ESC ) == GLFW_PRESS  )
     {
         if(mController >= 0)
@@ -53,7 +55,7 @@ void CSimulationView::Update(float dt)
 
     int speed = mMoveSpeed;
 
-    // speeding up
+    // PRESS SHIFT FOR SPEED UP
 	if( glfwGetKey( GLFW_KEY_LSHIFT ) == GLFW_PRESS)
 	{
 		speed = mMoveSpeed * 4.0f;
@@ -71,7 +73,7 @@ void CSimulationView::Update(float dt)
     mCamera.Rotate(static_cast<float>(mdY) * dt * mMouseSensitivity, static_cast<float>(mdX) * dt * mMouseSensitivity, 0.0f);
     // ########## END CAMERA MOUSE MOVEMENT ###########
 
-    // move camera
+    // ########## CAMERA KEYBOARD MOVEMENT ###########
 	if(glfwGetKey( 's' ) == GLFW_PRESS)
 	{
 		mCamera.Move(speed * dt);
@@ -90,11 +92,18 @@ void CSimulationView::Update(float dt)
 	{
 		mCamera.Strafe(speed * dt);
 	}
+	// ########## END CAMERA KEYBOARD MOVEMENT ###########
 }
 
 void CSimulationView::Draw()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // draw scene
+
+    // draw trafficlights
+
+    // draw participants
 
     mSkybox.Draw();
 
