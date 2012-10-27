@@ -35,7 +35,7 @@ TDWFile* TDWLoader::LoadFromFile(const char* filePath)
 	// used variables
 	std::ifstream fileStream;
 	TDWFile* tdwFile = new TDWFile();
-	
+
 	// try to open the file
 	fileStream.open(filePath, std::ios_base::binary | std::ios_base::in | std::ios_base::out);
 	if( !fileStream.is_open() )
@@ -121,7 +121,7 @@ void TDWLoader::LoadObjects(std::ifstream& fileStream, TDWFile& file)
 	s32			nameIndex = 0;
 	s32			dataSize = 0;
 	std::string objectName;
-	
+
 	// iterate over all objects in the file if any
 	if( file.mHeader.objectCount < 1)
 		return;
@@ -179,7 +179,7 @@ void TDWLoader::LoadMaterial(std::ifstream& fileStream, TDWFile& file)
 	material.extensionName = 0;
 
 	// check if the material has an extension
-	if( material.flags & TDWFLAGS::EXTENSION)
+	if( material.flags & EXTENSION)
 	{
 		// also load in extension index
 		fileStream.read( (char*)material.extensionName, sizeof(s32));
@@ -215,7 +215,7 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 {
 	TDWBrush brush;
 	s32 keyIndex, keyValue;
-	
+
 	// load members from the file
 	fileStream.read( (char*)&brush.flags, sizeof(u8));
 	fileStream.read( (char*)&brush.keyCount, sizeof(s32));
@@ -261,7 +261,7 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 		fileStream.read( (char*)&face.materialIndex, sizeof(s32));
 
 		// if it has a lightmap read it in which one
-		if( face.flags & TDWFLAGS::LIGHTMAP )
+		if( face.flags & LIGHTMAP )
 		{
 			fileStream.read( (char*)&face.lightmapIndex, sizeof(s32));
 		}
@@ -280,7 +280,7 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 			fileStream.read( (char*)&face.indices[i].texCoord, sizeof(Vec2));
 
 			// if it has a lightmap read in it's lightmapcoords
-			if( face.flags & TDWFLAGS::LIGHTMAP )
+			if( face.flags & LIGHTMAP )
 			{
 				fileStream.read( (char*)&face.indices[i].lightmapCoord, sizeof(Vec2));
 			}
@@ -290,7 +290,7 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 				face.indices[i].lightmapCoord.y = 0;
 			}
 		}
-		
+
 	}
 
 	// add brush to the file

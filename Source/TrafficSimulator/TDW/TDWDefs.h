@@ -10,13 +10,6 @@ typedef unsigned long	u32;
 typedef long			s32;
 typedef float			f32;
 
-enum TDWFLAGS : u8
-{
-	SCALE = 1,
-	EXTENSION = 2,
-	HIDDEN = 4,
-	LIGHTMAP = 16
-};
 
 // ##### BASIC TYPES ########
 struct Color3 // RGB color 24 bit

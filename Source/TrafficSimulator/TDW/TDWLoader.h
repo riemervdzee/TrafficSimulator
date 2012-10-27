@@ -15,6 +15,14 @@ public:
 	static TDWFile* LoadFromFile(const char* filePath);
 	static void SetMessageCallback(MessageCallback callback);
 
+	enum TDWFLAGS
+    {
+        SCALE = 1,
+        EXTENSION = 2,
+        HIDDEN = 4,
+        LIGHTMAP = 16
+    };
+
 private:
 	// we do not want to create objects of this class
 	TDWLoader();

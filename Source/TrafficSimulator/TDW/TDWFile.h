@@ -5,13 +5,14 @@
 #include <vector>
 
 #include "TDWDefs.h"
+#include <cstring>
 
 class TDWLoader;
 
 // class representing the whole .3dw file
 class TDWFile
 {
-	friend TDWLoader;
+	friend class TDWLoader;
 public:
 	TDWFile()
 	{

@@ -156,7 +156,7 @@
 
 1351333402 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
-1351348203 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+1351348315 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
 	"CSimulationView.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -666,4 +666,16 @@
 1351333402 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\util.cpp
 	"Util.h"
 	<fstream>
+
+1349247896 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.cpp
+	"TDWFile.h"
+
+1351352721 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.h
+	<string>
+	<vector>
+	"TDWDefs.h"
+	<cstring>
+
+1351352987 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwdefs.h
+	<map>
 
