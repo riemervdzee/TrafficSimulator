@@ -44,13 +44,13 @@ bool CApplication::Create(unsigned width, unsigned height)
 	mController = new CSimulationController(mModel);
 	mController->SetRunning(true);
 
-	std::cout << "Model created!\nController created!\n";
+	std::cout << "Model created!\nController created!\n\n";
 
 	// add views
 	mController->SetSimulationView( new CSimulationView(width, height) );
 	mController->SetNetworkView( new CNetworkView() );
 
-	std::cout << "Added a simulation view!\n";
+	std::cout << "\nAdded a simulation view!\n";
 	std::cout << "Added a network view!\n";
 
 	return true;

@@ -33,7 +33,10 @@ void CSimulationModel::RegisterNetworkView(CNetworkView* observer)
 void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
 {
     if(observer != 0)
+    {
         mSimulationView = observer;
+        mSimulationView->Init();
+    }
 }
 
 void CSimulationModel::UpdateSim()

@@ -4,12 +4,15 @@
 #include "Camera.h"
 #include "Skybox.h"
 #include "CAbstractView.h"
+#include "CStaticScene.h"
 
 class CSimulationView : public CAbstractView
 {
 public:
     CSimulationView(int width, int height);
     ~CSimulationView();
+
+    void Init();
 
     void UpdatePull();
     void Update(float dt);
@@ -18,6 +21,7 @@ public:
 private:
     Camera mCamera;
     Skybox mSkybox;
+    CStaticScene mScene;
     int width, height;
 
     // mouse

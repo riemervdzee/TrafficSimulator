@@ -11,15 +11,23 @@ using namespace wmath;
 
 CSimulationView::CSimulationView(int width, int height)
 {
-    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
-    glEnable(GL_DEPTH_TEST);
-
     this->width = width;
     this->height = height;
 
     // middle of the screen
     mMidX = width / 2;
     mMidY = height / 2;
+}
+
+CSimulationView::~CSimulationView()
+{
+    mSkybox.Dispose();
+}
+
+void CSimulationView::Init()
+{
+    glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+    glEnable(GL_DEPTH_TEST);
 
     mMoveSpeed = 15;
     glfwSetMousePos(mMidX, mMidY);
@@ -32,11 +40,9 @@ CSimulationView::CSimulationView(int width, int height)
 
 	// create skybox
 	mSkybox.Init("Data\\textures\\miramar", &mCamera);
-}
 
-CSimulationView::~CSimulationView()
-{
-    mSkybox.Dispose();
+    // load the scene
+    mScene.Load("Data\\crossroad.3dw");
 }
 
 void CSimulationView::UpdatePull()
@@ -105,6 +111,7 @@ void CSimulationView::Draw()
 
     // draw participants
 
+    // draw skybox
     mSkybox.Draw();
 
     glfwSwapBuffers();

@@ -12,27 +12,27 @@ typedef float			f32;
 
 
 // ##### BASIC TYPES ########
-struct Color3 // RGB color 24 bit
+struct color3 // RGB color 24 bit
 {
 	u8 r;
 	u8 g;
 	u8 b;
 };
 
-struct Vec2 // 2d vector
+struct vec2 // 2d vector
 {
 	f32 x;
 	f32 y;
 };
 
-struct Vec3 // 3d vector
+struct vec3 // 3d vector
 {
 	f32 x;
 	f32 y;
 	f32 z;
 };
 
-struct Vec4 // 4d vector
+struct vec4 // 4d vector
 {
 	f32 x;
 	f32 y;
@@ -66,14 +66,14 @@ struct TDWLightmap
 	u8		flags;
 	u8		resolution;
 	s32		format;
-	Color3* data;
+	color3* data;
 };
 
 // ##### ENTITIES ########
 struct TDWEntity
 {
 	u8					flags;
-	Vec3				position;
+	vec3				position;
 	s32					keyCount;
 	std::map<s32, s32>	KeyValueMap;
 };
@@ -82,21 +82,21 @@ struct TDWEntity
 struct TDWIndex
 {
 	u8		vertex;
-	Vec2	texCoord;
-	Vec2	lightmapCoord;
+	vec2	texCoord;
+	vec2	lightmapCoord;
 };
 
 struct TDWFace
 {
 	u8		flags;
-	Vec4	plane;
+	vec4	plane;
 
 	// texture data
-	Vec2	texPos;
-	Vec2	texScale;
-	Vec2	texRot;
-	Vec4	UTexPlane;
-	Vec4	VTexPlane;
+	vec2	texPos;
+	vec2	texScale;
+	vec2	texRot;
+	vec4	UTexPlane;
+	vec4	VTexPlane;
 
 	f32		luxelSize;
 	s32		smoothIndex;
@@ -116,9 +116,9 @@ struct TDWBrush
 	std::map<s32, s32>		KeyValueMap;
 
 	// brush data
-	Color3					brushColor;
+	color3					brushColor;
 	u8						vertexCount;
-	Vec3					*vertices;
+	vec3					*vertices;
 	u8						faceCount;
 	TDWFace					*faces;
 };
@@ -134,7 +134,7 @@ struct TDWTerrainLayer
 struct TDWTerrain
 {
 	u8 flags;
-	Vec3	position;
+	vec3	position;
 	f32		width;
 	f32		height;
 	s32		name;
@@ -145,7 +145,7 @@ struct TDWTerrain
 	s32		layerCount;
 
 	// terrain data
-	Color3			*luxelColors; // resolution ^ 2
+	color3			*luxelColors; // resolution ^ 2
 	f32				*terrainHeightData; // (resolution + 1) ^ 2
 	TDWTerrainLayer	*layers; // layers[layerCount]
 };

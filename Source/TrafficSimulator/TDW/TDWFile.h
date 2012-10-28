@@ -18,9 +18,6 @@ public:
 	{
 		// zero out header struct
 		memset((void*)&mHeader, 0, sizeof(mHeader));
-
-		// init variables
-		char *mNameTable = 0;
 	}
 	~TDWFile();
 

@@ -67,6 +67,8 @@
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationModel.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationView.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationView.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\CStaticScene.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\CStaticScene.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Camera.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\Camera.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Math\Mat3.cpp" />

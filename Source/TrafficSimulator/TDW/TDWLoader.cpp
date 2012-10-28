@@ -25,7 +25,7 @@ void TDWLoader::SendMessage(const char* text)
 	else
 	{
 		// print text to the standard output
-		printf(text);
+		printf("%s\n", text);
 	}
 }
 
@@ -46,7 +46,7 @@ TDWFile* TDWLoader::LoadFromFile(const char* filePath)
 	}
 
 	std::string msg(filePath);
-	msg += " file opened!\n------------------------------";
+	msg += " file loaded!\n------------------------------";
 
 	// load in the file
 	SendMessage(msg.c_str());
@@ -122,6 +122,13 @@ void TDWLoader::LoadObjects(std::ifstream& fileStream, TDWFile& file)
 	s32			dataSize = 0;
 	std::string objectName;
 
+	// counters
+	int brushes = 0;
+	int materials = 0;
+	int lightmaps = 0;
+	int entities = 0;
+	int terrains = 0;
+
 	// iterate over all objects in the file if any
 	if( file.mHeader.objectCount < 1)
 		return;
@@ -135,28 +142,35 @@ void TDWLoader::LoadObjects(std::ifstream& fileStream, TDWFile& file)
 		// get name from the name table
 		objectName = file.mNameTable[ (nameIndex - 1)];
 
-		if(objectName.compare("visgroup"))
-			SendMessage( ("Loading .... " + objectName).c_str() );
+		if(objectName.compare("visgroup") == 0)
+		{
+		    //SendMessage( ("Loading .... " + objectName).c_str() );
+		}
 
 		// load all chunks we want to load from the file
 		if(objectName.compare("material") == 0)
 		{
+		    materials++;
 			LoadMaterial(fileStream, file);
 		}
 		else if(objectName.compare("lightmap") == 0)
 		{
+		    lightmaps++;
 			LoadLightmap(fileStream, file);
 		}
 		else if(objectName.compare("brush") == 0)
 		{
+		    brushes++;
 			LoadBrushes(fileStream, file);
 		}
 		else if(objectName.compare("entity") == 0)
 		{
+		    entities++;
 			LoadEntities(fileStream, file);
 		}
 		else if(objectName.compare("terrain") == 0)
 		{
+		    terrains++;
 			LoadTerrain(fileStream, file);
 		}
 		else
@@ -165,6 +179,13 @@ void TDWLoader::LoadObjects(std::ifstream& fileStream, TDWFile& file)
 			fileStream.seekg(dataSize , std::ios::cur);
 		}
 	}
+
+	// show info about loaded data
+	printf("Loaded %d materials\n", materials);
+	printf("Loaded %d lightmaps\n", lightmaps);
+	printf("Loaded %d entities\n", entities);
+	printf("Loaded %d brushes\n", brushes);
+	printf("Loaded %d terrains\n", terrains);
 }
 
 void TDWLoader::LoadMaterial(std::ifstream& fileStream, TDWFile& file)
@@ -202,9 +223,9 @@ void TDWLoader::LoadLightmap(std::ifstream& fileStream, TDWFile& file)
 	// read in the data
 	u32 resolution = powf(2, lightmap.resolution);
 	u32 dataSize = resolution * resolution;
-	u32 bytes = dataSize * sizeof(Color3);
+	u32 bytes = dataSize * sizeof(color3);
 
-	lightmap.data = new Color3[dataSize];
+	lightmap.data = new color3[dataSize];
 	fileStream.read( (char*)lightmap.data, bytes );
 
 	// add material to the file
@@ -234,12 +255,12 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 	fileStream.seekg(8, std::ios::cur);
 
 	// load members from the file
-	fileStream.read( (char*)&brush.brushColor, sizeof(Color3));
+	fileStream.read( (char*)&brush.brushColor, sizeof(color3));
 	fileStream.read( (char*)&brush.vertexCount, sizeof(u8));
 
 	// load in all vertices
-	brush.vertices = new Vec3[ brush.vertexCount ];
-	fileStream.read( (char*)brush.vertices, sizeof(Vec3) * brush.vertexCount);
+	brush.vertices = new vec3[ brush.vertexCount ];
+	fileStream.read( (char*)brush.vertices, sizeof(vec3) * brush.vertexCount);
 
 	// load in all the faces
 	fileStream.read( (char*)&brush.faceCount, sizeof(u8));
@@ -250,12 +271,12 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 
 		// read in all face members
 		fileStream.read( (char*)&face.flags, sizeof(u8));
-		fileStream.read( (char*)&face.plane, sizeof(Vec4));
-		fileStream.read( (char*)&face.texPos, sizeof(Vec2));
-		fileStream.read( (char*)&face.texScale, sizeof(Vec2));
-		fileStream.read( (char*)&face.texRot, sizeof(Vec2));
-		fileStream.read( (char*)&face.UTexPlane, sizeof(Vec4));
-		fileStream.read( (char*)&face.VTexPlane, sizeof(Vec4));
+		fileStream.read( (char*)&face.plane, sizeof(vec4));
+		fileStream.read( (char*)&face.texPos, sizeof(vec2));
+		fileStream.read( (char*)&face.texScale, sizeof(vec2));
+		fileStream.read( (char*)&face.texRot, sizeof(vec2));
+		fileStream.read( (char*)&face.UTexPlane, sizeof(vec4));
+		fileStream.read( (char*)&face.VTexPlane, sizeof(vec4));
 		fileStream.read( (char*)&face.luxelSize, sizeof(f32));
 		fileStream.read( (char*)&face.smoothIndex, sizeof(s32));
 		fileStream.read( (char*)&face.materialIndex, sizeof(s32));
@@ -277,12 +298,12 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 		for(int i = 0; i < face.indexCount; ++i)
 		{
 			fileStream.read( (char*)&face.indices[i].vertex, sizeof(u8));
-			fileStream.read( (char*)&face.indices[i].texCoord, sizeof(Vec2));
+			fileStream.read( (char*)&face.indices[i].texCoord, sizeof(vec2));
 
 			// if it has a lightmap read in it's lightmapcoords
 			if( face.flags & LIGHTMAP )
 			{
-				fileStream.read( (char*)&face.indices[i].lightmapCoord, sizeof(Vec2));
+				fileStream.read( (char*)&face.indices[i].lightmapCoord, sizeof(vec2));
 			}
 			else
 			{
@@ -303,11 +324,11 @@ void TDWLoader::LoadEntities(std::ifstream& fileStream, TDWFile& file)
 	s32 keyIndex, keyValue;
 	entity.flags = 0;
 	entity.keyCount = 0;
-	memset( (void*)&entity.position, 0, sizeof(Vec3));
+	memset( (void*)&entity.position, 0, sizeof(vec3));
 
 	// load members from the file
 	fileStream.read( (char*)&entity.flags, sizeof(u8));
-	fileStream.read( (char*)&entity.position, sizeof(Vec3));
+	fileStream.read( (char*)&entity.position, sizeof(vec3));
 	fileStream.read( (char*)&entity.keyCount, sizeof(s32));
 
 	// add key value pairs
@@ -334,7 +355,7 @@ void TDWLoader::LoadTerrain(std::ifstream& fileStream, TDWFile& file)
 
 	// load members from the file
 	fileStream.read( (char*)&terrain.flags, sizeof(u8));
-	fileStream.read( (char*)&terrain.position, sizeof(Vec3));
+	fileStream.read( (char*)&terrain.position, sizeof(vec3));
 	fileStream.read( (char*)&terrain.width, sizeof(f32));
 	fileStream.read( (char*)&terrain.height, sizeof(f32));
 	fileStream.read( (char*)&terrain.name, sizeof(s32));
@@ -347,10 +368,10 @@ void TDWLoader::LoadTerrain(std::ifstream& fileStream, TDWFile& file)
 	// calc data
 	u32 resolution = terrain.resolution;
 	u32 dataSize = resolution * resolution;
-	u32 bytes = dataSize * sizeof(Color3);
+	u32 bytes = dataSize * sizeof(color3);
 
 	// allocate luxel array and initialize
-	terrain.luxelColors = new Color3[dataSize];
+	terrain.luxelColors = new color3[dataSize];
 	fileStream.read( (char*)terrain.luxelColors, bytes);
 
 	// allocate terrain data aray and initialize
