@@ -2,7 +2,6 @@
 #define _VERTEXATTRIBBUFFER_H_
 
 #include "GL/glew.h"
-#include <GL/glfw.h>
 
 // representing a openGL buffer object
 class VertexBuffer
