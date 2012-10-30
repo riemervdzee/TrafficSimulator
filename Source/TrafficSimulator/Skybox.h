@@ -101,7 +101,7 @@ public:
 		glBindVertexArray(vaoID);
 
 		// create vertex buffer object
-		mVertices.Create(verticeAttrib, sizeof(verticeAttrib),  GL_STATIC_DRAW);
+		mVertices.Create(verticeAttrib, sizeof(verticeAttrib) * 4,  GL_STATIC_DRAW);
 
 		// create the index buffer object
 		mIndices.Create(elements, sizeof(elements), GL_STATIC_DRAW);

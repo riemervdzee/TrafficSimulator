@@ -1,4 +1,8 @@
 #include "CStaticScene.h"
+#include "../../Source/TrafficSimulator/Camera.h"
+#include "../../Source/TrafficSimulator/Math/WildMath.h"
+#include "../../Source/TrafficSimulator/Util.h"
+#include <set>
 
 bool CStaticScene::Load(const char* fileName)
 {
@@ -8,30 +12,36 @@ bool CStaticScene::Load(const char* fileName)
     if(tdwFile == 0)
         return false;
 
+    printf("Building the scene!\n");
+
     // load materials
 
     // load lightmaps
 
     // load entities
 
-    // CONVERT BRUSHES TO USABLE POLYGONS
+    // CONVERT BRUSHES TO USABLE POLYGONGROUPS
     std::vector<TDWBrush>& brushes = tdwFile->GetBrushes();
-    int matID = 0;
-    int lmID = 0;
-    TDWIndex* indices = 0;
 
-    // iterate over all brushes
-    for(unsigned int i = 0; i < brushes.size(); ++i)
+    // BRUSHES
+    for(unsigned int b = 0; b < brushes.size(); ++b)
     {
-        TDWBrush* brush = &brushes[i];
+        TDWBrush* brush = &brushes[b];
         TDWFace*  faces = brush->faces;
+        unsigned int vCount = 0;
 
-        // iterate over all faces the brush has
-        for(int j = 0; j < brush->faceCount; ++j)
+        printf("VertexCount: %d\n", brush->vertexCount);
+        for(int x = 0; x < brush->vertexCount; ++x)
         {
-            lmID = faces[j].lightmapIndex;
-            matID = faces[j].materialIndex;
-            indices = faces[j].indices;
+            printf("[%d] - X: %.1f, Y: %.1f, Z: %.1f\n", x, brush->vertices[x].x, brush->vertices[x].y, brush->vertices[x].z);
+        }
+
+        // FACES
+        for(int f = 0; f < brush->faceCount; ++f)
+        {
+            int lmID = faces[f].lightmapIndex;
+            int matID = faces[f].materialIndex;
+            TDWIndex* indices = faces[f].indices;
 
             // check if there exist a rendergroup
             RenderGroup::const_iterator renderIter = renderGroup.find( lmID );
@@ -40,58 +50,65 @@ bool CStaticScene::Load(const char* fileName)
                 // add renderGroup and material group in that rendergroup
                 MaterialGroupMap matGroupMap;
                 matGroupMap[matID] = MaterialGroup();
-                renderGroup.insert( RenderGroup::value_type(lmID, matGroupMap) );
+                renderGroup[lmID] = matGroupMap;
             }
-            else // rendergroup exists
+            else // the rendergroup already exists
             {
-                // check if a material group exists within the rendergroup
-                int renderGroupCount = renderGroup.count( lmID );
-                for(int a = 0; a < renderGroupCount; ++a)
-                {
-                    if( renderIter->second.find(matID) != renderIter->second.end() )
-                        break;
+                MaterialGroupMap& mgMap = renderGroup[lmID];
+                MaterialGroupMap::iterator matIt = mgMap.find( matID );
 
-                    ++renderIter;
-                }
-
-                //if no materialGroup has been found in the renderGroup
-                if(renderIter == renderGroup.end() )
-                {
-                    // add a materialGroup
-                    MaterialGroupMap matGroupMap;
-                    matGroupMap[matID] = MaterialGroup();
-                    renderGroup.insert( RenderGroup::value_type(lmID, matGroupMap));
-                }
+                //if no materialGroup, add one
+                if(matIt == mgMap.end() )
+                    mgMap[matID] = MaterialGroup();
             }
 
-            // now we can add vertices and indices
-            for(int k = 0; k < faces[j].indexCount; ++k)
+            // add the vertices of this face
+            for(int x = 0; x < faces[f].indexCount; x++)
             {
-                TDWIndex* index = &indices[k];
+                TDWIndex* index = &indices[x];
 
                 // add vertex to the correspondending materialGroup
-                SceneVertex vertex;
-                vertex.position = brush->vertices[index->vertex];
-                vertex.texCoords = index->texCoord;
-                vertex.lightmapCoords = index->lightmapCoord;
-
-                // get the rendergroup we need
-                RenderGroup::const_iterator renderIter = renderGroup.find( lmID );
-                int renderGroupCount = renderGroup.count( lmID );
-                for(int a = 0; a < renderGroupCount; ++a)
-                {
-                    if( renderIter->second.find(matID) != renderIter->second.end() )
-                        break;
-
-                    ++renderIter;
-                }
+                SceneVertex vertex(brush->vertices[index->vertex], index->texCoord, index->lightmapCoord);
 
                 // add SceneVertex
-                renderIter->second[matID]->AddVertex(vertex);
-                renderIter->second[matID]->AddIndex(k);
+                renderGroup[lmID][matID].AddVertex(vertex);
+            }
+
+
+            // add this faces vertices to the correct group
+            vCount = renderGroup[lmID][matID].GetVertexCount();
+
+            // Create triangles, from triangle fan to triangle list
+            for(int i = 1; i < faces[f].indexCount - 1; ++i)
+            {
+                renderGroup[lmID][matID].AddIndex(vCount + 0);
+                renderGroup[lmID][matID].AddIndex(vCount + i );
+                renderGroup[lmID][matID].AddIndex(vCount + i + 1);
             }
         }
     }
+
+    // iterate all rendergroups and build the GPU buffers
+    for(RenderGroup::iterator rgIt = renderGroup.begin(); rgIt != renderGroup.end(); ++rgIt)
+    {
+        // iterate all materialgroups inside this rendergroup
+        for(MaterialGroupMap::iterator mgIt = rgIt->second.begin(); mgIt != rgIt->second.end(); ++mgIt)
+        {
+            // buildbuffers
+            mgIt->second.BuildBuffers();
+        }
+    }
+
+    // shader data
+    std::string vertex;
+    std::string fragment;
+
+    // creating shaders
+    LoadTextFile("Data\\shaders\\scene.vert", vertex);
+    LoadTextFile("Data\\shaders\\scene.frag", fragment);
+
+    // load shaders
+    shader.CreateProgram(vertex, fragment);
 
     // free memory
     delete tdwFile;
@@ -102,11 +119,36 @@ bool CStaticScene::Load(const char* fileName)
 
 void CStaticScene::Dispose()
 {
-
+    // iterate all rendergroups and dispose of the material groups
+    for(RenderGroup::iterator rgIt = renderGroup.begin(); rgIt != renderGroup.end(); ++rgIt)
+    {
+        // iterate all materialgroups inside this rendergroup
+        for(MaterialGroupMap::iterator mgIt = rgIt->second.begin(); mgIt != rgIt->second.end(); ++mgIt)
+        {
+            // buildbuffers
+            mgIt->second.Dispose();
+        }
+    }
 }
 
 void CStaticScene::Draw(Camera* cam)
 {
+    shader.Bind();
 
+    int projViewMatrix = glGetUniformLocation(shader.GetID(), "mvpMatrix");
+    wmath::Mat4 projView = cam->GetProjection() * cam->GetView();
+    glUniformMatrix4fv(projViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
 
+    // iterate all rendergroups and draw them
+    for(RenderGroup::iterator rgIt = renderGroup.begin(); rgIt != renderGroup.end(); ++rgIt)
+    {
+        // iterate all materialgroups inside this rendergroup
+        for(MaterialGroupMap::iterator mgIt = rgIt->second.begin(); mgIt != rgIt->second.end(); ++mgIt)
+        {
+            // buildbuffers
+            mgIt->second.Draw();
+        }
+    }
+
+    shader.Unbind();
 }

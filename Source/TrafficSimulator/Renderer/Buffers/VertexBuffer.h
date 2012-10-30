@@ -18,7 +18,7 @@ public:
 		glBindBuffer(GL_ARRAY_BUFFER, mID);
 
 		// fill with data
-		glBufferData(GL_ARRAY_BUFFER, sizeof(T) * size, buffer, usage);
+		glBufferData(GL_ARRAY_BUFFER, size, buffer, usage);
 
 		// unbind
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

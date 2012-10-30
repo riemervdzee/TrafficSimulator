@@ -5,10 +5,10 @@
 		<Cursor position="248" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CApplication.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1117" topLine="22" />
+		<Cursor position="1655" topLine="13" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CApplication.h" open="0" top="0" tabpos="0">
-		<Cursor position="483" topLine="0" />
+		<Cursor position="485" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CNetworkView.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="116" topLine="0" />
@@ -17,28 +17,28 @@
 		<Cursor position="250" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CSimulationController.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1113" topLine="0" />
+		<Cursor position="728" topLine="21" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CSimulationController.h" open="0" top="0" tabpos="1">
-		<Cursor position="495" topLine="0" />
+		<Cursor position="417" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CSimulationModel.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="352" topLine="12" />
+		<Cursor position="812" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CSimulationModel.h" open="0" top="0" tabpos="0">
 		<Cursor position="514" topLine="1" />
 	</File>
-	<File name="..\..\Source\TrafficSimulator\CSimulationView.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="928" topLine="21" />
+	<File name="..\..\Source\TrafficSimulator\CSimulationView.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="701" topLine="19" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CSimulationView.h" open="0" top="0" tabpos="2">
-		<Cursor position="479" topLine="0" />
+		<Cursor position="202" topLine="0" />
 	</File>
-	<File name="..\..\Source\TrafficSimulator\CStaticScene.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="3306" topLine="60" />
+	<File name="..\..\Source\TrafficSimulator\CStaticScene.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="2808" topLine="56" />
 	</File>
-	<File name="..\..\Source\TrafficSimulator\CStaticScene.h" open="1" top="0" tabpos="1">
-		<Cursor position="1190" topLine="0" />
+	<File name="..\..\Source\TrafficSimulator\CStaticScene.h" open="0" top="0" tabpos="1">
+		<Cursor position="1885" topLine="26" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\Camera.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="408" topLine="0" />
@@ -62,7 +62,7 @@
 		<Cursor position="72" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\Renderer\Buffers\VertexBuffer.h" open="0" top="0" tabpos="0">
-		<Cursor position="86" topLine="0" />
+		<Cursor position="730" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\Renderer\Imgutil.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="236" topLine="0" />
@@ -74,7 +74,7 @@
 		<Cursor position="455" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\Renderer\Shader.h" open="0" top="0" tabpos="2">
-		<Cursor position="565" topLine="0" />
+		<Cursor position="314" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\Renderer\Textures\Texture2D.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="288" topLine="0" />
@@ -83,13 +83,13 @@
 		<Cursor position="613" topLine="12" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\Renderer\Textures\TextureCube.h" open="0" top="0" tabpos="0">
-		<Cursor position="995" topLine="15" />
+		<Cursor position="1008" topLine="15" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\Renderer\Textures\TexturesCube.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="657" topLine="0" />
+		<Cursor position="637" topLine="0" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\Skybox.h" open="0" top="0" tabpos="0">
-		<Cursor position="1265" topLine="56" />
+		<Cursor position="2003" topLine="72" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\TDW\TDWDefs.h" open="0" top="0" tabpos="0">
 		<Cursor position="603" topLine="92" />
@@ -101,7 +101,7 @@
 		<Cursor position="1296" topLine="24" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\TDW\TDWLoader.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="8164" topLine="270" />
+		<Cursor position="506" topLine="129" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\TDW\TDWLoader.h" open="0" top="0" tabpos="0">
 		<Cursor position="539" topLine="9" />

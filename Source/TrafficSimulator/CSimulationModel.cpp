@@ -19,6 +19,7 @@ CSimulationModel::~CSimulationModel()
 
     if(mSimulationView)
     {
+         mSimulationView->Dispose();
          delete mSimulationView;
          mSimulationView = 0;
     }

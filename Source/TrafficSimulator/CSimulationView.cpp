@@ -19,29 +19,34 @@ CSimulationView::CSimulationView(int width, int height)
     mMidY = height / 2;
 }
 
-CSimulationView::~CSimulationView()
+void CSimulationView::Dispose()
 {
     mSkybox.Dispose();
+    mScene.Dispose();
 }
 
 void CSimulationView::Init()
 {
     glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glFrontFace(GL_CCW);
+    glCullFace(GL_BACK);
 
-    mMoveSpeed = 15;
+    mMoveSpeed = 256.0f;
     glfwSetMousePos(mMidX, mMidY);
     glfwDisable( GLFW_MOUSE_CURSOR );
-    mMouseSensitivity = 5.0f;
+    mMouseSensitivity = 8.0f;
 
     // init camera
-	mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 100.0f);
-	mCamera.LookAt(Vec3(0, 0, 0), Vec3(0, 0, 1), Vec3(0, 1, 0));
+	mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 3000.0f);
+	mCamera.LookAt(Vec3(0, 256, 0), Vec3(0, 256.0f, 1), Vec3(0, 1, 0));
 
 	// create skybox
 	mSkybox.Init("Data\\textures\\miramar", &mCamera);
 
     // load the scene
+    //mScene.Load("Data\\crossroad.3dw");
     mScene.Load("Data\\crossroad.3dw");
 }
 
@@ -80,21 +85,21 @@ void CSimulationView::Update(float dt)
     // ########## END CAMERA MOUSE MOVEMENT ###########
 
     // ########## CAMERA KEYBOARD MOVEMENT ###########
-	if(glfwGetKey( 's' ) == GLFW_PRESS)
-	{
-		mCamera.Move(speed * dt);
-	}
-	else if(glfwGetKey( 'w' ) == GLFW_PRESS)
+	if(glfwGetKey( 'S' ) == GLFW_PRESS)
 	{
 		mCamera.Move(-speed * dt);
 	}
+	else if(glfwGetKey( 'W' ) == GLFW_PRESS)
+	{
+		mCamera.Move(speed * dt);
+	}
 
 	// strafe camera
-	if(glfwGetKey( 'a' ) == GLFW_PRESS)
+	if(glfwGetKey( 'A' ) == GLFW_PRESS)
 	{
 		mCamera.Strafe(-speed * dt);
 	}
-	else if(glfwGetKey( 'd' ) == GLFW_PRESS)
+	else if(glfwGetKey( 'D' ) == GLFW_PRESS)
 	{
 		mCamera.Strafe(speed * dt);
 	}
@@ -106,12 +111,14 @@ void CSimulationView::Draw()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // draw scene
+    mScene.Draw(&mCamera);
 
     // draw trafficlights
 
     // draw participants
 
     // draw skybox
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     mSkybox.Draw();
 
     glfwSwapBuffers();

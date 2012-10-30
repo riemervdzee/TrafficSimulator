@@ -48,6 +48,7 @@ public:
 		{
 			Unbind();
 			glDeleteTextures(1, &mTextureID);
+			mTextureID = 0;
 		}
 	}
 };

@@ -10,13 +10,13 @@ class CSimulationView : public CAbstractView
 {
 public:
     CSimulationView(int width, int height);
-    ~CSimulationView();
 
     void Init();
 
     void UpdatePull();
     void Update(float dt);
     void Draw();
+    void Dispose();
 
 private:
     Camera mCamera;
