@@ -151,7 +151,7 @@ public:
 		mVertices.Bind();
 		mTexCube.Bind();
 
-		Mat4 projView = mCamera->GetProjection() * mCamera->GetView() * Mat4::Translate(mCamera->GetWorld().GetPosition()) * Mat4::ScaleUniform(10);
+		Mat4 projView = mCamera->GetProjection() * mCamera->GetView() * Mat4::Translate(mCamera->GetWorld().GetPosition()) * Mat4::ScaleUniform(20);
 		glUniformMatrix4fv(mProjViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
 
 		//enable vertex position

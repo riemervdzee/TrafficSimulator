@@ -27,6 +27,14 @@ bool CStaticScene::Load(const char* fileName)
     }
 
     // load lightmaps
+    printf("Loading lightmaps!\n");
+    std::vector<TDWLightmap>& lm = tdwFile->GetLightmaps();
+    for(int m = 0; m < lm.size(); ++m)
+    {
+        Texture2D temp;
+        temp.LoadFromMemory( (char*)lm[m].data, (char)lm[m].resolution);
+        materials.push_back(temp);
+    }
 
     // load entities
 
@@ -158,11 +166,17 @@ void CStaticScene::Draw(Camera* cam)
     // iterate all rendergroups and draw them
     for(RenderGroup::iterator rgIt = renderGroup.begin(); rgIt != renderGroup.end(); ++rgIt)
     {
+        // bind the used lightmap
+        if(rgIt->first != 0)
+        {
+            materials[rgIt->first - 1].Bind(GL_TEXTURE1);
+        }
+
         // iterate all materialgroups inside this rendergroup
         for(MaterialGroupMap::iterator mgIt = rgIt->second.begin(); mgIt != rgIt->second.end(); ++mgIt)
         {
             // bind the used texture
-            materials[mgIt->second.GetMaterialID() - 1].Bind();
+            materials[mgIt->second.GetMaterialID() - 1].Bind(GL_TEXTURE0);
 
             // buildbuffers
             mgIt->second.Draw();

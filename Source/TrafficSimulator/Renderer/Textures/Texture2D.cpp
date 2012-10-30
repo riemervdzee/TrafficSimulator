@@ -5,6 +5,47 @@
  */
 #include "Texture2D.h"
 #include "../imgutil.h"
+#include <cmath>
+
+void Texture2D::LoadFromMemory(const char* source, const char resolution, bool mipmap)
+{
+    GLenum internForm;
+	GLenum externForm;
+    internForm = GL_RGB;
+    externForm = GL_RGB;
+
+    if(mID != 0)
+		Dispose();
+
+    mWidth = mHeight = resolution;
+
+    // create texture and bind it
+	glGenTextures(1, &mID);
+	glBindTexture(GL_TEXTURE_2D, mID);
+
+		// put the data inside
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexImage2D(GL_TEXTURE_2D, 0, internForm, mWidth, mHeight, 0, externForm, GL_UNSIGNED_BYTE, source);
+
+	// set texture parameters
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	// check if we want to generate mipmaps
+	if(mipmap)
+	{
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+	{
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	}
+
+	// unbind
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
 
 void Texture2D::LoadTGA(std::string filename, bool mipmap)
 {

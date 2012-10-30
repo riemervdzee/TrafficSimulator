@@ -28,12 +28,13 @@ public:
 
 	// create a texture
 	GLvoid LoadTGA(std::string filename, bool mipmap = false);
+	GLvoid LoadFromMemory(const char* source, const char resolution, bool mipmap = false);
 
 	// methods
 	inline GLuint GetID() { return mID; }
 	inline GLuint GetWidth() { return mWidth; }
 	inline GLuint GetHeight() { return mHeight; }
-	inline GLvoid Bind(int texSlot = 0) { glActiveTexture(GL_TEXTURE0 + texSlot);glBindTexture(GL_TEXTURE_2D, mID); }
+	inline GLvoid Bind(GLenum texActiv = GL_TEXTURE0) { glActiveTexture(texActiv);glBindTexture(GL_TEXTURE_2D, mID); }
 	inline GLvoid Unbind() { glBindTexture(GL_TEXTURE_2D, 0); }
 
 	// cleans the texture from opengl

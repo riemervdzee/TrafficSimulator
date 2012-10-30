@@ -156,7 +156,7 @@
 
 1351329802 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
-1351629001 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+1351636263 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
 	"CSimulationView.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -584,7 +584,7 @@
 1351329802 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\wildmath.h
 	<cmath>
 
-1351624967 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\skybox.h
+1351635168 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\skybox.h
 	<string>
 	<GL/glew.h>
 	"../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h"
@@ -649,11 +649,12 @@
 	"Shader.h"
 	<cstdio>
 
-1351329802 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.cpp
+1351635708 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.cpp
 	"Texture2D.h"
 	"../imgutil.h"
+	<cmath>
 
-1351631933 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
+1351636393 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
 	<string>
 	<cstdio>
 	"GL/glew.h"
@@ -691,14 +692,14 @@
 1351349397 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.h
 	<fstream>
 
-1351429564 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.cpp
+1351635839 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.cpp
 	"TDWLoader.h"
 	"TDWFile.h"
 	<fstream>
 	<cmath>
 	<exception>
 
-1351631900 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
+1351636205 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
 	"CStaticScene.h"
 	"../../Source/TrafficSimulator/Camera.h"
 	"../../Source/TrafficSimulator/Math/WildMath.h"

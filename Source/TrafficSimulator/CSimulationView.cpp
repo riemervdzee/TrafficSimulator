@@ -32,6 +32,7 @@ void CSimulationView::Init()
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);
     glCullFace(GL_BACK);
+    glEnable(GL_TEXTURE_2D);
 
     mMoveSpeed = 256.0f;
     glfwSetMousePos(mMidX, mMidY);
