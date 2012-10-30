@@ -144,6 +144,7 @@ public:
 
 		glCullFace(GL_FRONT);
 		glDepthFunc(GL_LEQUAL);
+		glFrontFace(GL_CW);
 
 		//get matrix uniform
 		mShader.Bind();

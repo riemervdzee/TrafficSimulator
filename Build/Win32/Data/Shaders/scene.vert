@@ -8,7 +8,6 @@ layout(location = 2) in vec2 inLmCoord;
 // output data
 out vec2 lmCoord;
 out vec2 texCoord;
-out vec3 diffuse;
 
 // uniform data
 uniform mat4 mvpMatrix;
@@ -16,7 +15,6 @@ uniform mat4 mvpMatrix;
 void main()
 {
 	gl_Position = mvpMatrix * vec4(inPos, 1.0);
-	diffuse = inPos;
 	lmCoord = inLmCoord;
 	texCoord = inTexCoord;
 }

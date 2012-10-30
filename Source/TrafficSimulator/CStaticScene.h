@@ -31,6 +31,7 @@ class MaterialGroup
         void AddIndex(unsigned short index) {  indexBuffer.push_back( index ); }
         int GetVertexCount() { return vertexBuffer.size(); }
         int GetMaterialID() { return materialID; }
+        void SetMaterialID(int matid) { materialID = matid;}
 
         void BuildBuffers()
         {
@@ -51,7 +52,7 @@ class MaterialGroup
             glEnableVertexAttribArray(2);
             vertexBufferGPU.SetAttribPointer(0, 3, GL_FLOAT, sizeof(SceneVertex), 0 );
             vertexBufferGPU.SetAttribPointer(1, 2, GL_FLOAT, sizeof(SceneVertex), (void*)sizeof(vec3) );
-            vertexBufferGPU.SetAttribPointer(2, 2, GL_FLOAT, sizeof(SceneVertex), (void*)sizeof(vec3) + sizeof(vec2) );
+            vertexBufferGPU.SetAttribPointer(2, 2, GL_FLOAT, sizeof(SceneVertex), (void*)(sizeof(vec3) + sizeof(vec2)) );
 
             indexBufferGPU.Bind();
             glDrawElements(GL_TRIANGLES, indexBuffer.size(), GL_UNSIGNED_SHORT, 0);
@@ -74,15 +75,12 @@ class Camera;
 class CStaticScene
 {
     public:
-        CStaticScene() {}
-
         bool Load(const char* fileName);
         void Dispose();
         void Draw(Camera* cam);
 
     private:
         ShaderProgram                                   shader;
-        std::vector<Texture2D>                          lightmaps;
         std::vector<Texture2D>                          materials;
 
         typedef std::map< int, MaterialGroup > MaterialGroupMap;

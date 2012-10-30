@@ -15,26 +15,29 @@ bool CStaticScene::Load(const char* fileName)
     printf("Building the scene!\n");
 
     // load materials
+    printf("Loading materials!\n");
+    std::vector<TDWMaterial>& mats = tdwFile->GetMaterials();
+    for(int m = 0; m < mats.size(); ++m)
+    {
+        std::string texName = tdwFile->GetNameByIndex( mats[m].objectName - 1);
+
+        Texture2D temp;
+        temp.LoadTGA("Data\\Textures\\scene\\" + texName + ".tga", true);
+        materials.push_back(temp);
+    }
 
     // load lightmaps
 
     // load entities
 
     // CONVERT BRUSHES TO USABLE POLYGONGROUPS
+    printf("Loading geometry!\n");
     std::vector<TDWBrush>& brushes = tdwFile->GetBrushes();
-
-    // BRUSHES
     for(unsigned int b = 0; b < brushes.size(); ++b)
     {
         TDWBrush* brush = &brushes[b];
         TDWFace*  faces = brush->faces;
         unsigned int vCount = 0;
-
-        printf("VertexCount: %d\n", brush->vertexCount);
-        for(int x = 0; x < brush->vertexCount; ++x)
-        {
-            printf("[%d] - X: %.1f, Y: %.1f, Z: %.1f\n", x, brush->vertices[x].x, brush->vertices[x].y, brush->vertices[x].z);
-        }
 
         // FACES
         for(int f = 0; f < brush->faceCount; ++f)
@@ -50,6 +53,7 @@ bool CStaticScene::Load(const char* fileName)
                 // add renderGroup and material group in that rendergroup
                 MaterialGroupMap matGroupMap;
                 matGroupMap[matID] = MaterialGroup();
+                matGroupMap[matID].SetMaterialID(matID);
                 renderGroup[lmID] = matGroupMap;
             }
             else // the rendergroup already exists
@@ -59,8 +63,14 @@ bool CStaticScene::Load(const char* fileName)
 
                 //if no materialGroup, add one
                 if(matIt == mgMap.end() )
+                {
                     mgMap[matID] = MaterialGroup();
+                    mgMap[matID].SetMaterialID(matID);
+                }
             }
+
+            // add this faces vertices to the correct group
+            vCount = renderGroup[lmID][matID].GetVertexCount();
 
             // add the vertices of this face
             for(int x = 0; x < faces[f].indexCount; x++)
@@ -74,11 +84,7 @@ bool CStaticScene::Load(const char* fileName)
                 renderGroup[lmID][matID].AddVertex(vertex);
             }
 
-
-            // add this faces vertices to the correct group
-            vCount = renderGroup[lmID][matID].GetVertexCount();
-
-            // Create triangles, from triangle fan to triangle list
+            // Create triangles, from indexed triangle fan to indexed triangle list
             for(int i = 1; i < faces[f].indexCount - 1; ++i)
             {
                 renderGroup[lmID][matID].AddIndex(vCount + 0);
@@ -129,11 +135,21 @@ void CStaticScene::Dispose()
             mgIt->second.Dispose();
         }
     }
+
+    // dispose of all textures
+    for(int i = 0; i < materials.size(); ++i)
+    {
+        materials[i].Dispose();
+    }
+
+    // dispose of the shaders
+    shader.Dispose();
 }
 
 void CStaticScene::Draw(Camera* cam)
 {
     shader.Bind();
+    glFrontFace(GL_CCW);
 
     int projViewMatrix = glGetUniformLocation(shader.GetID(), "mvpMatrix");
     wmath::Mat4 projView = cam->GetProjection() * cam->GetView();
@@ -145,6 +161,9 @@ void CStaticScene::Draw(Camera* cam)
         // iterate all materialgroups inside this rendergroup
         for(MaterialGroupMap::iterator mgIt = rgIt->second.begin(); mgIt != rgIt->second.end(); ++mgIt)
         {
+            // bind the used texture
+            materials[mgIt->second.GetMaterialID() - 1].Bind();
+
             // buildbuffers
             mgIt->second.Draw();
         }

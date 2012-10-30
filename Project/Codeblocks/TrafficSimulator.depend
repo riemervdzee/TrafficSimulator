@@ -156,7 +156,7 @@
 
 1351329802 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
-1351619194 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+1351629001 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
 	"CSimulationView.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -584,7 +584,7 @@
 1351329802 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\wildmath.h
 	<cmath>
 
-1351607674 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\skybox.h
+1351624967 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\skybox.h
 	<string>
 	<GL/glew.h>
 	"../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h"
@@ -653,11 +653,10 @@
 	"Texture2D.h"
 	"../imgutil.h"
 
-1351329802 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
+1351631933 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
 	<string>
 	<cstdio>
 	"GL/glew.h"
-	<GL/glfw.h>
 
 1351329802 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texturescube.cpp
 	"TextureCube.h"
@@ -670,7 +669,7 @@
 1349244296 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.cpp
 	"TDWFile.h"
 
-1351416883 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.h
+1351627873 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.h
 	<string>
 	<vector>
 	"TDWDefs.h"
@@ -679,7 +678,7 @@
 1351416120 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwdefs.h
 	<map>
 
-1351621075 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.h
+1351632321 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.h
 	<vector>
 	<map>
 	"TDW/TDWFile.h"
@@ -699,7 +698,7 @@
 	<cmath>
 	<exception>
 
-1351624386 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
+1351631900 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
 	"CStaticScene.h"
 	"../../Source/TrafficSimulator/Camera.h"
 	"../../Source/TrafficSimulator/Math/WildMath.h"
