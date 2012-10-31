@@ -18,6 +18,7 @@ public:
 	{
 		// zero out header struct
 		memset((void*)&mHeader, 0, sizeof(mHeader));
+		mGroups = 0;
 	}
 	~TDWFile();
 
@@ -48,6 +49,9 @@ public:
 	std::vector<TDWTerrain>& GetTerrains() { return mTerrains; }
 	TDWTerrain GetTerrainByIndex(u32 index);
 
+	// Group members
+	int GetGroupCount(){return mGroups;}
+
 private:
 	// bookkeeping
 	TDWHeader					mHeader;
@@ -59,6 +63,7 @@ private:
 	std::vector<TDWEntity>		mEntities;
 	std::vector<TDWBrush>		mBrushes;
 	std::vector<TDWTerrain>		mTerrains;
+	int                         mGroups;
 };
 
 #endif // _TDWFILE_H_

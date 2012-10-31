@@ -46,11 +46,12 @@ bool CStaticScene::Load(const char* fileName)
         TDWBrush* brush = &brushes[b];
         TDWFace*  faces = brush->faces;
         unsigned int vCount = 0;
+        int lmSubstract = tdwFile->GetGroupCount();
 
         // FACES
         for(int f = 0; f < brush->faceCount; ++f)
         {
-            int lmID = faces[f].lightmapIndex;
+            int lmID = faces[f].lightmapIndex - lmSubstract;
             int matID = faces[f].materialIndex;
             TDWIndex* indices = faces[f].indices;
 

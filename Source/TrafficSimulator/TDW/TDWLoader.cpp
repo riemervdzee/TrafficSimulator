@@ -145,6 +145,7 @@ void TDWLoader::LoadObjects(std::ifstream& fileStream, TDWFile& file)
 		if(objectName.compare("visgroup") == 0)
 		{
 		    //SendMessage( ("Loading .... " + objectName).c_str() );
+		    file.mGroups++;
 		}
 
 		// load all chunks we want to load from the file
@@ -311,7 +312,6 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 				face.indices[i].lightmapCoord.y = 0;
 			}
 		}
-
 	}
 
 	// add brush to the file

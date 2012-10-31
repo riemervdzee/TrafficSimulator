@@ -11,13 +11,13 @@ void Texture2D::LoadFromMemory(const char* source, const char resolution, bool m
 {
     GLenum internForm;
 	GLenum externForm;
-    internForm = GL_RGB;
+    internForm = GL_RGBA;
     externForm = GL_RGB;
 
     if(mID != 0)
 		Dispose();
 
-    mWidth = mHeight = resolution;
+    mWidth = mHeight = pow(2, resolution);
 
     // create texture and bind it
 	glGenTextures(1, &mID);
