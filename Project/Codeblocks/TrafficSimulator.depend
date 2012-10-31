@@ -156,7 +156,7 @@
 
 1351329802 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
-1351636263 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+1351682943 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
 	"CSimulationView.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -584,7 +584,7 @@
 1351329802 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\math\wildmath.h
 	<cmath>
 
-1351635168 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\skybox.h
+1351684058 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\skybox.h
 	<string>
 	<GL/glew.h>
 	"../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h"
@@ -649,12 +649,12 @@
 	"Shader.h"
 	<cstdio>
 
-1351671165 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.cpp
+1351683394 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.cpp
 	"Texture2D.h"
 	"../imgutil.h"
 	<cmath>
 
-1351636393 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
+1351686829 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
 	<string>
 	<cstdio>
 	"GL/glew.h"
@@ -679,7 +679,7 @@
 1351416120 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwdefs.h
 	<map>
 
-1351632321 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.h
+1351682710 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.h
 	<vector>
 	<map>
 	"TDW/TDWFile.h"
@@ -692,14 +692,14 @@
 1351349397 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.h
 	<fstream>
 
-1351671120 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.cpp
+1351686986 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.cpp
 	"TDWLoader.h"
 	"TDWFile.h"
 	<fstream>
 	<cmath>
 	<exception>
 
-1351671628 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
+1351687019 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
 	"CStaticScene.h"
 	"../../Source/TrafficSimulator/Camera.h"
 	"../../Source/TrafficSimulator/Math/WildMath.h"

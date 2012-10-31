@@ -34,7 +34,7 @@ public:
 	inline GLuint GetID() { return mID; }
 	inline GLuint GetWidth() { return mWidth; }
 	inline GLuint GetHeight() { return mHeight; }
-	inline GLvoid Bind(GLenum texActiv = GL_TEXTURE0) { glActiveTexture(texActiv);glBindTexture(GL_TEXTURE_2D, mID); }
+	inline GLvoid Bind(GLint tex = 0) { glActiveTexture(GL_TEXTURE0 + tex);glBindTexture(GL_TEXTURE_2D, mID); }
 	inline GLvoid Unbind() { glBindTexture(GL_TEXTURE_2D, 0); }
 
 	// cleans the texture from opengl

@@ -148,6 +148,11 @@ void TDWLoader::LoadObjects(std::ifstream& fileStream, TDWFile& file)
 		    file.mGroups++;
 		}
 
+		if(objectName.compare("group") == 0)
+		{
+            file.mGroups++;
+		}
+
 		// load all chunks we want to load from the file
 		if(objectName.compare("material") == 0)
 		{

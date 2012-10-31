@@ -11,7 +11,7 @@ void Texture2D::LoadFromMemory(const char* source, const char resolution, bool m
 {
     GLenum internForm;
 	GLenum externForm;
-    internForm = GL_RGBA;
+    internForm = GL_RGB;
     externForm = GL_RGB;
 
     if(mID != 0)
@@ -23,8 +23,8 @@ void Texture2D::LoadFromMemory(const char* source, const char resolution, bool m
 	glGenTextures(1, &mID);
 	glBindTexture(GL_TEXTURE_2D, mID);
 
-		// put the data inside
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    // put the data inside
+	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexImage2D(GL_TEXTURE_2D, 0, internForm, mWidth, mHeight, 0, externForm, GL_UNSIGNED_BYTE, source);
 
 	// set texture parameters

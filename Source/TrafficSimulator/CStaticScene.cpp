@@ -160,6 +160,11 @@ void CStaticScene::Draw(Camera* cam)
     shader.Bind();
     glFrontFace(GL_CCW);
 
+    int texLoc =  glGetUniformLocation(shader.GetID(), "tex");
+    int lmLock =  glGetUniformLocation(shader.GetID(), "lm");
+    glUniform1i(texLoc, 0);
+    glUniform1i(lmLock, 1);
+
     int projViewMatrix = glGetUniformLocation(shader.GetID(), "mvpMatrix");
     wmath::Mat4 projView = cam->GetProjection() * cam->GetView();
     glUniformMatrix4fv(projViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
@@ -167,17 +172,19 @@ void CStaticScene::Draw(Camera* cam)
     // iterate all rendergroups and draw them
     for(RenderGroup::iterator rgIt = renderGroup.begin(); rgIt != renderGroup.end(); ++rgIt)
     {
-        // bind the used lightmap
-        if(rgIt->first != 0)
-        {
-            materials[rgIt->first - 1].Bind(GL_TEXTURE1);
-        }
+        int lmID = rgIt->first;
 
         // iterate all materialgroups inside this rendergroup
         for(MaterialGroupMap::iterator mgIt = rgIt->second.begin(); mgIt != rgIt->second.end(); ++mgIt)
         {
             // bind the used texture
-            materials[mgIt->second.GetMaterialID() - 1].Bind(GL_TEXTURE0);
+            materials[mgIt->second.GetMaterialID() - 1].Bind(0);
+
+            // bind the used lightmap
+            if(lmID != 0)
+            {
+                materials[lmID - 1].Bind(1);
+            }
 
             // buildbuffers
             mgIt->second.Draw();

@@ -48,6 +48,7 @@ void CSimulationView::Init()
 
     // load the scene
     mScene.Load("Data\\crossroad.3dw");
+    //mScene.Load("Data\\test.3dw");
 }
 
 void CSimulationView::UpdatePull()

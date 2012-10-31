@@ -149,6 +149,8 @@ public:
 		//get matrix uniform
 		mShader.Bind();
 		mVertices.Bind();
+
+		glActiveTexture(GL_TEXTURE0);
 		mTexCube.Bind();
 
 		Mat4 projView = mCamera->GetProjection() * mCamera->GetView() * Mat4::Translate(mCamera->GetWorld().GetPosition()) * Mat4::ScaleUniform(20);
