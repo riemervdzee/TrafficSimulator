@@ -47,8 +47,8 @@ void CSimulationView::Init()
 	mSkybox.Init("Data\\textures\\miramar", &mCamera);
 
     // load the scene
-    mScene.Load("Data\\crossroad.3dw");
-    //mScene.Load("Data\\test.3dw");
+    //mScene.Load("Data\\crossroad.3dw");
+    mScene.Load("Data\\test.3dw");
 }
 
 void CSimulationView::UpdatePull()
