@@ -28,14 +28,14 @@
 	<File name="..\..\Source\TrafficSimulator\CSimulationModel.h" open="0" top="0" tabpos="0">
 		<Cursor position="514" topLine="1" />
 	</File>
-	<File name="..\..\Source\TrafficSimulator\CSimulationView.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="854" topLine="15" />
+	<File name="..\..\Source\TrafficSimulator\CSimulationView.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1031" topLine="15" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CSimulationView.h" open="0" top="0" tabpos="2">
 		<Cursor position="383" topLine="0" />
 	</File>
-	<File name="..\..\Source\TrafficSimulator\CStaticScene.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="5899" topLine="155" />
+	<File name="..\..\Source\TrafficSimulator\CStaticScene.cpp" open="1" top="1" tabpos="0">
+		<Cursor position="5511" topLine="149" />
 	</File>
 	<File name="..\..\Source\TrafficSimulator\CStaticScene.h" open="0" top="0" tabpos="1">
 		<Cursor position="2466" topLine="51" />

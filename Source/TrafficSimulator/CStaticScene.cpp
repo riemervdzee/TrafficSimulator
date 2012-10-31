@@ -174,17 +174,17 @@ void CStaticScene::Draw(Camera* cam)
     {
         int lmID = rgIt->first;
 
+        // bind the used lightmap
+        if(lmID != 0)
+        {
+            materials[lmID - 1].Bind(1);
+        }
+
         // iterate all materialgroups inside this rendergroup
         for(MaterialGroupMap::iterator mgIt = rgIt->second.begin(); mgIt != rgIt->second.end(); ++mgIt)
         {
             // bind the used texture
             materials[mgIt->second.GetMaterialID() - 1].Bind(0);
-
-            // bind the used lightmap
-            if(lmID != 0)
-            {
-                materials[lmID - 1].Bind(1);
-            }
 
             // buildbuffers
             mgIt->second.Draw();
