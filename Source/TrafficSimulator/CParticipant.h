@@ -11,8 +11,8 @@ public:
 
 
 private:
-    PARTICIPANTS type;
-    PARTICIPANTSTATE participantState;
+    TDWDEFS::PARTICIPANTS type;
+    TDWDEFS::PARTICIPANTSTATE participantState;
     // Vector3 position;
     // matrix3 rotation;
     CTrafficLane *laneFrom;

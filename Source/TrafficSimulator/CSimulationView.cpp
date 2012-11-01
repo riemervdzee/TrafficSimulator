@@ -34,14 +34,14 @@ void CSimulationView::Init()
     glCullFace(GL_BACK);
     glEnable(GL_TEXTURE_2D);
 
-    mMoveSpeed = 512.0f;
+    mMoveSpeed = 64.0f;
     glfwSetMousePos(mMidX, mMidY);
     glfwDisable( GLFW_MOUSE_CURSOR );
     mMouseSensitivity = 8.0f;
 
     // init camera
-	mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 3000.0f);
-	mCamera.LookAt(Vec3(0, 256, 0), Vec3(0, 256.0f, 1), Vec3(0, 1, 0));
+	mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 400.0f);
+	mCamera.LookAt(Vec3(32, 64, -32), Vec3(0, 32.0f, 1), Vec3(0, 1, 0));
 
 	// create skybox
 	mSkybox.Init("Data\\textures\\miramar", &mCamera);

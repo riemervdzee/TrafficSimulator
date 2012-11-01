@@ -15,11 +15,11 @@ public:
         }
     }
 
-    SetDirectionType(DIRECTION dir){ dirType = dir; }
+    void SetDirectionType(int dir){ dirType = dir; }
 
 private:
     CTrafficLane lanes[8];
-    DIRECTION dirType;
+    int dirType;
 };
 
 #endif // CTRAFFICLANEGROUP_H

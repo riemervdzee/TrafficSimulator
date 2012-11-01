@@ -268,6 +268,14 @@ void TDWLoader::LoadBrushes(std::ifstream& fileStream, TDWFile& file)
 	brush.vertices = new vec3[ brush.vertexCount ];
 	fileStream.read( (char*)brush.vertices, sizeof(vec3) * brush.vertexCount);
 
+	// scale down vertices
+	for(int i = 0; i < brush.vertexCount; ++i)
+	{
+        brush.vertices[i].x = brush.vertices[i].x / 10.0f;
+        brush.vertices[i].y = brush.vertices[i].y / 10.0f;
+        brush.vertices[i].z = brush.vertices[i].z / 10.0f;
+	}
+
 	// load in all the faces
 	fileStream.read( (char*)&brush.faceCount, sizeof(u8));
 	brush.faces = new TDWFace[brush.faceCount];
@@ -335,6 +343,11 @@ void TDWLoader::LoadEntities(std::ifstream& fileStream, TDWFile& file)
 	fileStream.read( (char*)&entity.flags, sizeof(u8));
 	fileStream.read( (char*)&entity.position, sizeof(vec3));
 	fileStream.read( (char*)&entity.keyCount, sizeof(s32));
+
+    // scale down positions
+    entity.position.x = entity.position.x / 10.0f;
+    entity.position.y = entity.position.y / 10.0f;
+    entity.position.z = entity.position.z / 10.0f;
 
 	// add key value pairs
 	for(int i = 0; i < entity.keyCount; ++i)

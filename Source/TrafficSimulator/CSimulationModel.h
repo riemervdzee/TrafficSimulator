@@ -52,9 +52,9 @@ class CSimulationQueueParticipant
 {
 public:
     int time;
-    PARTICIPANTS type;
-    DIRECTION fromDirection;
-    DIRECTION toDirection;
+    TDWDEFS::PARTICIPANTS type;
+    TDWDEFS::DIRECTION fromDirection;
+    TDWDEFS::DIRECTION toDirection;
     int fromLane;
     int toLane;
 

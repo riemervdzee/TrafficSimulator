@@ -1,6 +1,9 @@
 #ifndef TRAFFICDEFS_H
 #define TRAFFICDEFS_H
 
+namespace TDWDEFS
+{
+
 enum DIRECTION
 {
     NORTH = 0,
@@ -36,6 +39,8 @@ enum PARTICIPANTSTATE
     WAITATSTOPLIGHT,
     ONCROSSROAD,
     AFTERCROSSROAD
+};
+
 };
 
 #endif // TRAFFICDEFS_H

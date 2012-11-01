@@ -9,10 +9,11 @@ CSimulationModel::CSimulationModel()
     mSimulationView = 0;
     mTimer.Create();
 
-    laneGroup[DIRECTION.NORTH].SetDirectionType( DIRECTION.NORTH);
-    laneGroup[DIRECTION.SOUTH].SetDirectionType( DIRECTION.SOUTH);
-    laneGroup[DIRECTION.EAST].SetDirectionType( DIRECTION.EAST);
-    laneGroup[DIRECTION.WEST].SetDirectionType( DIRECTION.WEST);
+    // init lanes
+    laneGroups[0].SetDirectionType(0);
+    laneGroups[1].SetDirectionType(1);
+    laneGroups[2].SetDirectionType(2);
+    laneGroups[3].SetDirectionType(3);
 }
 
 CSimulationModel::~CSimulationModel()
@@ -51,7 +52,6 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
 
 void CSimulationModel::LoadEntities(std::vector<TDWEntity>& ents)
 {
-
 }
 
 void CSimulationModel::UpdateSim()
