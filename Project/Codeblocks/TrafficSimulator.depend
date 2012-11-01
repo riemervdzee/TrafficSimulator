@@ -337,12 +337,14 @@
 
 1351758767 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
 
-1351758767 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
+1351770792 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
 	<queue>
 	"Timer.h"
+	"CTrafficLaneGroup.h"
 	"TrafficDefs.h"
+	"TDW/TDWdefs.h"
 
-1351758767 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.h
+1351770047 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.h
 	"Camera.h"
 	"Skybox.h"
 	"CAbstractView.h"
@@ -370,10 +372,11 @@
 	<iostream>
 	<fstream>
 
-1351758767 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
+1351770151 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
 	"CSimulationModel.h"
 	"CSimulationView.h"
 	"CNetworkView.h"
+	"TDW/TDWDefs.h"
 
 1351758767 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\jsoncpp.cpp
 	"json/json.h"
@@ -704,7 +707,7 @@
 	"../../Source/TrafficSimulator/Util.h"
 	<set>
 
-1351768151 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cstaticscene.h
+1351769622 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cstaticscene.h
 	<vector>
 	<map>
 	"TDW/TDWFile.h"
@@ -726,7 +729,7 @@
 1351758767 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.h
 	<fstream>
 
-1351769299 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
+1351769352 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
 	"CStaticScene.h"
 	"../../Source/TrafficSimulator/Camera.h"
 	"../../Source/TrafficSimulator/Math/WildMath.h"
@@ -750,7 +753,7 @@
 	"TrafficDefs.h"
 	"CTrafficLane.h"
 
-1351761138 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
+1351771010 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
 	"TrafficDefs.h"
 	"Math/WildMath.h"
 
@@ -760,6 +763,11 @@
 1351760728 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlight.cpp
 	"CTrafficLight.h"
 
-1351760860 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlight.h
+1351771089 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlight.h
+	"trafficDefs.h"
 	"Math/WildMath.h"
+
+1351770877 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.h
+	"TrafficDefs.h"
+	"CTrafficLane.h"
 

@@ -61,6 +61,8 @@
 		<Unit filename="..\..\Source\TrafficSimulator\CApplication.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CNetworkView.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CNetworkView.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\CParticipant.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\CParticipant.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationController.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationController.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationModel.cpp" />
@@ -69,6 +71,11 @@
 		<Unit filename="..\..\Source\TrafficSimulator\CSimulationView.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CStaticScene.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CStaticScene.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLane.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLane.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLaneGroup.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLight.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLight.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Camera.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\Camera.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Math\Mat3.cpp" />

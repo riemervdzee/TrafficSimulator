@@ -18,6 +18,8 @@ public:
     void Draw();
     void Dispose();
 
+    std::vector<TDWEntity>& GetEntities() { return mScene.GetEntities(); }
+
 private:
     Camera mCamera;
     Skybox mSkybox;

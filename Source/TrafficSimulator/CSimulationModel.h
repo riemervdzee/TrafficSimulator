@@ -4,11 +4,12 @@
 #include <queue>
 
 #include "Timer.h"
+#include "CTrafficLaneGroup.h"
 #include "TrafficDefs.h"
+#include "TDW/TDWdefs.h"
 
 class CNetworkView;
 class CSimulationView;
-
 class CSimulationQueueParticipant;
 
 class CSimulationModel
@@ -25,6 +26,8 @@ public:
     void UpdateSim();
     bool LoadInputFromFile(const char* fileName);
 
+    void LoadEntities(std::vector<TDWEntity>& ents);
+
 private:
     void NotifyNetwork(){};
     void NotifySimulation(){};
@@ -34,6 +37,8 @@ private:
     CSimulationView *mSimulationView;
     CTimer mTimer;
 
+    // model
+    CTrafficLaneGroup   laneGroups[4];
 
     // Queue for participants who are about to join TODO visibility?
     std::priority_queue< CSimulationQueueParticipant> queue;

@@ -1,12 +1,18 @@
 #include "CSimulationModel.h"
 #include "CSimulationView.h"
 #include "CNetworkView.h"
+#include "TDW/TDWDefs.h"
 
 CSimulationModel::CSimulationModel()
 {
     mNetworkView = 0;
     mSimulationView = 0;
     mTimer.Create();
+
+    laneGroup[DIRECTION.NORTH].SetDirectionType( DIRECTION.NORTH);
+    laneGroup[DIRECTION.SOUTH].SetDirectionType( DIRECTION.SOUTH);
+    laneGroup[DIRECTION.EAST].SetDirectionType( DIRECTION.EAST);
+    laneGroup[DIRECTION.WEST].SetDirectionType( DIRECTION.WEST);
 }
 
 CSimulationModel::~CSimulationModel()
@@ -37,7 +43,15 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
     {
         mSimulationView = observer;
         mSimulationView->Init();
+
+        // load entities
+        LoadEntities(mSimulationView->GetEntities());
     }
+}
+
+void CSimulationModel::LoadEntities(std::vector<TDWEntity>& ents)
+{
+
 }
 
 void CSimulationModel::UpdateSim()

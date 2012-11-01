@@ -11,8 +11,6 @@ public:
     void SetWayEnd(const wmath::Vec3& start);
 
 private:
-    DIRECTION dirType;
-    TRAFFICLIGHTSTATE lightState;
     wmath::Vec3 wayStart;
     wmath::Vec3 wayEnd;
 };

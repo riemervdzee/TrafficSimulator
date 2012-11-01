@@ -89,6 +89,8 @@ class CStaticScene
         void Dispose();
         void Draw(Camera* cam);
 
+        std::vector<TDWEntity>& GetEntities() { return cachedEntities; }
+
     private:
         ShaderProgram                   shader;
         std::vector<Texture2D>          materials;
