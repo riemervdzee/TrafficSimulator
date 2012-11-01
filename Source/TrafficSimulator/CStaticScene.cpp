@@ -37,6 +37,19 @@ bool CStaticScene::Load(const char* fileName)
     }
 
     // load entities
+    printf("Loading entities!\n");
+    cachedEntities = tdwFile->GetEntities();
+
+    // load debug info
+    for(int e = 0; e < cachedEntities.size(); ++e)
+    {
+        TDWEntity& ent = cachedEntities[e];
+        DebugVertex dVert(ent.position);
+        debugVertices.push_back(dVert);
+    }
+
+    // build debug info for entites
+    debugVertexBuffer.Create(&debugVertices[0], sizeof(DebugVertex) * debugVertices.size(), GL_STATIC_DRAW);
 
     // CONVERT BRUSHES TO USABLE POLYGONGROUPS
     printf("Loading geometry!\n");
@@ -125,6 +138,18 @@ bool CStaticScene::Load(const char* fileName)
     // load shaders
     shader.CreateProgram(vertex, fragment);
 
+    // debug stuff
+    // shader data
+    std::string dvertex;
+    std::string dfragment;
+
+    // creating shaders
+    LoadTextFile("Data\\shaders\\tra_col.vert", dvertex);
+    LoadTextFile("Data\\shaders\\tra_col.frag", dfragment);
+
+    // load shaders
+    debugShader.CreateProgram(dvertex, dfragment);
+
     // free memory
     delete tdwFile;
     tdwFile = 0;
@@ -153,6 +178,10 @@ void CStaticScene::Dispose()
 
     // dispose of the shaders
     shader.Dispose();
+
+    // debug
+    debugShader.Dispose();
+    debugVertexBuffer.Dispose();
 }
 
 void CStaticScene::Draw(Camera* cam)
@@ -192,4 +221,19 @@ void CStaticScene::Draw(Camera* cam)
     }
 
     shader.Unbind();
+
+    // draw debug info for entities
+    debugShader.Bind();
+
+    projViewMatrix = glGetUniformLocation(debugShader.GetID(), "mvpMatrix");
+    glUniformMatrix4fv(projViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
+
+    debugVertexBuffer.Bind();
+    glEnableVertexAttribArray(0);
+    debugVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(DebugVertex), 0 );
+
+    glPointSize(16);
+    glDrawArrays(GL_POINTS, 0, debugVertices.size());
+
+    debugShader.Unbind();
 }

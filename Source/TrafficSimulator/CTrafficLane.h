@@ -2,17 +2,19 @@
 #define CTRAFFICLANE_H
 
 #include "TrafficDefs.h"
+#include "Math/WildMath.h"
 
 class CTrafficLane
 {
 public:
-
+    void SetWayStart(const wmath::Vec3& start);
+    void SetWayEnd(const wmath::Vec3& start);
 
 private:
     DIRECTION dirType;
     TRAFFICLIGHTSTATE lightState;
-    // Vector3 position;
-
+    wmath::Vec3 wayStart;
+    wmath::Vec3 wayEnd;
 };
 
 #endif // CTRAFFICLANE_H

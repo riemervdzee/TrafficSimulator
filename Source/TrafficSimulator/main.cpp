@@ -6,7 +6,7 @@ int main()
 
     // create application
     if( !app.Create(1024, 768) )
-   //if( !app.Create(1920, 1080) )
+    //if( !app.Create(1920, 1080) )
         return false;
 
 	// main loop

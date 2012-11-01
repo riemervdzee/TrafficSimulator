@@ -34,7 +34,7 @@ void CSimulationView::Init()
     glCullFace(GL_BACK);
     glEnable(GL_TEXTURE_2D);
 
-    mMoveSpeed = 256.0f;
+    mMoveSpeed = 512.0f;
     glfwSetMousePos(mMidX, mMidY);
     glfwDisable( GLFW_MOUSE_CURSOR );
     mMouseSensitivity = 8.0f;
@@ -47,8 +47,8 @@ void CSimulationView::Init()
 	mSkybox.Init("Data\\textures\\miramar", &mCamera);
 
     // load the scene
-    //mScene.Load("Data\\crossroad.3dw");
-    mScene.Load("Data\\test.3dw");
+    mScene.Load("Data\\crossroad.3dw");
+    //mScene.Load("Data\\test.3dw");
 }
 
 void CSimulationView::UpdatePull()
@@ -119,7 +119,6 @@ void CSimulationView::Draw()
     // draw participants
 
     // draw skybox
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     mSkybox.Draw();
 
     glfwSwapBuffers();

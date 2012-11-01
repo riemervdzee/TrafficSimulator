@@ -22,6 +22,16 @@ struct SceneVertex
     vec2 lightmapCoords;
 };
 
+struct DebugVertex
+{
+    DebugVertex(vec3 pos)
+    {
+        position = pos;
+    }
+
+    vec3 position;
+};
+
 class MaterialGroup
 {
     public:
@@ -80,8 +90,15 @@ class CStaticScene
         void Draw(Camera* cam);
 
     private:
-        ShaderProgram                                   shader;
-        std::vector<Texture2D>                          materials;
+        ShaderProgram                   shader;
+        std::vector<Texture2D>          materials;
+        std::vector<TDWEntity>          cachedEntities;
+
+        // DEBUG
+        ShaderProgram                   debugShader;
+        std::vector<DebugVertex>        debugVertices;
+        VertexBuffer                    debugVertexBuffer;
+        // DEBUG END
 
         typedef std::map< int, MaterialGroup > MaterialGroupMap;
         typedef std::map< int, MaterialGroupMap > RenderGroup;

@@ -1,4 +1,11 @@
-
 #include "CTrafficLane.h"
 
-// TODO write lotsa code!
+void CTrafficLane::SetWayStart(const wmath::Vec3& start)
+{
+    wayStart = start;
+}
+
+void CTrafficLane::SetWayEnd(const wmath::Vec3& end)
+{
+    wayEnd = end;
+}

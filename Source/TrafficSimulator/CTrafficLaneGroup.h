@@ -10,7 +10,7 @@ public:
 
 
 private:
-    TrafficLane[7] lanes;
+    TrafficLane[8] lanes;
     DIRECTION dirType;
 
 };

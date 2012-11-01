@@ -1,9 +1,9 @@
 #version 330
 
-in vec3 diffuse
+
 out vec4 fragcolor;
 
 void main()
 {
-	fragcolor = vec4(diffuse, 1.0);
+	fragcolor = vec4(0.0, 0.0, 0.0, 1.0);
 }
