@@ -10,10 +10,10 @@ CSimulationModel::CSimulationModel()
     mTimer.Create();
 
     // init lanes
-    laneGroups[0].SetDirectionType(0);
-    laneGroups[1].SetDirectionType(1);
-    laneGroups[2].SetDirectionType(2);
-    laneGroups[3].SetDirectionType(3);
+    laneGroups[0].SetDirectionType(0); // NORTH
+    laneGroups[1].SetDirectionType(1); // SOUTH
+    laneGroups[2].SetDirectionType(2); // EAST
+    laneGroups[3].SetDirectionType(3); // WEST
 }
 
 CSimulationModel::~CSimulationModel()
@@ -46,7 +46,7 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
         mSimulationView->Init();
 
         // load entities
-        LoadEntities(mSimulationView->GetEntities());
+        //LoadEntities(mSimulationView->GetEntities());
     }
 }
 

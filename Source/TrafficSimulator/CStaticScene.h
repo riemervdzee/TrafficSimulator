@@ -32,6 +32,21 @@ struct DebugVertex
     vec3 position;
 };
 
+struct SceneTrafficLight
+{
+    vec3 pos;
+    int lane;
+    int laneGroup;
+};
+
+struct SceneWayPoint
+{
+    vec3 pos;
+    int wayType; // 0 start, 1 end
+    int lane;
+    int laneGroup;
+};
+
 class MaterialGroup
 {
     public:
@@ -85,11 +100,14 @@ class Camera;
 class CStaticScene
 {
     public:
-        bool Load(const char* fileName);
+        bool Load(const char* fileName, std::vector<SceneTrafficLight>& lights, std::vector<SceneWayPoint>& waypoints);
         void Dispose();
         void Draw(Camera* cam);
 
         std::vector<TDWEntity>& GetEntities() { return cachedEntities; }
+    private:
+        void ProcessTrafficLight(TDWEntity& ent, TDWFile* file, std::vector<SceneTrafficLight>& trafficlights);
+        void ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<SceneWayPoint>& waypoints);
 
     private:
         ShaderProgram                   shader;
@@ -102,6 +120,7 @@ class CStaticScene
         VertexBuffer                    debugVertexBuffer;
         // DEBUG END
 
+        typedef std::map<s32, s32> KeyValueMap_t;
         typedef std::map< int, MaterialGroup > MaterialGroupMap;
         typedef std::map< int, MaterialGroupMap > RenderGroup;
         RenderGroup renderGroup;

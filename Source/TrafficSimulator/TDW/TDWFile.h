@@ -27,7 +27,13 @@ public:
 
 	// Name table members
 	std::vector<std::string>& GetNameTable() { return mNameTable; }
-	std::string& GetNameByIndex(u32 index) { return mNameTable[index]; }
+	std::string GetNameByIndex(u32 index)
+	{
+	    if(index < 0 || index >= mNameTable.size())
+            return std::string("no name found!");
+        else
+            return mNameTable[index];
+    }
 
 	// Material members
 	std::vector<TDWMaterial>& GetMaterials() { return mMaterials; }

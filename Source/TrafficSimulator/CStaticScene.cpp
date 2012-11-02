@@ -3,8 +3,9 @@
 #include "../../Source/TrafficSimulator/Math/WildMath.h"
 #include "../../Source/TrafficSimulator/Util.h"
 #include <set>
+#include <sstream>
 
-bool CStaticScene::Load(const char* fileName)
+bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& lights, std::vector<SceneWayPoint>& waypoints)
 {
     TDWFile* tdwFile = 0;
     tdwFile = TDWLoader::LoadFromFile(fileName);
@@ -40,12 +41,44 @@ bool CStaticScene::Load(const char* fileName)
     printf("Loading entities!\n");
     cachedEntities = tdwFile->GetEntities();
 
-    // load debug info
+    // load debug info and load needed entities
+    std::string entName;
     for(int e = 0; e < cachedEntities.size(); ++e)
     {
         TDWEntity& ent = cachedEntities[e];
         DebugVertex dVert(ent.position);
         debugVertices.push_back(dVert);
+
+        // process entitie if not empty
+        if( ent.KeyValueMap.size() != 0 )
+        {
+            // iterate the map and search for the entity name
+            for(KeyValueMap_t::iterator keyIt = ent.KeyValueMap.begin(); keyIt != ent.KeyValueMap.end(); ++keyIt)
+            {
+                entName = tdwFile->GetNameByIndex(keyIt->first - 1);
+
+                // check name
+                if( entName.compare("classname") == 0)
+                {
+                    // get the real entity ame
+                    entName = tdwFile->GetNameByIndex(keyIt->second - 1);
+
+                    // check if it is a waypoint or a light
+                    if(entName.compare("waypoint") == 0)
+                    {
+                        ProcessWayPoint(ent, tdwFile, waypoints);
+                    }
+                    else if(entName.compare("trafficlight") == 0)
+                    {
+                        printf("Found a trafficLight!\n");
+                        ProcessTrafficLight(ent, tdwFile, lights);
+                    }
+
+                    // stop the loop we found the name
+                    break;
+                }
+            }
+        }
     }
 
     // build debug info for entites
@@ -155,6 +188,67 @@ bool CStaticScene::Load(const char* fileName)
     tdwFile = 0;
 
     return true;
+}
+
+void CStaticScene::ProcessTrafficLight(TDWEntity& ent, TDWFile* file, std::vector<SceneTrafficLight>& trafficlights)
+{
+    SceneTrafficLight traLight;
+    traLight.pos = ent.position;
+    std::string key;
+    std::stringstream stream;
+
+    // iterate entity again but this time for specific key value pairs
+    for(KeyValueMap_t::iterator keyIt = ent.KeyValueMap.begin(); keyIt != ent.KeyValueMap.end(); ++keyIt)
+    {
+        key = file->GetNameByIndex( keyIt->first);
+
+        // check keys
+        if(key.compare("lane") == 0)
+        {
+            stream << keyIt->second;
+            stream >> traLight.lane;
+        }
+        else if (key.compare("laneGroup") == 0)
+        {
+            stream << keyIt->second;
+            stream >> traLight.laneGroup;
+        }
+    }
+
+    trafficlights.push_back(traLight);
+}
+
+void CStaticScene::ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<SceneWayPoint>& waypoints)
+{
+    SceneWayPoint way;
+    std::string key;
+    std::stringstream stream;
+    way.pos = ent.position;
+
+    // iterate entity again but this time for specific key value pairs
+    for(KeyValueMap_t::iterator keyIt = ent.KeyValueMap.begin(); keyIt != ent.KeyValueMap.end(); ++keyIt)
+    {
+        key = file->GetNameByIndex( keyIt->first);
+
+        // check keys
+        if(key.compare("lane") == 0)
+        {
+            stream << keyIt->second;
+            stream >> way.lane;
+        }
+        else if (key.compare("wayType") == 0)
+        {
+            stream << keyIt->second;
+            stream >> way.wayType;
+        }
+        else if (key.compare("laneGroup") == 0)
+        {
+            stream << keyIt->second;
+            stream >> way.laneGroup;
+        }
+    }
+
+    waypoints.push_back(way);
 }
 
 void CStaticScene::Dispose()

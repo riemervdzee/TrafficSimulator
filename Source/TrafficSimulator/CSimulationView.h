@@ -18,13 +18,17 @@ public:
     void Draw();
     void Dispose();
 
-    std::vector<TDWEntity>& GetEntities() { return mScene.GetEntities(); }
+    std::vector<SceneTrafficLight>&     GetTrafficLights(){ return trafficLights; }
+    std::vector<SceneWayPoint>&         GetWaypoints() { return waypoints; }
 
 private:
     Camera mCamera;
     Skybox mSkybox;
     CStaticScene mScene;
     int width, height;
+
+    std::vector<SceneTrafficLight>  trafficLights;
+    std::vector<SceneWayPoint>      waypoints;
 
     // mouse
     int mMoveSpeed;
