@@ -13,6 +13,6 @@ vec4 ambColor = vec4(64.0/255.0, 64.0/255.0, 64.0/255.0, 1.0);
 
 void main()
 {
-	vec4 color = texture(tex, texCoord) * (texture(lm, lmCoord) + ambColor * dirColor);
-	fragcolor = color;
+	vec4 color = texture(tex, texCoord) * (texture(lm, lmCoord)  + ambColor * dirColor);
+	fragcolor = color * 1.5;
 }

@@ -200,18 +200,20 @@ void CStaticScene::ProcessTrafficLight(TDWEntity& ent, TDWFile* file, std::vecto
     // iterate entity again but this time for specific key value pairs
     for(KeyValueMap_t::iterator keyIt = ent.KeyValueMap.begin(); keyIt != ent.KeyValueMap.end(); ++keyIt)
     {
-        key = file->GetNameByIndex( keyIt->first);
+        key = file->GetNameByIndex( keyIt->first - 1);
 
         // check keys
         if(key.compare("lane") == 0)
         {
-            stream << keyIt->second;
+            stream <<file->GetNameByIndex( keyIt->second - 1);
             stream >> traLight.lane;
+            stream.clear();
         }
         else if (key.compare("laneGroup") == 0)
         {
-            stream << keyIt->second;
+            stream << file->GetNameByIndex( keyIt->second - 1);
             stream >> traLight.laneGroup;
+            stream.clear();
         }
     }
 
@@ -225,26 +227,43 @@ void CStaticScene::ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<Sc
     std::stringstream stream;
     way.pos = ent.position;
 
+    // scale
+    way.pos.x = way.pos.x / 10.0f;
+    way.pos.y = way.pos.y / 10.0f;
+    way.pos.z = way.pos.z / 10.0f;
+
+    printf("Waypoint: \n");
+    printf("   x: %f y: %f z: %f\n", way.pos.x, way.pos.y, way.pos.z);
+
     // iterate entity again but this time for specific key value pairs
     for(KeyValueMap_t::iterator keyIt = ent.KeyValueMap.begin(); keyIt != ent.KeyValueMap.end(); ++keyIt)
     {
-        key = file->GetNameByIndex( keyIt->first);
+        key = file->GetNameByIndex( keyIt->first - 1);
 
         // check keys
         if(key.compare("lane") == 0)
         {
-            stream << keyIt->second;
+            stream << file->GetNameByIndex( keyIt->second - 1);
             stream >> way.lane;
+            stream.clear();
+
+            printf("   lane: %d - ", way.lane);
         }
-        else if (key.compare("wayType") == 0)
+        else if (key.compare("lanetype") == 0)
         {
-            stream << keyIt->second;
+            stream << file->GetNameByIndex( keyIt->second - 1);
             stream >> way.wayType;
+            stream.clear();
+
+            printf("   type: %d - ", way.wayType);
         }
-        else if (key.compare("laneGroup") == 0)
+        else if (key.compare("lanegroup") == 0)
         {
-            stream << keyIt->second;
+            stream << file->GetNameByIndex( keyIt->second - 1);
             stream >> way.laneGroup;
+            stream.clear();
+
+            printf("   laneGroup: %d\n", way.laneGroup);
         }
     }
 
