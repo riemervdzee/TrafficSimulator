@@ -18,7 +18,7 @@ private:
 	GLuint mfID; // fragment shader id
 
 public:
-	ShaderProgram() : mvID(0), mfID(0), mID(0) {}
+	ShaderProgram() : mID(0), mvID(0), mfID(0) {}
 
 	// creates the shader program
 	GLboolean CreateProgram(const std::string& vertex, const std::string& fragment);

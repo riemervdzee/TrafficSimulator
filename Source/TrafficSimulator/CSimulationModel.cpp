@@ -46,11 +46,11 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
         mSimulationView->Init();
 
         // load entities
-        //LoadEntities(mSimulationView->GetEntities());
+        LoadEntities();
     }
 }
 
-void CSimulationModel::LoadEntities(std::vector<TDWEntity>& ents)
+void CSimulationModel::LoadEntities()
 {
 }
 

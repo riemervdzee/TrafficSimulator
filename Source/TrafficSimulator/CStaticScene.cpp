@@ -18,7 +18,7 @@ bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& li
     // load materials
     printf("Loading materials!\n");
     std::vector<TDWMaterial>& mats = tdwFile->GetMaterials();
-    for(int m = 0; m < mats.size(); ++m)
+    for(unsigned int m = 0; m < mats.size(); ++m)
     {
         std::string texName = tdwFile->GetNameByIndex( mats[m].objectName - 1);
 
@@ -30,7 +30,7 @@ bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& li
     // load lightmaps
     printf("Loading lightmaps!\n");
     std::vector<TDWLightmap>& lm = tdwFile->GetLightmaps();
-    for(int m = 0; m < lm.size(); ++m)
+    for(unsigned int m = 0; m < lm.size(); ++m)
     {
         Texture2D temp;
         temp.LoadFromMemory( (char*)lm[m].data, (char)lm[m].resolution);
@@ -39,11 +39,11 @@ bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& li
 
     // load entities
     printf("Loading entities!\n");
-    cachedEntities = tdwFile->GetEntities();
+    std::vector<TDWEntity>& cachedEntities = tdwFile->GetEntities();
 
     // load debug info and load needed entities
     std::string entName;
-    for(int e = 0; e < cachedEntities.size(); ++e)
+    for(unsigned int e = 0; e < cachedEntities.size(); ++e)
     {
         TDWEntity& ent = cachedEntities[e];
         DebugVertex dVert(ent.position);
@@ -284,7 +284,7 @@ void CStaticScene::Dispose()
     }
 
     // dispose of all textures
-    for(int i = 0; i < materials.size(); ++i)
+    for(unsigned int i = 0; i < materials.size(); ++i)
     {
         materials[i].Dispose();
     }

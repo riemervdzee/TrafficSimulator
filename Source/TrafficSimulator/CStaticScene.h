@@ -104,7 +104,6 @@ class CStaticScene
         void Dispose();
         void Draw(Camera* cam);
 
-        std::vector<TDWEntity>& GetEntities() { return cachedEntities; }
     private:
         void ProcessTrafficLight(TDWEntity& ent, TDWFile* file, std::vector<SceneTrafficLight>& trafficlights);
         void ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<SceneWayPoint>& waypoints);
@@ -112,7 +111,6 @@ class CStaticScene
     private:
         ShaderProgram                   shader;
         std::vector<Texture2D>          materials;
-        std::vector<TDWEntity>          cachedEntities;
 
         // DEBUG
         ShaderProgram                   debugShader;

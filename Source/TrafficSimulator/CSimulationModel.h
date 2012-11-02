@@ -26,7 +26,7 @@ public:
     void UpdateSim();
     bool LoadInputFromFile(const char* fileName);
 
-    void LoadEntities(std::vector<TDWEntity>& ents);
+    void LoadEntities();
 
 private:
     void NotifyNetwork(){};
