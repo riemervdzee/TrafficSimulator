@@ -255,7 +255,7 @@ void CStaticScene::ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<Sc
             stream >> way.wayType;
             stream.clear();
 
-            printf("   type: %d - ", way.wayType);
+            printf("type: %d - ", way.wayType);
         }
         else if (key.compare("lanegroup") == 0)
         {
@@ -263,7 +263,7 @@ void CStaticScene::ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<Sc
             stream >> way.laneGroup;
             stream.clear();
 
-            printf("   laneGroup: %d\n", way.laneGroup);
+            printf("laneGroup: %d\n", way.laneGroup);
         }
     }
 
