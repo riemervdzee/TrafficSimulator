@@ -8,6 +8,9 @@
 #include "TrafficDefs.h"
 #include "TDW/TDWdefs.h"
 
+#include <json/json-forwards.h>
+#include <json/json.h>
+
 class CNetworkView;
 class CSimulationView;
 class CSimulationQueueParticipant;
@@ -24,7 +27,7 @@ public:
 
     // simulation updating
     void UpdateSim();
-    bool LoadInputFromFile(const char* fileName);
+    void LoadInputFromFile(const char* fileName);
 
     void LoadEntities();
 
@@ -37,11 +40,8 @@ private:
     CSimulationView *mSimulationView;
     CTimer mTimer;
 
-    // model
     CTrafficLaneGroup   laneGroups[4];
-
-    // Queue for participants who are about to join TODO visibility?
-    std::priority_queue< CSimulationQueueParticipant> queue;
+    std::priority_queue<CSimulationQueueParticipant> queue;
 
     // Vector for the actual participants TODO visibility?
     //std::vector<
@@ -61,7 +61,6 @@ public:
     bool operator < ( const CSimulationQueueParticipant &a ) const {
         return time < a.time;
     }
-
 };
 
 #endif // CSIMULATIONMODEL_H

@@ -7,12 +7,14 @@
 class CTrafficLaneGroup
 {
 public:
-    CTrafficLane& operator[](int index)
+    CTrafficLane* operator[](int index)
     {
         if( index >= 0 || index <8)
         {
-            return lanes[index];
+            return &lanes[index];
         }
+
+        return 0;
     }
 
     void SetDirectionType(int dir){ dirType = dir; }

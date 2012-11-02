@@ -3,8 +3,6 @@
 
 #include <GL/glew.h>
 #include <GL/glfw.h>
-#include <json/json-forwards.h>
-#include <json/json.h>
 
 class CSimulationController;
 class CSimulationModel;

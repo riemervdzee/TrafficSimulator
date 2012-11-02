@@ -18,8 +18,6 @@ public:
     void SetNetworkView(CNetworkView *view);
     void SetSimulationView(CSimulationView *view);
 
-    void LoadInputFile(const char* fileName);
-
     // mutators
     void SetRunning(bool state) { mAppIsRunning = state;}
     bool GetIsRunning(){ return mAppIsRunning; }

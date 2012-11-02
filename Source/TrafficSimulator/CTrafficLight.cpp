@@ -1,8 +1,8 @@
 #include "CTrafficLight.h"
 
-CTrafficLight::CTrafficLight()
+CTrafficLight::CTrafficLight(wmath::Vec3 pos)
 {
-    //ctor
+    position = pos;
 }
 
 CTrafficLight::~CTrafficLight()

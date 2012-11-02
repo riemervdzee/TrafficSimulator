@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1351856927 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\main.cpp
+1351860995 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\main.cpp
 	"CApplication.h"
 
 1351856927 c:\users\wilds\desktop\trafficsim\source\libs\glfw-2.7.6\include\gl\glfw.h
@@ -109,13 +109,11 @@
 	<sstream>
 	<iomanip>
 
-1351856927 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.h
+1351863875 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.h
 	<GL/glew.h>
 	<GL/glfw.h>
-	<json/json-forwards.h>
-	<json/json.h>
 
-1351856927 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
+1351863741 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\capplication.cpp
 	"CApplication.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -130,7 +128,7 @@
 1351856927 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\timer.cpp
 	"Timer.h"
 
-1351856927 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
+1351863660 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
 	"CSimulationController.h"
 	"CSimulationModel.h"
 	"CSimulationView.h"
@@ -138,20 +136,22 @@
 	<iostream>
 	<fstream>
 
-1351856927 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
+1351863655 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
 
-1351858045 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
+1351859551 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
 	"CSimulationModel.h"
 	"CSimulationView.h"
 	"CNetworkView.h"
 	"TDW/TDWDefs.h"
 
-1351858055 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
+1351864017 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
 	<queue>
 	"Timer.h"
 	"CTrafficLaneGroup.h"
 	"TrafficDefs.h"
 	"TDW/TDWdefs.h"
+	<json/json-forwards.h>
+	<json/json.h>
 
 1350194481 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\itrafficsubject.h
 
@@ -703,7 +703,7 @@
 	<cmath>
 	<exception>
 
-1351857835 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
+1351862925 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
 	"CStaticScene.h"
 	"../../Source/TrafficSimulator/Camera.h"
 	"../../Source/TrafficSimulator/Math/WildMath.h"
@@ -776,28 +776,29 @@
 	"TrafficDefs.h"
 	"CTrafficLane.h"
 
-1351856927 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.h
+1351859079 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.h
 	"TrafficDefs.h"
 	"CTrafficLane.h"
 
-1351856927 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
+1351859247 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
 	"TrafficDefs.h"
+	"CTrafficLight.h"
 	"Math/WildMath.h"
 
 1351856927 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cparticipant.cpp
 	"CParticipant.h"
 
-1351856927 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cparticipant.h
+1351862749 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cparticipant.h
 	"TrafficDefs.h"
 	"CTrafficLane.h"
 
-1351856927 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.cpp
+1351859273 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.cpp
 	"CTrafficLane.h"
 
-1351856927 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlight.cpp
+1351859378 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlight.cpp
 	"CTrafficLight.h"
 
-1351856927 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlight.h
+1351859450 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlight.h
 	"trafficDefs.h"
 	"Math/WildMath.h"
 

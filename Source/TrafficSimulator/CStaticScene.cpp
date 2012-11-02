@@ -232,9 +232,6 @@ void CStaticScene::ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<Sc
     way.pos.y = way.pos.y / 10.0f;
     way.pos.z = way.pos.z / 10.0f;
 
-    printf("Waypoint: \n");
-    printf("   x: %f y: %f z: %f\n", way.pos.x, way.pos.y, way.pos.z);
-
     // iterate entity again but this time for specific key value pairs
     for(KeyValueMap_t::iterator keyIt = ent.KeyValueMap.begin(); keyIt != ent.KeyValueMap.end(); ++keyIt)
     {
@@ -246,24 +243,18 @@ void CStaticScene::ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<Sc
             stream << file->GetNameByIndex( keyIt->second - 1);
             stream >> way.lane;
             stream.clear();
-
-            printf("   lane: %d - ", way.lane);
         }
         else if (key.compare("lanetype") == 0)
         {
             stream << file->GetNameByIndex( keyIt->second - 1);
             stream >> way.wayType;
             stream.clear();
-
-            printf("type: %d - ", way.wayType);
         }
         else if (key.compare("lanegroup") == 0)
         {
             stream << file->GetNameByIndex( keyIt->second - 1);
             stream >> way.laneGroup;
             stream.clear();
-
-            printf("laneGroup: %d\n", way.laneGroup);
         }
     }
 
@@ -334,7 +325,7 @@ void CStaticScene::Draw(Camera* cam)
     }
 
     shader.Unbind();
-
+/*
     // draw debug info for entities
     debugShader.Bind();
 
@@ -348,5 +339,5 @@ void CStaticScene::Draw(Camera* cam)
     glPointSize(16);
     glDrawArrays(GL_POINTS, 0, debugVertices.size());
 
-    debugShader.Unbind();
+    debugShader.Unbind();*/
 }

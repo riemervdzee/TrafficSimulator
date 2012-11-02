@@ -15,7 +15,7 @@ bool CApplication::Create(unsigned width, unsigned height)
 	}
 
     // create a window
-	if( glfwOpenWindow(width, height, 8, 8, 8, 8, 24, 8, GLFW_WINDOW) == GL_FALSE)
+	if( glfwOpenWindow(width, height, 8, 8, 8, 8, 24, 8, GLFW_FULLSCREEN) == GL_FALSE)
 	{
         // terminate glfw
         glfwTerminate();
@@ -41,6 +41,7 @@ bool CApplication::Create(unsigned width, unsigned height)
 
 	// create model and controller
 	mModel = new CSimulationModel();
+	mModel->LoadInputFromFile("Data\\inputFile.json");
 	mController = new CSimulationController(mModel);
 	mController->SetRunning(true);
 
