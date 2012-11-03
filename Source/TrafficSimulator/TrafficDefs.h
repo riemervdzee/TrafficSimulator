@@ -1,7 +1,7 @@
 #ifndef TRAFFICDEFS_H
 #define TRAFFICDEFS_H
 
-namespace TDWDEFS
+namespace TRADEFS
 {
 
 enum DIRECTION

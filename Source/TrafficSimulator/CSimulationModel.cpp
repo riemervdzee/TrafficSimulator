@@ -2,9 +2,11 @@
 #include "CSimulationView.h"
 #include "CNetworkView.h"
 #include "TDW/TDWDefs.h"
+#include "TrafficDefs.h"
 
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 CSimulationModel::CSimulationModel()
 {
@@ -140,16 +142,112 @@ void CSimulationModel::LoadInputFromFile(const char* fileName)
         return;
     }
 
+    LoadParticipants(root);
+}
+
+void CSimulationModel::LoadParticipants(Json::Value& root)
+{
     // load in all participants
     for(unsigned int i = 0; i < root.size(); ++i)
     {
         const Json::Value &element = root[i];
         CSimulationQueueParticipant participant;
+
+        // create participant
         participant.time = element["time"].asInt();
-        std::cout << element["time"].asInt() << std::endl;
-        std::cout << element["type"].asString() << std::endl;
-        std::cout << element["from"].asString() << std::endl;
-        std::cout << element["to"].asString() << std::endl;
+
+        // check which type
+        std::string type = element["type"].asString();
+        if(type.compare("car") == 0)
+        {
+            participant.type = TRADEFS::CAR;
+        }
+        else if(type.compare("bike") == 0)
+        {
+            participant.type = TRADEFS::BIKE;
+        }
+        else if(type.compare("pedestrian") == 0)
+        {
+            participant.type = TRADEFS::PEDESTRIAN;
+        }
+        else if(type.compare("bus") == 0)
+        {
+            participant.type = TRADEFS::BUS;
+        }
+
+        // get lanegroup and lane
+        ParseFromLocation(element["from"].asString(), participant);
+        ParseToLocation(element["to"].asString(), participant);
+
+        // push into the queue
+        queue.push(participant);
     }
 }
 
+void CSimulationModel::ParseToLocation(const std::string& str, CSimulationQueueParticipant& dest)
+{
+    int size = str.size();
+
+    if( size > 2 || size < 1)
+        return;
+
+    if( size == 2)
+    {
+        // check direction
+        dest.toDirection = GetDirection(str[0]);
+
+        // check lane
+        dest.toLane = GetLane(str[1]);
+
+    }
+    else
+    {
+       // check direction
+       dest.toDirection = GetDirection(str[0]);
+    }
+
+}
+
+void CSimulationModel::ParseFromLocation(const std::string& str, CSimulationQueueParticipant& dest)
+{
+    int size = str.size();
+
+    if( size > 2 || size < 1)
+        return;
+
+    if( size == 2)
+    {
+        // check direction
+        dest.fromDirection = GetDirection(str[0]);
+
+        // check lane
+        dest.fromLane = GetLane(str[1]);
+    }
+    else
+    {
+       // check direction
+       dest.fromDirection = GetDirection(str[0]);
+    }
+
+}
+
+TRADEFS::DIRECTION CSimulationModel::GetDirection(const char val)
+{
+    switch(val)
+    {
+        case 'N':
+            return TRADEFS::NORTH;
+        case 'S':
+            return TRADEFS::SOUTH;
+        case 'E':
+            return TRADEFS::EAST;
+        case 'W':
+            return TRADEFS::WEST;
+        default: return TRADEFS::NORTH;
+    }
+}
+
+int CSimulationModel::GetLane(char val)
+{
+    return atoi(&val);
+}

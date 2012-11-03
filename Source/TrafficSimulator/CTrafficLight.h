@@ -13,7 +13,7 @@ class CTrafficLight
 
     private:
         wmath::Vec3 position;
-        TDWDEFS::TRAFFICLIGHTSTATE lightState;
+        TRADEFS::TRAFFICLIGHTSTATE lightState;
 };
 
 #endif // CTRAFFICLIGHT_H

@@ -11,8 +11,8 @@ public:
 
 
 private:
-    TDWDEFS::PARTICIPANTS type;
-    TDWDEFS::PARTICIPANTSTATE participantState;
+    TRADEFS::PARTICIPANTS type;
+    TRADEFS::PARTICIPANTSTATE participantState;
     CTrafficLane *laneFrom;
     CTrafficLane *laneTo;
 };

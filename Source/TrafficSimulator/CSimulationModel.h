@@ -35,6 +35,12 @@ private:
     void NotifyNetwork(){};
     void NotifySimulation(){};
 
+    void LoadParticipants(Json::Value& root);
+    void ParseToLocation(const std::string& str, CSimulationQueueParticipant& dest);
+    void ParseFromLocation(const std::string& str, CSimulationQueueParticipant& dest);
+    TRADEFS::DIRECTION GetDirection(const char val);
+    int GetLane(char val);
+
 private:
     CNetworkView    *mNetworkView;
     CSimulationView *mSimulationView;
@@ -52,9 +58,9 @@ class CSimulationQueueParticipant
 {
 public:
     int time;
-    TDWDEFS::PARTICIPANTS type;
-    TDWDEFS::DIRECTION fromDirection;
-    TDWDEFS::DIRECTION toDirection;
+    TRADEFS::PARTICIPANTS type;
+    TRADEFS::DIRECTION fromDirection;
+    TRADEFS::DIRECTION toDirection;
     int fromLane;
     int toLane;
 
