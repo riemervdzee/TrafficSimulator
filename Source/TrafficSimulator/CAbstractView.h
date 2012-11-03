@@ -18,8 +18,6 @@ public:
     void SetController(CSimulationController* contr) { mController = contr; }
     void SetModel(CSimulationModel* model) { mModel = model; }
 
-    virtual void UpdatePull() = 0;
-
 protected:
     CSimulationController   *mController; // VIEWS ARE NOT OWNERS OF THESE POINTERS!
     CSimulationModel        *mModel; // VIEWS ARE NOT OWNERS OF THESE POINTERS!

@@ -10,7 +10,7 @@ void CTrafficLane::SetWayEnd(const wmath::Vec3& end)
     wayEnd = end;
 }
 
-void CTrafficLane::SetTrafficlight(CTrafficLight light)
+void CTrafficLane::SetTrafficlight(int light)
 {
-    this->light = light;
+    lightID = light;
 }

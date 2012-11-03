@@ -8,14 +8,21 @@
 class CTrafficLane
 {
 public:
+    CTrafficLane() : lightID(-1), partCount(0) {}
     void SetWayStart(const wmath::Vec3& start);
     void SetWayEnd(const wmath::Vec3& start);
-    void SetTrafficlight(CTrafficLight light);
+    wmath::Vec3 GetWayStart() {return wayStart;}
+    wmath::Vec3 GetWayEnd() {return wayEnd;}
+    void SetTrafficlight(int light);
+
+    void IncCount() { partCount++; }
+    void DecCount() { partCount++; }
 
 private:
     wmath::Vec3 wayStart;
     wmath::Vec3 wayEnd;
-    CTrafficLight light;
+    int lightID;
+    int partCount;
 };
 
 #endif // CTRAFFICLANE_H

@@ -13,7 +13,6 @@ public:
 
     void Init();
 
-    void UpdatePull();
     void Update(float dt);
     void Draw();
     void Dispose();

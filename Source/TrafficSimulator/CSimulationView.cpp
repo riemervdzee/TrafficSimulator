@@ -48,12 +48,6 @@ void CSimulationView::Init()
 
     // load the scene
     mScene.Load("Data\\crossroad.3dw", trafficLights, waypoints);
-    //mScene.Load("Data\\test.3dw");
-}
-
-void CSimulationView::UpdatePull()
-{
-    // get needed data from the model
 }
 
 void CSimulationView::Update(float dt)
@@ -66,6 +60,15 @@ void CSimulationView::Update(float dt)
     }
 
     int speed = mMoveSpeed;
+
+    // debug
+    static bool last = false; // lazy HACK! :P
+    if( glfwGetKey( 'L') == GLFW_PRESS) last = true;
+    if( glfwGetKey( 'L') == GLFW_RELEASE && last == true)
+	{
+		mScene.ToggleDebug();
+		last = false;
+	}
 
     // PRESS SHIFT FOR SPEED UP
 	if( glfwGetKey( GLFW_KEY_LSHIFT ) == GLFW_PRESS)

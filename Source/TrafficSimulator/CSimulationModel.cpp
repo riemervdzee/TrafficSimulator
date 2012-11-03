@@ -1,8 +1,6 @@
 #include "CSimulationModel.h"
 #include "CSimulationView.h"
 #include "CNetworkView.h"
-#include "TDW/TDWDefs.h"
-#include "TrafficDefs.h"
 
 #include <iostream>
 #include <fstream>
@@ -12,7 +10,7 @@ CSimulationModel::CSimulationModel()
 {
     mNetworkView = 0;
     mSimulationView = 0;
-    mTimer.Create();
+    simTime = 0;
 
     // init lanes
     laneGroups[0].SetDirectionType(0); // NORTH
@@ -53,7 +51,78 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
 
         // load entities
         LoadEntities();
+
+        // create timer
+        mTimer.Create();
     }
+}
+
+void CSimulationModel::UpdateSim()
+{
+    mTimer.Tick();
+    float dt = mTimer.GetDeltaTime();
+    simTime += dt;
+
+    // Get participants from the queue if appropiate
+    while(simTime > (queue.top().time) && queue.size() > 0 )
+    {
+        printf("Got participant from queue! at %.2f\n", simTime);
+        SimulationQueueParticipant_t qPar = queue.top();
+        laneGroups[qPar.fromDirection][qPar.fromLane]->IncCount();
+        wmath::Vec3 startPos = laneGroups[qPar.fromDirection][qPar.fromLane]->GetWayStart();
+
+        // create participant
+        CParticipant par = CParticipant(qPar.type, qPar.fromDirection, qPar.toDirection, startPos);
+
+        // set correct participant state depending on its type!
+        if(par.GetType() != TRADEFS::PEDESTRIAN)
+            par.SetState(TRADEFS::WAITATSTOPLIGHT);
+        else
+            par.SetState(TRADEFS::GOTOSTOPLIGHT);
+
+        // add participant to pocessing list!
+        participants.push_back(par);
+
+        // TODO: send network update to the controller
+        // participant crossed the first "loop"
+
+        queue.pop();
+    }
+
+    // updateNetwork
+    mNetworkView->UpdateNetwork();
+
+    // update all participants
+    UpdateParticipants(dt);
+
+    // cleanup this frame
+    std::vector<CParticipant>::iterator parIt = participants.begin();
+    while(parIt != participants.end())
+    {
+        if(parIt->Remove())
+        {
+            parIt = participants.erase(parIt);
+        }
+        else ++parIt;
+    }
+
+    // process simulationview
+    mSimulationView->Update( dt );
+    mSimulationView->Draw();
+}
+
+void CSimulationModel::UpdateParticipants(float dt)
+{
+    // IF STATE_WAITING_AT_LIGHT
+        // CHECK TRAFFICLIGHT IF GREEN state = STATE_MOVE_TO_EXIT
+    // IF STATE_MOVING_TO_LIGHT
+        // UPDATE participant
+            // IF AT light, state = STATE_WAITING_AT_LIGHT
+            // IF WAITING BEHIND OTHER PARTICIPANT, state = STATE_WAITING_AT_LIGHT
+    // IF STATE_MOVING_TO_EXIT
+        // UPDATE participant
+    // IF STATE_AT_EXIT
+        // MARK participant FOR REMOVAL
 }
 
 void CSimulationModel::LoadEntities()
@@ -93,20 +162,9 @@ void CSimulationModel::LoadEntities()
         pos = traL[i].pos;
 
         // add light to the correct lane
-        laneGroups[laneG][lane]->SetTrafficlight( CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ) );
+        trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ));
+        laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 );
     }
-}
-
-void CSimulationModel::UpdateSim()
-{
-    mTimer.Tick();
-
-    // update views and simulation
-    mSimulationView->Update( mTimer.GetDeltaTime() );
-    mNetworkView->UpdateNetwork();
-
-    // draw
-    mSimulationView->Draw();
 }
 
 void CSimulationModel::LoadInputFromFile(const char* fileName)
@@ -142,7 +200,12 @@ void CSimulationModel::LoadInputFromFile(const char* fileName)
         return;
     }
 
+    std::cout << "===============================\n";
+    std::cout << "Loaded inputfile!\n";
     LoadParticipants(root);
+
+    std::cout << "Added " << queue.size() << " participants to the Queue\n" << std::endl;
+    std::cout << "===============================\n";
 }
 
 void CSimulationModel::LoadParticipants(Json::Value& root)
@@ -151,7 +214,7 @@ void CSimulationModel::LoadParticipants(Json::Value& root)
     for(unsigned int i = 0; i < root.size(); ++i)
     {
         const Json::Value &element = root[i];
-        CSimulationQueueParticipant participant;
+        SimulationQueueParticipant_t participant;
 
         // create participant
         participant.time = element["time"].asInt();
@@ -184,7 +247,7 @@ void CSimulationModel::LoadParticipants(Json::Value& root)
     }
 }
 
-void CSimulationModel::ParseToLocation(const std::string& str, CSimulationQueueParticipant& dest)
+void CSimulationModel::ParseToLocation(const std::string& str, SimulationQueueParticipant_t& dest)
 {
     int size = str.size();
 
@@ -208,7 +271,7 @@ void CSimulationModel::ParseToLocation(const std::string& str, CSimulationQueueP
 
 }
 
-void CSimulationModel::ParseFromLocation(const std::string& str, CSimulationQueueParticipant& dest)
+void CSimulationModel::ParseFromLocation(const std::string& str, SimulationQueueParticipant_t& dest)
 {
     int size = str.size();
 

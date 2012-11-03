@@ -2,19 +2,24 @@
 #define CPARTICIPANT_H
 
 #include "TrafficDefs.h"
-#include "CTrafficLane.h"
+#include "Math/WildMath.h"
 
 class CParticipant
 {
-public:
+    public:
+        CParticipant(TRADEFS::PARTICIPANTS type, int from, int to, wmath::Vec3 pos );
+        void SetState(TRADEFS::PARTICIPANTSTATE t) { state = t;}
+        TRADEFS::PARTICIPANTSTATE GetState(){ return state; }
+        TRADEFS::PARTICIPANTS GetType() { return type; }
+        bool Remove(){ return remove;}
+    private:
+        TRADEFS::PARTICIPANTS type;
+        TRADEFS::PARTICIPANTSTATE state;
 
-
-
-private:
-    TRADEFS::PARTICIPANTS type;
-    TRADEFS::PARTICIPANTSTATE participantState;
-    CTrafficLane *laneFrom;
-    CTrafficLane *laneTo;
+        wmath::Vec3 position;
+        int laneGroupFrom;
+        int laneGroupTo;
+        bool remove;
 };
 
 #endif // CPARTICIPANT_H

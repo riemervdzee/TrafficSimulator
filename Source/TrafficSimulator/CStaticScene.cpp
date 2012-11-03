@@ -183,6 +183,8 @@ bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& li
     // load shaders
     debugShader.CreateProgram(dvertex, dfragment);
 
+    debugEnt = false;
+
     // free memory
     delete tdwFile;
     tdwFile = 0;
@@ -209,7 +211,7 @@ void CStaticScene::ProcessTrafficLight(TDWEntity& ent, TDWFile* file, std::vecto
             stream >> traLight.lane;
             stream.clear();
         }
-        else if (key.compare("laneGroup") == 0)
+        else if (key.compare("lanegroup") == 0)
         {
             stream << file->GetNameByIndex( keyIt->second - 1);
             stream >> traLight.laneGroup;
@@ -325,19 +327,22 @@ void CStaticScene::Draw(Camera* cam)
     }
 
     shader.Unbind();
-/*
+
     // draw debug info for entities
-    debugShader.Bind();
+    if(debugEnt)
+    {
+        debugShader.Bind();
 
-    projViewMatrix = glGetUniformLocation(debugShader.GetID(), "mvpMatrix");
-    glUniformMatrix4fv(projViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
+        projViewMatrix = glGetUniformLocation(debugShader.GetID(), "mvpMatrix");
+        glUniformMatrix4fv(projViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
 
-    debugVertexBuffer.Bind();
-    glEnableVertexAttribArray(0);
-    debugVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(DebugVertex), 0 );
+        debugVertexBuffer.Bind();
+        glEnableVertexAttribArray(0);
+        debugVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(DebugVertex), 0 );
 
-    glPointSize(16);
-    glDrawArrays(GL_POINTS, 0, debugVertices.size());
+        glPointSize(16);
+        glDrawArrays(GL_POINTS, 0, debugVertices.size());
 
-    debugShader.Unbind();*/
+        debugShader.Unbind();
+    }
 }

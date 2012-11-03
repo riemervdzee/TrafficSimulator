@@ -17,7 +17,7 @@ public:
 	CTimer(): mDeltaTime(0.0), mPrevTime(0.0) {}
 
 	// management
-	void Create();
+	double Create();
 
 	// update the timer every frame
 	void Tick();

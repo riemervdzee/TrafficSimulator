@@ -104,6 +104,8 @@ class CStaticScene
         void Dispose();
         void Draw(Camera* cam);
 
+        void ToggleDebug(){ debugEnt = !debugEnt;}
+
     private:
         void ProcessTrafficLight(TDWEntity& ent, TDWFile* file, std::vector<SceneTrafficLight>& trafficlights);
         void ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<SceneWayPoint>& waypoints);
@@ -116,6 +118,7 @@ class CStaticScene
         ShaderProgram                   debugShader;
         std::vector<DebugVertex>        debugVertices;
         VertexBuffer                    debugVertexBuffer;
+        bool                            debugEnt;
         // DEBUG END
 
         typedef std::map<s32, s32> KeyValueMap_t;

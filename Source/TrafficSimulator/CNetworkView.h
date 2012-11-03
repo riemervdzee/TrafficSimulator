@@ -9,7 +9,8 @@ class CNetworkView : public CAbstractView
         CNetworkView();
         ~CNetworkView();
 
-         void UpdatePull(){}
+         // Send pending messages
+         // process incoming message for trafficlights
          void UpdateNetwork(){}
 };
 

@@ -7,9 +7,8 @@
 class CTrafficLight
 {
     public:
-        CTrafficLight(){}
+        CTrafficLight();
         CTrafficLight(wmath::Vec3 pos);
-        virtual ~CTrafficLight();
 
     private:
         wmath::Vec3 position;

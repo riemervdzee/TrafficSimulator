@@ -5,10 +5,10 @@
  */
 #include "Timer.h"
 
-void CTimer::Create()
+double CTimer::Create()
 {
     // gets the time in milliseconds
-    mPrevTime = glfwGetTime();
+    return mPrevTime = glfwGetTime();
 }
 
 void CTimer::Tick()
