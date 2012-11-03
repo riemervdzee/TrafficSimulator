@@ -62,6 +62,7 @@ void CSimulationModel::UpdateSim()
     mTimer.Tick();
     float dt = mTimer.GetDeltaTime();
     simTime += dt;
+    float timeCheck = simTime;
 
     // Get participants from the queue if appropiate
     while(simTime > (queue.top().time) && queue.size() > 0 )
@@ -72,7 +73,14 @@ void CSimulationModel::UpdateSim()
         int parFront = laneGroups[qPar.fromDirection][qPar.fromLane]->GetParCount();
         laneGroups[qPar.fromDirection][qPar.fromLane]->IncCount();
         wmath::Vec3 startPos = laneGroups[qPar.fromDirection][qPar.fromLane]->GetWayStart();
-        printf("Par x: %f, y: %f, z: %f\n", startPos.x, startPos.y, startPos.z);
+        wmath::Vec3 endPos = laneGroups[qPar.fromDirection][qPar.fromLane]->GetWayEnd();
+        wmath::Vec3 dir = startPos - endPos;
+        dir.Norm();
+
+        // if participants are coming at the same time align them behind each other
+        if(simTime == timeCheck)
+            startPos = startPos + dir * parFront * TRADEFS::CARSIZE;
+        //printf("Par x: %f, y: %f, z: %f\n", startPos.x, startPos.y, startPos.z);
 
         // create participant
         CParticipant par = CParticipant(qPar.type, qPar.fromDirection, qPar.toDirection, qPar.fromLane, startPos, parFront);
@@ -144,6 +152,7 @@ void CSimulationModel::GoToStoplight(CParticipant& par, float dt)
 {
     wmath::Vec3 start = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetWayStart();
     wmath::Vec3 end = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetWayEnd();
+    int paronlane = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetParCount();
     wmath::Vec3 laneDir = end - start;
     wmath::Vec3 parPos = par.GetPosition();
     wmath::Vec3 moveDir = (end - parPos);
@@ -161,7 +170,7 @@ void CSimulationModel::GoToStoplight(CParticipant& par, float dt)
     if(parLength > laneLength)
     {
         // set at the correct position
-        par.SetPosition(start + laneDir * laneLength);
+        //par.SetPosition(start + laneDir * laneLength);
 
         // change state
         par.SetState(TRADEFS::WAITATSTOPLIGHT);
@@ -210,7 +219,7 @@ void CSimulationModel::OnCrossroad(CParticipant& par, float dt)
     if(parLength > laneLength)
     {
         // set at the correct position
-        par.SetPosition(start + laneDir * laneLength);
+        //par.SetPosition(start + laneDir * laneLength);
 
         // change state
         par.SetState(TRADEFS::GOTOEXIT);
