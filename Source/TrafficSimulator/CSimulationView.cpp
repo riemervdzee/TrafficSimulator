@@ -48,6 +48,20 @@ void CSimulationView::Init()
 
     // load the scene
     mScene.Load("Data\\crossroad.3dw", trafficLights, waypoints);
+
+    // load shader for participant
+    std::string dvertex;
+    std::string dfragment;
+
+    // creating shaders
+    LoadTextFile("Data\\shaders\\tra_col.vert", dvertex);
+    LoadTextFile("Data\\shaders\\tra_col.frag", dfragment);
+
+    // load shaders
+    parShader.CreateProgram(dvertex, dfragment);
+
+    // create buffer for participants
+    parVertexBuffer.Create(sizeof(wmath::Vec3) * 128, GL_DYNAMIC_DRAW);
 }
 
 void CSimulationView::Update(float dt)
@@ -110,19 +124,61 @@ void CSimulationView::Update(float dt)
 	// ########## END CAMERA KEYBOARD MOVEMENT ###########
 }
 
+void CSimulationView::DrawLights()
+{
+    std::vector<CTrafficLight>& lights = mModel->GetTrafficLigths();
+}
+
+void CSimulationView::DrawParticipants()
+{
+    std::vector<CParticipant>& participants = mModel->GetParticipants();
+    if( participants.size() > 0)
+    {
+        std::vector<wmath::Vec3> parPositions;
+
+        parShader.Bind();
+        int projViewMatrix = glGetUniformLocation(parShader.GetID(), "mvpMatrix");
+
+        for(unsigned int i = 0; i < participants.size(); ++i)
+        {
+            parPositions.push_back(participants[i].GetPosition());
+        }
+
+        // put in to vertexbuffer
+        parVertexBuffer.SubData(&parPositions[0], sizeof(wmath::Vec3) * parPositions.size() );
+
+        // draw participants
+        wmath::Mat4 projView = mCamera.GetProjection() * mCamera.GetView();
+        glUniformMatrix4fv(projViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
+
+        parVertexBuffer.Bind();
+        glEnableVertexAttribArray(0);
+        parVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(wmath::Vec3), 0 );
+
+        glPointSize(16);
+        glDrawArrays(GL_POINTS, 0, parPositions.size());
+
+        parShader.Unbind();
+    }
+}
+
 void CSimulationView::Draw()
 {
+    // clear the buffers
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // draw scene
     mScene.Draw(&mCamera);
 
     // draw trafficlights
+    DrawLights();
 
     // draw participants
+    DrawParticipants();
 
     // draw skybox
     mSkybox.Draw();
 
+    // show screen
     glfwSwapBuffers();
 }

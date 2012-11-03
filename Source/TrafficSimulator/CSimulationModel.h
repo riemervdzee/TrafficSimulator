@@ -43,6 +43,10 @@ private:
 
     // Simulation updating
     void UpdateParticipants(float dt);
+    void GoToStoplight(CParticipant& par, float dt);
+    void WaitStoplight(CParticipant& par, float dt);
+    void OnCrossroad(CParticipant& par, float dt);
+    void GoToExit(CParticipant& par, float dt);
 
     // INPUT FILE PROCESSING
     void LoadParticipants(Json::Value& root);

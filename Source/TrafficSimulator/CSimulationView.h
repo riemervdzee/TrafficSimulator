@@ -21,6 +21,10 @@ public:
     std::vector<SceneWayPoint>&         GetWaypoints() { return waypoints; }
 
 private:
+    void DrawLights();
+    void DrawParticipants();
+
+private:
     Camera mCamera;
     Skybox mSkybox;
     CStaticScene mScene;
@@ -28,6 +32,10 @@ private:
 
     std::vector<SceneTrafficLight>  trafficLights;
     std::vector<SceneWayPoint>      waypoints;
+
+    // participant drawing
+    ShaderProgram   parShader;
+    VertexBuffer    parVertexBuffer;
 
     // mouse
     int mMoveSpeed;

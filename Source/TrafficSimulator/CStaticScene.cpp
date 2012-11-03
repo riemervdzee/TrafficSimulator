@@ -70,7 +70,6 @@ bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& li
                     }
                     else if(entName.compare("trafficlight") == 0)
                     {
-                        printf("Found a trafficLight!\n");
                         ProcessTrafficLight(ent, tdwFile, lights);
                     }
 
@@ -228,11 +227,6 @@ void CStaticScene::ProcessWayPoint(TDWEntity& ent, TDWFile* file, std::vector<Sc
     std::string key;
     std::stringstream stream;
     way.pos = ent.position;
-
-    // scale
-    way.pos.x = way.pos.x / 10.0f;
-    way.pos.y = way.pos.y / 10.0f;
-    way.pos.z = way.pos.z / 10.0f;
 
     // iterate entity again but this time for specific key value pairs
     for(KeyValueMap_t::iterator keyIt = ent.KeyValueMap.begin(); keyIt != ent.KeyValueMap.end(); ++keyIt)

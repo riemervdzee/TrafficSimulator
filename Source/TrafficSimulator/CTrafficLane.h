@@ -14,9 +14,11 @@ public:
     wmath::Vec3 GetWayStart() {return wayStart;}
     wmath::Vec3 GetWayEnd() {return wayEnd;}
     void SetTrafficlight(int light);
+    int GetLightID(){ return lightID;}
 
     void IncCount() { partCount++; }
     void DecCount() { partCount++; }
+    int GetParCount() { return partCount; }
 
 private:
     wmath::Vec3 wayStart;

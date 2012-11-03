@@ -13,10 +13,10 @@ CSimulationModel::CSimulationModel()
     simTime = 0;
 
     // init lanes
-    laneGroups[0].SetDirectionType(0); // NORTH
-    laneGroups[1].SetDirectionType(1); // SOUTH
-    laneGroups[2].SetDirectionType(2); // EAST
-    laneGroups[3].SetDirectionType(3); // WEST
+    laneGroups[TRADEFS::NORTH].SetDirectionType(TRADEFS::NORTH);
+    laneGroups[TRADEFS::SOUTH].SetDirectionType(TRADEFS::SOUTH);
+    laneGroups[TRADEFS::EAST].SetDirectionType(TRADEFS::EAST);
+    laneGroups[TRADEFS::WEST].SetDirectionType(TRADEFS::WEST);
 }
 
 CSimulationModel::~CSimulationModel()
@@ -66,19 +66,22 @@ void CSimulationModel::UpdateSim()
     // Get participants from the queue if appropiate
     while(simTime > (queue.top().time) && queue.size() > 0 )
     {
-        printf("Got participant from queue! at %.2f\n", simTime);
         SimulationQueueParticipant_t qPar = queue.top();
+        printf("Got participant from queue! at %.2f\n", simTime);
+
+        int parFront = laneGroups[qPar.fromDirection][qPar.fromLane]->GetParCount();
         laneGroups[qPar.fromDirection][qPar.fromLane]->IncCount();
         wmath::Vec3 startPos = laneGroups[qPar.fromDirection][qPar.fromLane]->GetWayStart();
+        printf("Par x: %f, y: %f, z: %f\n", startPos.x, startPos.y, startPos.z);
 
         // create participant
-        CParticipant par = CParticipant(qPar.type, qPar.fromDirection, qPar.toDirection, startPos);
+        CParticipant par = CParticipant(qPar.type, qPar.fromDirection, qPar.toDirection, qPar.fromLane, startPos, parFront);
 
         // set correct participant state depending on its type!
         if(par.GetType() != TRADEFS::PEDESTRIAN)
-            par.SetState(TRADEFS::WAITATSTOPLIGHT);
-        else
             par.SetState(TRADEFS::GOTOSTOPLIGHT);
+        else
+            par.SetState(TRADEFS::WAITATSTOPLIGHT);
 
         // add participant to pocessing list!
         participants.push_back(par);
@@ -101,6 +104,7 @@ void CSimulationModel::UpdateSim()
     {
         if(parIt->Remove())
         {
+            printf("Removed participant!\n");
             parIt = participants.erase(parIt);
         }
         else ++parIt;
@@ -113,16 +117,137 @@ void CSimulationModel::UpdateSim()
 
 void CSimulationModel::UpdateParticipants(float dt)
 {
-    // IF STATE_WAITING_AT_LIGHT
-        // CHECK TRAFFICLIGHT IF GREEN state = STATE_MOVE_TO_EXIT
-    // IF STATE_MOVING_TO_LIGHT
-        // UPDATE participant
-            // IF AT light, state = STATE_WAITING_AT_LIGHT
-            // IF WAITING BEHIND OTHER PARTICIPANT, state = STATE_WAITING_AT_LIGHT
-    // IF STATE_MOVING_TO_EXIT
-        // UPDATE participant
-    // IF STATE_AT_EXIT
-        // MARK participant FOR REMOVAL
+    for(unsigned int i = 0; i < participants.size(); i++)
+    {
+        CParticipant& par = participants[i];
+
+        // do stuff based on the par state
+        switch(par.GetState())
+        {
+            case TRADEFS::GOTOSTOPLIGHT:
+                GoToStoplight(par, dt);
+            break;
+            case TRADEFS::WAITATSTOPLIGHT:
+                WaitStoplight(par, dt);
+            break;
+            case TRADEFS::ONCROSSROAD:
+                OnCrossroad(par, dt);
+            break;
+            case TRADEFS::GOTOEXIT:
+                GoToExit(par, dt);
+            break;
+        }
+    }
+}
+
+void CSimulationModel::GoToStoplight(CParticipant& par, float dt)
+{
+    wmath::Vec3 start = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetWayStart();
+    wmath::Vec3 end = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetWayEnd();
+    wmath::Vec3 laneDir = end - start;
+    wmath::Vec3 parPos = par.GetPosition();
+    wmath::Vec3 moveDir = (end - parPos);
+
+    // get length between 2 lane waypoints, from start to end
+    float laneLength = laneDir.Length();
+    laneLength -= par.GetParInFront() * TRADEFS::CARSIZE;
+
+    // get length between par pos and end waypoint
+    float parLength = (parPos - start).Length();
+
+    // check if we have reached our destination
+    moveDir.Norm();
+    laneDir.Norm();
+    if(parLength > laneLength)
+    {
+        // set at the correct position
+        par.SetPosition(start + laneDir * laneLength);
+
+        // change state
+        par.SetState(TRADEFS::WAITATSTOPLIGHT);
+    }
+    else
+    {
+        // set it's new position
+        par.SetPosition(parPos + moveDir * TRADEFS::CARSPEED * dt);
+    }
+}
+
+void CSimulationModel::WaitStoplight(CParticipant& par, float dt)
+{
+    CTrafficLane* lane = laneGroups[par.GetFrom()][par.GetLaneFrom()];
+    int lightID = lane->GetLightID();
+    if(lightID != -1)
+    {
+        CTrafficLight light = trafficLights[lightID];
+        par.SetState(TRADEFS::ONCROSSROAD);
+        lane->DecCount();
+    }
+    else
+    {
+        par.SetState(TRADEFS::ONCROSSROAD);
+        lane->DecCount();
+    }
+}
+
+void CSimulationModel::OnCrossroad(CParticipant& par, float dt)
+{
+    wmath::Vec3 start = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetWayEnd();
+    wmath::Vec3 end = laneGroups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
+    wmath::Vec3 laneDir = end - start;
+    wmath::Vec3 parPos = par.GetPosition();
+    wmath::Vec3 moveDir = (end - parPos);
+
+    // get length between 2 lane waypoints, from start to end
+    float laneLength = laneDir.Length();
+
+    // get length between par pos and end waypoint
+    float parLength = (parPos - start).Length();
+
+    // check if we have reached our destination
+    laneDir.Norm();
+    moveDir.Norm();
+    if(parLength > laneLength)
+    {
+        // set at the correct position
+        par.SetPosition(start + laneDir * laneLength);
+
+        // change state
+        par.SetState(TRADEFS::GOTOEXIT);
+    }
+    else
+    {
+        // set it's new position
+        par.SetPosition(parPos + moveDir * TRADEFS::CARSPEED * dt);
+    }
+}
+
+void CSimulationModel::GoToExit(CParticipant& par, float dt)
+{
+    wmath::Vec3 start = laneGroups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
+    wmath::Vec3 end = laneGroups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayEnd();
+    wmath::Vec3 laneDir = end - start;
+    wmath::Vec3 parPos = par.GetPosition();
+    wmath::Vec3 moveDir = (end - parPos);
+
+    // get length between 2 lane waypoints, from start to end
+    float laneLength = laneDir.Length();
+
+    // get length between par pos and end waypoint
+    float parLength = (parPos - start).Length();
+
+    // check if we have reached our destination
+    laneDir.Norm();
+    moveDir.Norm();
+    if(parLength > laneLength)
+    {
+        par.FlagForRemoval();
+    }
+    else
+    {
+        // set it's new position
+        par.SetPosition(parPos + moveDir * TRADEFS::CARSPEED * dt);
+    }
 }
 
 void CSimulationModel::LoadEntities()

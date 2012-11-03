@@ -43,7 +43,6 @@ public:
 		if(mID != 0)
 		{
 			Unbind();
-			printf("Deleting texture2D: %d\n", mID);
 			glDeleteTextures(1, &mID);
 			mID = 0;
 		}
