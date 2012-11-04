@@ -11,12 +11,6 @@ CSimulationModel::CSimulationModel()
     mNetworkView = 0;
     mSimulationView = 0;
     simTime = 0;
-
-    // init lanes
-    laneGroups[TRADEFS::NORTH].SetDirectionType(TRADEFS::NORTH);
-    laneGroups[TRADEFS::SOUTH].SetDirectionType(TRADEFS::SOUTH);
-    laneGroups[TRADEFS::EAST].SetDirectionType(TRADEFS::EAST);
-    laneGroups[TRADEFS::WEST].SetDirectionType(TRADEFS::WEST);
 }
 
 CSimulationModel::~CSimulationModel()
@@ -62,37 +56,16 @@ void CSimulationModel::UpdateSim()
     mTimer.Tick();
     float dt = mTimer.GetDeltaTime();
     simTime += dt;
-    float timeCheck = simTime;
 
     // Get participants from the queue if appropiate
     while(simTime > (queue.top().time) && queue.size() > 0 )
     {
-        SimulationQueueParticipant_t qPar = queue.top();
-        printf("Got participant from queue! at %.2f\n", simTime);
+        // get participant from the top
+        TRADEFS::SimulationQueueParticipant_t qPar = queue.top();
 
-        int parFront = laneGroups[qPar.fromDirection][qPar.fromLane]->GetParCount();
-        laneGroups[qPar.fromDirection][qPar.fromLane]->IncCount();
-        wmath::Vec3 startPos = laneGroups[qPar.fromDirection][qPar.fromLane]->GetWayStart();
-        wmath::Vec3 endPos = laneGroups[qPar.fromDirection][qPar.fromLane]->GetWayEnd();
-        wmath::Vec3 dir = startPos - endPos;
-        dir.Norm();
-
-        // if participants are coming at the same time align them behind each other
-        if(simTime == timeCheck)
-            startPos = startPos + dir * parFront * TRADEFS::CARSIZE;
-        //printf("Par x: %f, y: %f, z: %f\n", startPos.x, startPos.y, startPos.z);
-
-        // create participant
-        CParticipant par = CParticipant(qPar.type, qPar.fromDirection, qPar.toDirection, qPar.fromLane, startPos, parFront);
-
-        // set correct participant state depending on its type!
-        if(par.GetType() != TRADEFS::PEDESTRIAN)
-            par.SetState(TRADEFS::GOTOSTOPLIGHT);
-        else
-            par.SetState(TRADEFS::WAITATSTOPLIGHT);
-
-        // add participant to pocessing list!
-        participants.push_back(par);
+        // Easier to use lane type
+        CTrafficLane* lane = laneGroups[qPar.fromDirection][qPar.fromLane];
+        lane->AddParticipant(participants, qPar);
 
         // TODO: send network update to the controller
         // participant crossed the first "loop"
@@ -112,7 +85,6 @@ void CSimulationModel::UpdateSim()
     {
         if(parIt->Remove())
         {
-            printf("Removed participant!\n");
             parIt = participants.erase(parIt);
         }
         else ++parIt;
@@ -125,137 +97,17 @@ void CSimulationModel::UpdateSim()
 
 void CSimulationModel::UpdateParticipants(float dt)
 {
-    for(unsigned int i = 0; i < participants.size(); i++)
+    // iterate over all groups
+    for(int i = 0; i < TRADEFS::MAXGROUPS; ++i)
     {
-        CParticipant& par = participants[i];
-
-        // do stuff based on the par state
-        switch(par.GetState())
+        for(int j = 0; j < TRADEFS::MAXLANES; ++j)
         {
-            case TRADEFS::GOTOSTOPLIGHT:
-                GoToStoplight(par, dt);
-            break;
-            case TRADEFS::WAITATSTOPLIGHT:
-                WaitStoplight(par, dt);
-            break;
-            case TRADEFS::ONCROSSROAD:
-                OnCrossroad(par, dt);
-            break;
-            case TRADEFS::GOTOEXIT:
-                GoToExit(par, dt);
-            break;
+            // update
+            CTrafficLane* lane = laneGroups[i][j];
+
+            if(lane != 0)
+                lane->UpdateParticipants(participants, trafficLights, &laneGroups[0], dt);
         }
-    }
-}
-
-void CSimulationModel::GoToStoplight(CParticipant& par, float dt)
-{
-    wmath::Vec3 start = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetWayStart();
-    wmath::Vec3 end = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetWayEnd();
-    int paronlane = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetParCount();
-    wmath::Vec3 laneDir = end - start;
-    wmath::Vec3 parPos = par.GetPosition();
-    wmath::Vec3 moveDir = (end - parPos);
-
-    // get length between 2 lane waypoints, from start to end
-    float laneLength = laneDir.Length();
-    laneLength -= par.GetParInFront() * TRADEFS::CARSIZE;
-
-    // get length between par pos and end waypoint
-    float parLength = (parPos - start).Length();
-
-    // check if we have reached our destination
-    moveDir.Norm();
-    laneDir.Norm();
-    if(parLength > laneLength)
-    {
-        // set at the correct position
-        //par.SetPosition(start + laneDir * laneLength);
-
-        // change state
-        par.SetState(TRADEFS::WAITATSTOPLIGHT);
-    }
-    else
-    {
-        // set it's new position
-        par.SetPosition(parPos + moveDir * TRADEFS::CARSPEED * dt);
-    }
-}
-
-void CSimulationModel::WaitStoplight(CParticipant& par, float dt)
-{
-    CTrafficLane* lane = laneGroups[par.GetFrom()][par.GetLaneFrom()];
-    int lightID = lane->GetLightID();
-    if(lightID != -1)
-    {
-        CTrafficLight light = trafficLights[lightID];
-        par.SetState(TRADEFS::ONCROSSROAD);
-        lane->DecCount();
-    }
-    else
-    {
-        par.SetState(TRADEFS::ONCROSSROAD);
-        lane->DecCount();
-    }
-}
-
-void CSimulationModel::OnCrossroad(CParticipant& par, float dt)
-{
-    wmath::Vec3 start = laneGroups[par.GetFrom()][par.GetLaneFrom()]->GetWayEnd();
-    wmath::Vec3 end = laneGroups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
-    wmath::Vec3 laneDir = end - start;
-    wmath::Vec3 parPos = par.GetPosition();
-    wmath::Vec3 moveDir = (end - parPos);
-
-    // get length between 2 lane waypoints, from start to end
-    float laneLength = laneDir.Length();
-
-    // get length between par pos and end waypoint
-    float parLength = (parPos - start).Length();
-
-    // check if we have reached our destination
-    laneDir.Norm();
-    moveDir.Norm();
-    if(parLength > laneLength)
-    {
-        // set at the correct position
-        //par.SetPosition(start + laneDir * laneLength);
-
-        // change state
-        par.SetState(TRADEFS::GOTOEXIT);
-    }
-    else
-    {
-        // set it's new position
-        par.SetPosition(parPos + moveDir * TRADEFS::CARSPEED * dt);
-    }
-}
-
-void CSimulationModel::GoToExit(CParticipant& par, float dt)
-{
-    wmath::Vec3 start = laneGroups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
-    wmath::Vec3 end = laneGroups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayEnd();
-    wmath::Vec3 laneDir = end - start;
-    wmath::Vec3 parPos = par.GetPosition();
-    wmath::Vec3 moveDir = (end - parPos);
-
-    // get length between 2 lane waypoints, from start to end
-    float laneLength = laneDir.Length();
-
-    // get length between par pos and end waypoint
-    float parLength = (parPos - start).Length();
-
-    // check if we have reached our destination
-    laneDir.Norm();
-    moveDir.Norm();
-    if(parLength > laneLength)
-    {
-        par.FlagForRemoval();
-    }
-    else
-    {
-        // set it's new position
-        par.SetPosition(parPos + moveDir * TRADEFS::CARSPEED * dt);
     }
 }
 
@@ -295,9 +147,18 @@ void CSimulationModel::LoadEntities()
         lane = traL[i].lane;
         pos = traL[i].pos;
 
-        // add light to the correct lane
-        trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ));
-        laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 );
+        if(lane == 8) // special light for pedestrians in the middle used by 2 lanes
+        {
+            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ));
+            ((CPedestrianTrafficLane*)laneGroups[laneG][TRADEFS::LANE_PEDESTRIAN_ONE])->SetMidTrafficlight( trafficLights.size() - 1 );
+            ((CPedestrianTrafficLane*)laneGroups[laneG][TRADEFS::LANE_PEDESTRIAN_TWO])->SetMidTrafficlight( trafficLights.size() - 1 );
+        }
+        else
+        {
+            // add light to the correct lane
+            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ));
+            laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 );
+        }
     }
 }
 
@@ -348,7 +209,7 @@ void CSimulationModel::LoadParticipants(Json::Value& root)
     for(unsigned int i = 0; i < root.size(); ++i)
     {
         const Json::Value &element = root[i];
-        SimulationQueueParticipant_t participant;
+        TRADEFS::SimulationQueueParticipant_t participant;
 
         // create participant
         participant.time = element["time"].asInt();
@@ -381,7 +242,7 @@ void CSimulationModel::LoadParticipants(Json::Value& root)
     }
 }
 
-void CSimulationModel::ParseToLocation(const std::string& str, SimulationQueueParticipant_t& dest)
+void CSimulationModel::ParseToLocation(const std::string& str, TRADEFS::SimulationQueueParticipant_t& dest)
 {
     int size = str.size();
 
@@ -405,7 +266,7 @@ void CSimulationModel::ParseToLocation(const std::string& str, SimulationQueuePa
 
 }
 
-void CSimulationModel::ParseFromLocation(const std::string& str, SimulationQueueParticipant_t& dest)
+void CSimulationModel::ParseFromLocation(const std::string& str, TRADEFS::SimulationQueueParticipant_t& dest)
 {
     int size = str.size();
 

@@ -7,13 +7,6 @@
 	}
 	,
 	{
-		"time": 2,
-		"type": "car",
-		"from": "N3",
-		"to": "S"
-	}
-	,
-	{
 		"time": 0,
 		"type": "car",
 		"from": "N3",
@@ -24,14 +17,14 @@
 		"time": 0,
 		"type": "car",
 		"from": "N2",
-		"to": "S"
+		"to": "W"
 	}
 	,
 	{
 		"time": 0,
 		"type": "car",
 		"from": "N4",
-		"to": "S"
+		"to": "E"
 	}
 	,
 	{

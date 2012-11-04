@@ -141,11 +141,14 @@ void CSimulationView::DrawParticipants()
 
         for(unsigned int i = 0; i < participants.size(); ++i)
         {
+            if(participants[i].Hidden())
+                break;
+
             parPositions.push_back(participants[i].GetPosition());
         }
 
         // put in to vertexbuffer
-        parVertexBuffer.SubData(&parPositions[0], sizeof(wmath::Vec3) * parPositions.size() );
+        parVertexBuffer.SubData(&parPositions[0], sizeof(wmath::Vec3) * parPositions.size()  );
 
         // draw participants
         wmath::Mat4 projView = mCamera.GetProjection() * mCamera.GetView();

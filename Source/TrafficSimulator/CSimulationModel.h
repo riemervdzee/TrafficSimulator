@@ -7,6 +7,7 @@
 
 #include "Timer.h"
 #include "CTrafficLaneGroup.h"
+#include "CTrafficLane.h"
 #include "CParticipant.h"
 #include "CTrafficLight.h"
 #include "TrafficDefs.h"
@@ -14,7 +15,6 @@
 
 class CNetworkView;
 class CSimulationView;
-class SimulationQueueParticipant_t;
 
 class CSimulationModel
 {
@@ -43,15 +43,11 @@ private:
 
     // Simulation updating
     void UpdateParticipants(float dt);
-    void GoToStoplight(CParticipant& par, float dt);
-    void WaitStoplight(CParticipant& par, float dt);
-    void OnCrossroad(CParticipant& par, float dt);
-    void GoToExit(CParticipant& par, float dt);
 
     // INPUT FILE PROCESSING
     void LoadParticipants(Json::Value& root);
-    void ParseToLocation(const std::string& str, SimulationQueueParticipant_t& dest);
-    void ParseFromLocation(const std::string& str, SimulationQueueParticipant_t& dest);
+    void ParseToLocation(const std::string& str, TRADEFS::SimulationQueueParticipant_t& dest);
+    void ParseFromLocation(const std::string& str, TRADEFS::SimulationQueueParticipant_t& dest);
     TRADEFS::DIRECTION GetDirection(const char val);
     int GetLane(char val);
     // END INPUT FILE PROCESSING
@@ -64,25 +60,10 @@ private:
     float simTime;
     CTimer mTimer;
 
-    CTrafficLaneGroup                                   laneGroups[4];
-    std::priority_queue<SimulationQueueParticipant_t>   queue;
-    std::vector<CTrafficLight>                          trafficLights;
-    std::vector<CParticipant>                           participants;
-};
-
-// data structure for the queue
-struct SimulationQueueParticipant_t
-{
-    int time;
-    TRADEFS::PARTICIPANTS type;
-    TRADEFS::DIRECTION fromDirection;
-    TRADEFS::DIRECTION toDirection;
-    int fromLane;
-    int toLane;
-
-    bool operator < ( const SimulationQueueParticipant_t &a ) const {
-        return  a.time < time;
-    }
+    CTrafficLaneGroup                                           laneGroups[4];
+    std::priority_queue<TRADEFS::SimulationQueueParticipant_t>  queue;
+    std::vector<CTrafficLight>                                  trafficLights;
+    std::vector<CParticipant>                                   participants;
 };
 
 #endif // CSIMULATIONMODEL_H

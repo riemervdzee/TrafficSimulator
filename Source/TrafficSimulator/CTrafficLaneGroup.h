@@ -1,27 +1,18 @@
 #ifndef CTRAFFICLANEGROUP_H
 #define CTRAFFICLANEGROUP_H
 
-#include "TrafficDefs.h"
-#include "CTrafficLane.h"
+class CTrafficLane;
 
 class CTrafficLaneGroup
 {
 public:
-    CTrafficLane* operator[](int index)
-    {
-        if( index >= 0 || index <8)
-        {
-            return &lanes[index];
-        }
+    CTrafficLaneGroup();
+    ~CTrafficLaneGroup();
 
-        return 0;
-    }
-
-    void SetDirectionType(int dir){ dirType = dir; }
+    CTrafficLane* operator[](int index);
 
 private:
-    CTrafficLane lanes[8];
-    int dirType;
+    CTrafficLane* lanes[8];
 };
 
 #endif // CTRAFFICLANEGROUP_H

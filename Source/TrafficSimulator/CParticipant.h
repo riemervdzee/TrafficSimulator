@@ -7,7 +7,7 @@
 class CParticipant
 {
     public:
-        CParticipant(TRADEFS::PARTICIPANTS type, int from, int to, int lane, wmath::Vec3 pos, int parfront);
+        CParticipant(TRADEFS::PARTICIPANTS type, int from, int to, int lane, wmath::Vec3 pos);
         void SetState(TRADEFS::PARTICIPANTSTATE t) { state = t;}
 
         TRADEFS::PARTICIPANTSTATE   GetState(){ return state; }
@@ -17,10 +17,12 @@ class CParticipant
         int GetLaneFrom() const{ return laneFrom; }
         wmath::Vec3 GetPosition() const { return position; }
         void SetPosition(wmath::Vec3 pos) { position = pos;}
-        int GetParInFront() const{ return parInFront; }
 
         bool Remove(){ return remove;}
         void FlagForRemoval() { remove = true;}
+
+        bool Hidden(){ return hidden; }
+        void SetHidden(bool hid) { hidden = hid;}
 
     private:
         TRADEFS::PARTICIPANTS type;
@@ -30,8 +32,8 @@ class CParticipant
         int laneGroupFrom;
         int laneGroupTo;
         int laneFrom;
-        int parInFront;
         bool remove;
+        bool hidden;
 };
 
 #endif // CPARTICIPANT_H
