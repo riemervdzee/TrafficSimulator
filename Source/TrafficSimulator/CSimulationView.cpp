@@ -131,7 +131,8 @@ void CSimulationView::DrawLights()
 
 void CSimulationView::DrawParticipants()
 {
-    std::vector<CParticipant>& participants = mModel->GetParticipants();
+    std::list<CParticipant>& participants = mModel->GetParticipants();
+    std::list<CParticipant>::iterator parIt;
     if( participants.size() > 0)
     {
         std::vector<wmath::Vec3> parPositions;
@@ -139,12 +140,12 @@ void CSimulationView::DrawParticipants()
         parShader.Bind();
         int projViewMatrix = glGetUniformLocation(parShader.GetID(), "mvpMatrix");
 
-        for(unsigned int i = 0; i < participants.size(); ++i)
+        for(parIt = participants.begin(); parIt != participants.end(); ++parIt)
         {
-            if(participants[i].Hidden())
+            if((*parIt).Hidden())
                 break;
 
-            parPositions.push_back(participants[i].GetPosition());
+            parPositions.push_back((*parIt).GetPosition());
         }
 
         // put in to vertexbuffer

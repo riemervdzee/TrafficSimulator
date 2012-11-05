@@ -327,7 +327,7 @@ void CStaticScene::Draw(Camera* cam)
     {
         debugShader.Bind();
 
-        projViewMatrix = glGetUniformLocation(debugShader.GetID(), "mvpMatrix");
+        int projViewMatrix = glGetUniformLocation(debugShader.GetID(), "mvpMatrix");
         glUniformMatrix4fv(projViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
 
         debugVertexBuffer.Bind();

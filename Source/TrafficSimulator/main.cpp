@@ -5,8 +5,8 @@ int main()
     CApplication app;
 
     // create application
-    if( !app.Create(1024, 768) )
-    //if( !app.Create(1920, 1080) )
+    if( !app.Create(1024, 768, false) )
+    //if( !app.Create(1920, 1080, true) )
         return false;
 
 	// main loop

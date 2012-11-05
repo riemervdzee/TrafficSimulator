@@ -32,8 +32,7 @@
 		"type": "bus",
 		"from": "N5",
 		"to": "S"
-	}
-	,
+	}	,
 	{
 		"time": 0,
 		"type": "bike",

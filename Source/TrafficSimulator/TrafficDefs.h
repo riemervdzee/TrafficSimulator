@@ -19,9 +19,9 @@ namespace TRADEFS
     enum DIRECTION
     {
         NORTH = 0,
-        SOUTH,
-        EAST,
-        WEST
+        SOUTH = 1,
+        EAST = 2,
+        WEST = 3
     };
 
     enum PARTICIPANTS

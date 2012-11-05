@@ -8,6 +8,7 @@
 #include "Math/WildMath.h"
 
 #include <queue>
+#include <list>
 
 // iteratable queue
 template<typename T, typename Container=std::deque<T> >
@@ -40,8 +41,8 @@ public:
     int GetLightID(){ return lightID;}
 
     // virtual methods
-    virtual void AddParticipant(std::vector<CParticipant>& parList, TRADEFS::SimulationQueueParticipant_t& info) = 0;
-    virtual void UpdateParticipants(std::vector<CParticipant>& parList,
+    virtual void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info) = 0;
+    virtual void UpdateParticipants(std::list<CParticipant>& parList,
                                     std::vector<CTrafficLight>& lightList,
                                     CTrafficLaneGroup* groups, float dt) = 0;
 
@@ -61,8 +62,8 @@ public:
     CCommonTrafficLane(){}
     ~CCommonTrafficLane() {}
 
-    void AddParticipant(std::vector<CParticipant>& parList, TRADEFS::SimulationQueueParticipant_t& info);
-    void UpdateParticipants(std::vector<CParticipant>& parList,
+    void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info);
+    void UpdateParticipants(std::list<CParticipant>& parList,
                             std::vector<CTrafficLight>& lightList,
                             CTrafficLaneGroup* groups, float dt);
 
@@ -82,8 +83,8 @@ public:
     CPedestrianTrafficLane(){}
     ~CPedestrianTrafficLane(){}
 
-    void AddParticipant(std::vector<CParticipant>& parList, TRADEFS::SimulationQueueParticipant_t& info){};
-    void UpdateParticipants(std::vector<CParticipant>& parList,
+    void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info){};
+    void UpdateParticipants(std::list<CParticipant>& parList,
                             std::vector<CTrafficLight>& lightList,
                             CTrafficLaneGroup* groups, float dt){};
 

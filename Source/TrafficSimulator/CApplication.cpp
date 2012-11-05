@@ -5,7 +5,7 @@
 #include "CNetworkView.h"
 #include <cstdio>
 
-bool CApplication::Create(unsigned width, unsigned height)
+bool CApplication::Create(unsigned width, unsigned height, bool fullscreen)
 {
 	// init glfw
 	if( !glfwInit() )
@@ -15,7 +15,7 @@ bool CApplication::Create(unsigned width, unsigned height)
 	}
 
     // create a window
-	if( glfwOpenWindow(width, height, 8, 8, 8, 8, 24, 8, GLFW_WINDOW) == GL_FALSE)
+	if( glfwOpenWindow(width, height, 8, 8, 8, 8, 24, 8, ((fullscreen == true) ? GLFW_FULLSCREEN : GLFW_WINDOW) ) == GL_FALSE)
 	{
         // terminate glfw
         glfwTerminate();

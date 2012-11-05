@@ -1,4 +1,5 @@
 #include "CTrafficLane.h"
+#include <cstdio>
 
 float CTrafficLane::GetParticipantSpeed(TRADEFS::PARTICIPANTS type)
 {
@@ -32,20 +33,22 @@ float CTrafficLane::GetParticipantSize(TRADEFS::PARTICIPANTS type)
     }
  }
 
-void CCommonTrafficLane::AddParticipant(std::vector<CParticipant>& parList, TRADEFS::SimulationQueueParticipant_t& info)
+// HACKY SHIT MAN POINTERS TO LIST ELEMENT
+// BUT IT WORKS FOR NOW!
+void CCommonTrafficLane::AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info)
 {
     // create participant
     CParticipant par = CParticipant(info.type, info.fromDirection, info.toDirection, info.fromLane, wayStart);
     par.SetState(TRADEFS::GOTOSTOPLIGHT);
 
     // add participant to pocessing list!
-    parList.push_back(par);
+    parList.push_front(par);
 
     // add to the incoming queue
-    incomingQueue.push( &parList[parList.size()]);
+    incomingQueue.push( &parList.front() );
 }
 
-void CCommonTrafficLane::UpdateParticipants(std::vector<CParticipant>& parList,
+void CCommonTrafficLane::UpdateParticipants(std::list<CParticipant>& parList,
                                             std::vector<CTrafficLight>& lightList,
                                             CTrafficLaneGroup* groups, float dt)
 {

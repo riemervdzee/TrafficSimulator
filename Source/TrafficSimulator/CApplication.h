@@ -13,7 +13,7 @@ class CApplication
 public:
     CApplication() : mWidth(0), mHeight(0), mModel(0), mController(0) {}
 
-    bool Create(unsigned width, unsigned height);
+    bool Create(unsigned width, unsigned height, bool fullscreen);
     void Destroy();
 
     void AdvanceFrame();

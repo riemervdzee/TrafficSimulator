@@ -2,6 +2,7 @@
 #define CSIMULATIONMODEL_H
 
 #include <queue>
+#include <list>
 #include <json/json-forwards.h>
 #include <json/json.h>
 
@@ -35,12 +36,9 @@ public:
 
     // getters for view
     std::vector<CTrafficLight>& GetTrafficLigths() { return trafficLights; }
-    std::vector<CParticipant>& GetParticipants() { return participants; }
+    std::list<CParticipant>& GetParticipants() { return participants; }
 
 private:
-    void NotifyNetwork(){};
-    void NotifySimulation(){};
-
     // Simulation updating
     void UpdateParticipants(float dt);
 
@@ -63,7 +61,7 @@ private:
     CTrafficLaneGroup                                           laneGroups[4];
     std::priority_queue<TRADEFS::SimulationQueueParticipant_t>  queue;
     std::vector<CTrafficLight>                                  trafficLights;
-    std::vector<CParticipant>                                   participants;
+    std::list<CParticipant>                                     participants;
 };
 
 #endif // CSIMULATIONMODEL_H

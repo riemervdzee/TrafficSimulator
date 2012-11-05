@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <cstring>
 
 CSimulationModel::CSimulationModel()
 {
@@ -58,10 +59,10 @@ void CSimulationModel::UpdateSim()
     simTime += dt;
 
     // Get participants from the queue if appropiate
-    while(simTime > (queue.top().time) && queue.size() > 0 )
+    while(simTime > (queue.top().time) && !queue.empty() )
     {
         // get participant from the top
-        TRADEFS::SimulationQueueParticipant_t qPar = queue.top();
+        const TRADEFS::SimulationQueueParticipant_t& qPar = queue.top();
 
         // Easier to use lane type
         CTrafficLane* lane = laneGroups[qPar.fromDirection][qPar.fromLane];
@@ -80,7 +81,7 @@ void CSimulationModel::UpdateSim()
     UpdateParticipants(dt);
 
     // cleanup this frame
-    std::vector<CParticipant>::iterator parIt = participants.begin();
+    std::list<CParticipant>::iterator parIt = participants.begin();
     while(parIt != participants.end())
     {
         if(parIt->Remove())
@@ -98,17 +99,17 @@ void CSimulationModel::UpdateSim()
 void CSimulationModel::UpdateParticipants(float dt)
 {
     // iterate over all groups
+    // Only responsable for the incoming and waiting participants
     for(int i = 0; i < TRADEFS::MAXGROUPS; ++i)
     {
         for(int j = 0; j < TRADEFS::MAXLANES; ++j)
         {
             // update
-            CTrafficLane* lane = laneGroups[i][j];
-
-            if(lane != 0)
-                lane->UpdateParticipants(participants, trafficLights, &laneGroups[0], dt);
+            laneGroups[i][j]->UpdateParticipants(participants, trafficLights, laneGroups, dt);
         }
     }
+
+    // update participants that have passed trafficlights
 }
 
 void CSimulationModel::LoadEntities()
@@ -129,13 +130,9 @@ void CSimulationModel::LoadEntities()
 
         // add waypoint to the correct lane
         if( type == 0)
-        {
             laneGroups[laneG][lane]->SetWayStart(wmath::Vec3(pos.x, pos.y, pos.z));
-        }
         else
-        {
             laneGroups[laneG][lane]->SetWayEnd(wmath::Vec3(pos.x, pos.y, pos.z));
-        }
     }
 
     // set trafficlights in the correct lane
@@ -149,12 +146,14 @@ void CSimulationModel::LoadEntities()
 
         if(lane == 8) // special light for pedestrians in the middle used by 2 lanes
         {
+
             trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ));
             ((CPedestrianTrafficLane*)laneGroups[laneG][TRADEFS::LANE_PEDESTRIAN_ONE])->SetMidTrafficlight( trafficLights.size() - 1 );
             ((CPedestrianTrafficLane*)laneGroups[laneG][TRADEFS::LANE_PEDESTRIAN_TWO])->SetMidTrafficlight( trafficLights.size() - 1 );
         }
         else
         {
+
             // add light to the correct lane
             trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ));
             laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 );
@@ -210,6 +209,7 @@ void CSimulationModel::LoadParticipants(Json::Value& root)
     {
         const Json::Value &element = root[i];
         TRADEFS::SimulationQueueParticipant_t participant;
+        memset((void*)&participant, 0, sizeof(participant));
 
         // create participant
         participant.time = element["time"].asInt();

@@ -73,7 +73,6 @@
 		<Unit filename="..\..\Source\TrafficSimulator\CStaticScene.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLane.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLane.h" />
-		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLaneGroup.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLaneGroup.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLight.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CTrafficLight.h" />
