@@ -71,9 +71,9 @@ public:
     CPedestrianTrafficLane(){}
     ~CPedestrianTrafficLane(){}
 
-    void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info){};
+    void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info);
     void UpdateParticipants( std::vector<CTrafficLight>& lightList,
-                            CTrafficLaneGroup* groups, float dt){};
+                            CTrafficLaneGroup* groups, float dt);
 
     // traffic light
     void SetMidTrafficlight(int light){midLightID = light;}
@@ -81,6 +81,8 @@ public:
 
 private:
     int midLightID;
+    std::vector<CParticipant*> leftQueue;
+    std::vector<CParticipant*> RightQueue;
 };
 
 #endif // CTRAFFICLANE_H

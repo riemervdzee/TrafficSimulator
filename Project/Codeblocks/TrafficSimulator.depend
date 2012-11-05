@@ -785,7 +785,7 @@
 
 1352050772 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.h
 
-1352118545 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
+1352124802 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
 	"TrafficDefs.h"
 	"CTrafficLaneGroup.h"
 	"CTrafficLight.h"
@@ -802,7 +802,7 @@
 	"TrafficDefs.h"
 	"Math/WildMath.h"
 
-1352118923 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.cpp
+1352125368 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.cpp
 	"CTrafficLane.h"
 	<cstdio>
 

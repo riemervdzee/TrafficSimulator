@@ -226,3 +226,21 @@ void CCommonTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, 
         par.SetPosition(parPos + moveDir * GetParticipantSpeed( par.GetType()) * dt);
     }
 }
+
+void CPedestrianTrafficLane::AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info)
+{
+    // create participant
+    CParticipant par = CParticipant(info.type, info.fromDirection, info.toDirection, info.fromLane, wayStart);
+    par.SetState(TRADEFS::GOTOSTOPLIGHT);
+    par.SetHidden(false);
+
+    parList.push_front( par );
+
+    printf("PEDE! x: %f, y: %f. z: %f\n", par.GetPosition().x, par.GetPosition().y, par.GetPosition().z);
+}
+
+void CPedestrianTrafficLane::UpdateParticipants( std::vector<CTrafficLight>& lightList,
+                        CTrafficLaneGroup* groups, float dt)
+{
+
+}

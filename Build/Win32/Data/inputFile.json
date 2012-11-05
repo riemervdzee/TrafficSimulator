@@ -1,6 +1,27 @@
 [
 	{
 		"time": 0,
+		"type": "pedestrian",
+		"from": "N7",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "N0",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "S0",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
 		"type": "bike",
 		"from": "N1",
 		"to": "S"
