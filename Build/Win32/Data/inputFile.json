@@ -16,6 +16,13 @@
 	{
 		"time": 0,
 		"type": "car",
+		"from": "N3",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
 		"from": "N2",
 		"to": "W"
 	}

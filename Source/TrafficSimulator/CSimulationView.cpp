@@ -143,7 +143,7 @@ void CSimulationView::DrawParticipants()
         for(parIt = participants.begin(); parIt != participants.end(); ++parIt)
         {
             if((*parIt).Hidden())
-                break;
+                continue;
 
             parPositions.push_back((*parIt).GetPosition());
         }

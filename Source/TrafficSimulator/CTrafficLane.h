@@ -7,22 +7,8 @@
 #include "CParticipant.h"
 #include "Math/WildMath.h"
 
-#include <queue>
+#include <vector>
 #include <list>
-
-// iteratable queue
-template<typename T, typename Container=std::deque<T> >
-class iterable_queue : public std::queue<T,Container>
-{
-public:
-    typedef typename Container::iterator iterator;
-    typedef typename Container::const_iterator const_iterator;
-
-    iterator begin() { return this->c.begin(); }
-    iterator end() { return this->c.end(); }
-    const_iterator begin() const { return this->c.begin(); }
-    const_iterator end() const { return this->c.end(); }
-};
 
 class CTrafficLane
 {
@@ -42,8 +28,7 @@ public:
 
     // virtual methods
     virtual void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info) = 0;
-    virtual void UpdateParticipants(std::list<CParticipant>& parList,
-                                    std::vector<CTrafficLight>& lightList,
+    virtual void UpdateParticipants(std::vector<CTrafficLight>& lightList,
                                     CTrafficLaneGroup* groups, float dt) = 0;
 
     // static helpers
@@ -59,22 +44,25 @@ protected:
 class CCommonTrafficLane : public CTrafficLane
 {
 public:
-    CCommonTrafficLane(){}
+    CCommonTrafficLane()
+    {
+        incomingQueue.reserve(128);
+        participantQueue.reserve(32);
+    }
     ~CCommonTrafficLane() {}
 
     void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info);
-    void UpdateParticipants(std::list<CParticipant>& parList,
-                            std::vector<CTrafficLight>& lightList,
+    void UpdateParticipants(std::vector<CTrafficLight>& lightList,
                             CTrafficLaneGroup* groups, float dt);
 
-    void GoToStoplight(CParticipant& par, float dt);
+    void GoToStoplight(CParticipant& par, int index, float dt);
     void WaitStoplight(CParticipant& par,std::vector<CTrafficLight>& lightList, float dt);
     void OnCrossroad(CParticipant& par, CTrafficLaneGroup* groups, float dt);
     void GoToExit(CParticipant& par, CTrafficLaneGroup* groups, float dt);
 
 private:
-    iterable_queue<CParticipant*> incomingQueue;
-    iterable_queue<CParticipant*> participantQueue;
+    std::vector<CParticipant*> incomingQueue;
+    std::vector<CParticipant*> participantQueue;
 };
 
 class CPedestrianTrafficLane: public CTrafficLane
@@ -84,8 +72,7 @@ public:
     ~CPedestrianTrafficLane(){}
 
     void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info){};
-    void UpdateParticipants(std::list<CParticipant>& parList,
-                            std::vector<CTrafficLight>& lightList,
+    void UpdateParticipants( std::vector<CTrafficLight>& lightList,
                             CTrafficLaneGroup* groups, float dt){};
 
     // traffic light

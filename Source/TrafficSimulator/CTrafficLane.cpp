@@ -45,11 +45,10 @@ void CCommonTrafficLane::AddParticipant(std::list<CParticipant>& parList,const T
     parList.push_front(par);
 
     // add to the incoming queue
-    incomingQueue.push( &parList.front() );
+    incomingQueue.push_back( &parList.front() );
 }
 
-void CCommonTrafficLane::UpdateParticipants(std::list<CParticipant>& parList,
-                                            std::vector<CTrafficLight>& lightList,
+void CCommonTrafficLane::UpdateParticipants(std::vector<CTrafficLight>& lightList,
                                             CTrafficLaneGroup* groups, float dt)
 {
     // process incoming qeueu, trying to process as many as possible
@@ -60,10 +59,11 @@ void CCommonTrafficLane::UpdateParticipants(std::list<CParticipant>& parList,
         // check if the participant queue is empty
         if(participantQueue.empty())
         {
-            // we can just add this par to the queue
-            participantQueue.push(par);
             par->SetHidden(false);
-            incomingQueue.pop();
+
+            // we can just add this par to the queue
+            participantQueue.push_back(par);
+            incomingQueue.erase(incomingQueue.begin());
         }
         else
         {
@@ -80,9 +80,9 @@ void CCommonTrafficLane::UpdateParticipants(std::list<CParticipant>& parList,
             // we can add a the participant from the incoming queue to the participant queue
             if( traLen > parSize)
             {
-                participantQueue.push(par);
                 par->SetHidden(false);
-                incomingQueue.pop();
+                participantQueue.push_back(par);
+                incomingQueue.erase(incomingQueue.begin());
             }
             else // we break out of the loop
                 break;
@@ -90,7 +90,8 @@ void CCommonTrafficLane::UpdateParticipants(std::list<CParticipant>& parList,
     }
 
     // process all participants in this lane
-    for( iterable_queue<CParticipant*>::iterator i(participantQueue.begin()), end(participantQueue.end()); i != end; ++i )
+    int counter = 0;
+    for( std::vector<CParticipant*>::iterator i(participantQueue.begin()), end(participantQueue.end()); i != end; ++i )
     {
         CParticipant* par = (*i);
 
@@ -98,22 +99,29 @@ void CCommonTrafficLane::UpdateParticipants(std::list<CParticipant>& parList,
         switch(par->GetState())
         {
             case TRADEFS::GOTOSTOPLIGHT:
-                GoToStoplight(*par, dt);
+                GoToStoplight(*par, counter++, dt);
             break;
             case TRADEFS::WAITATSTOPLIGHT:
-                //WaitStoplight(*par, lightList, dt);
+                WaitStoplight(*par, lightList, dt); counter++;
             break;
             case TRADEFS::ONCROSSROAD:
-                //OnCrossroad(*par, groups, dt);
+                OnCrossroad(*par, groups, dt);
             break;
             case TRADEFS::GOTOEXIT:
-                //GoToExit(*par, groups, dt);
+            {
+                GoToExit(*par, groups, dt);
+                if(par->Remove())
+                {
+                    i = participantQueue.erase( i );
+                }
+            }
+
             break;
         }
     }
 }
 
-void CCommonTrafficLane::GoToStoplight(CParticipant& par, float dt)
+void CCommonTrafficLane::GoToStoplight(CParticipant& par, int index, float dt)
 {
     // participant positions
     wmath::Vec3 parPos = par.GetPosition();
@@ -124,7 +132,7 @@ void CCommonTrafficLane::GoToStoplight(CParticipant& par, float dt)
 
     // get length between 2 lane waypoints, from start to end
     float laneLength = laneDir.Length(); laneDir.Norm();
-    laneLength -=  GetParticipantSize( par.GetType());
+    laneLength -= (CTrafficLane::GetParticipantSize( par.GetType() ) *  index);
 
     // get length between par pos and end waypoint
     float parLength = (parPos - wayStart).Length();
@@ -132,8 +140,12 @@ void CCommonTrafficLane::GoToStoplight(CParticipant& par, float dt)
     // check if we have reached our destination
     if(parLength > laneLength)
     {
-        // change state
-        par.SetState(TRADEFS::WAITATSTOPLIGHT);
+        // this means this is the first participant
+        if( index == 0)
+        {
+            // change state
+            par.SetState(TRADEFS::WAITATSTOPLIGHT);
+        }
     }
     else
     {
@@ -146,12 +158,16 @@ void CCommonTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLig
 {
     if(lightID != -1)
     {
-        CTrafficLight light = lightList[lightID];
-        par.SetState(TRADEFS::ONCROSSROAD);
-    }
-    else
-    {
-        par.SetState(TRADEFS::ONCROSSROAD);
+        // we need to check if it can proceed
+        CTrafficLight& light = lightList[lightID];
+
+        if(light.GetState() != TRADEFS::OFF)
+        {
+            light.SetState(TRADEFS::OFF);
+            par.SetState(TRADEFS::ONCROSSROAD);
+        }
+
+        // TODO TRAFFICLIGHT LOGIC BASED ON PARTICIPANT TYPE, LANE
     }
 }
 

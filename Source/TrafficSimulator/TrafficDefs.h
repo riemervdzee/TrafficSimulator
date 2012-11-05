@@ -12,7 +12,7 @@ namespace TRADEFS
     const float PEDSIZE = 2.0f;
 
     const float CARSPEED = 8.0f;
-    const float BUSSPEED = 7.0f;
+    const float BUSSPEED = 6.5f;
     const float PEDSPEED = 2.0f;
     const float BIKESPEED = 4.0f;
 

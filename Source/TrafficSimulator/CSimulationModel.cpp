@@ -105,7 +105,7 @@ void CSimulationModel::UpdateParticipants(float dt)
         for(int j = 0; j < TRADEFS::MAXLANES; ++j)
         {
             // update
-            laneGroups[i][j]->UpdateParticipants(participants, trafficLights, laneGroups, dt);
+            laneGroups[i][j]->UpdateParticipants(trafficLights, laneGroups, dt);
         }
     }
 

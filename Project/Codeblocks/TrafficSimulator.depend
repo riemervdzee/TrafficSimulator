@@ -138,7 +138,7 @@
 
 1351863655 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
 
-1352111312 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
+1352118556 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
 	"CSimulationModel.h"
 	"CSimulationView.h"
 	"CNetworkView.h"
@@ -166,7 +166,7 @@
 
 1351943788 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
-1352111592 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+1352112498 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
 	"CSimulationView.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -587,7 +587,7 @@
 	<X11/Xmd.h>
 	<GL/glew.h>
 
-1352065855 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\trafficdefs.h
+1352115756 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\trafficdefs.h
 
 1351856927 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\camera.h
 	"Math/WildMath.h"
@@ -785,16 +785,16 @@
 
 1352050772 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.h
 
-1352109368 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
+1352118545 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
 	"TrafficDefs.h"
 	"CTrafficLaneGroup.h"
 	"CTrafficLight.h"
 	"CParticipant.h"
 	"Math/WildMath.h"
-	<queue>
+	<vector>
 	<list>
 
-1352111436 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cparticipant.cpp
+1352111931 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cparticipant.cpp
 	"CParticipant.h"
 	<cstdio>
 
@@ -802,14 +802,14 @@
 	"TrafficDefs.h"
 	"Math/WildMath.h"
 
-1352111561 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.cpp
+1352118923 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlane.cpp
 	"CTrafficLane.h"
 	<cstdio>
 
 1351937398 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlight.cpp
 	"CTrafficLight.h"
 
-1351937353 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlight.h
+1352117034 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlight.h
 	"trafficDefs.h"
 	"Math/WildMath.h"
 
