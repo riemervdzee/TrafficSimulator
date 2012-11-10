@@ -74,7 +74,7 @@ void CSimulationModel::UpdateSim()
         queue.pop();
     }
 
-    // updateNetwork
+    // updateNetwork, get light messages, process
     mNetworkView->UpdateNetwork();
 
     // update all participants
@@ -131,8 +131,13 @@ void CSimulationModel::LoadEntities()
         // add waypoint to the correct lane
         if( type == 0)
             laneGroups[laneG][lane]->SetWayStart(wmath::Vec3(pos.x, pos.y, pos.z));
-        else
+        else if ( type == 1)
             laneGroups[laneG][lane]->SetWayEnd(wmath::Vec3(pos.x, pos.y, pos.z));
+        else // type is pedestrianStart (type=2)
+        {
+            ((CPedestrianTrafficLane*)laneGroups[laneG][lane])->SetPedStart(wmath::Vec3(pos.x, pos.y, pos.z));
+        }
+
     }
 
     // set trafficlights in the correct lane

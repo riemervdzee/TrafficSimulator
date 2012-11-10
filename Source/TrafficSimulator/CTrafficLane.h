@@ -79,10 +79,17 @@ public:
     void SetMidTrafficlight(int light){midLightID = light;}
     int GetMidLightID(){ return midLightID;}
 
+    void SetPedStart(const wmath::Vec3& start){pedStart = start;}
+    wmath::Vec3 GetPedStart(int group, int lane);
+
+    void GoToStoplight(CParticipant& par, int index, float dt);
+    void WaitStoplight(CParticipant& par,std::vector<CTrafficLight>& lightList, float dt);
+
 private:
     int midLightID;
-    std::vector<CParticipant*> leftQueue;
-    std::vector<CParticipant*> RightQueue;
+    wmath::Vec3                 pedStart;
+    std::vector<CParticipant*>  leftQueue;
+    std::vector<CParticipant*>  RightQueue;
 };
 
 #endif // CTRAFFICLANE_H
