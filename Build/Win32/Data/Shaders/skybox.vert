@@ -1,6 +1,6 @@
 #version 330
 
-layout(location = 0) in vec3 inPos;
+in vec3 inPos;
 out vec3 UV;
 uniform mat4 projView;
 

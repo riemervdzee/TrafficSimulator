@@ -1,9 +1,9 @@
 #version 330
 
 // input vertex attributes
-layout(location = 0) in vec3 inPos;
-layout(location = 1) in vec2 inTexCoord;
-layout(location = 2) in vec2 inLmCoord;
+in vec3 inPos;
+in vec2 inTexCoord;
+in vec2 inLmCoord;
 
 // output data
 out vec2 lmCoord;

@@ -1,7 +1,7 @@
 #version 330
 
 // input vertex attributes
-layout(location = 0) in vec3 inPos;
+in vec3 inPos;
 
 // uniform data
 uniform mat4 mvpMatrix;
