@@ -13,3 +13,6 @@
 
 # Compiled executables
 *.exe
+
+# Add codeblocks layoutfile
+*.layout
