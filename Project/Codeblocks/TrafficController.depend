@@ -1,0 +1,81 @@
+# depslib dependency file v1.0
+1298635286 source:c:\trafficsimulator\source\trafficcontroller\socket\wildshadesock.cpp
+	"WildShadeSock.hpp"
+
+1352795840 c:\trafficsimulator\source\trafficcontroller\socket\wildshadesock.hpp
+	<winsock2.h>
+	<ws2tcpip.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<unistd.h>
+	<netdb.h>
+	<apra/inet.h>
+
+1352885100 source:c:\trafficsimulator\source\trafficcontroller\jsoncpp.cpp
+	"json/json.h"
+	<json/reader.h>
+	<json/value.h>
+	"json_tool.h"
+	<utility>
+	<cstdio>
+	<cassert>
+	<cstring>
+	<iostream>
+	<stdexcept>
+	<stdlib.h>
+	<assert.h>
+	<json/value.h>
+	<json/writer.h>
+	"json_batchallocator.h"
+	<iostream>
+	<utility>
+	<stdexcept>
+	<cstring>
+	<cassert>
+	<cpptl/conststring.h>
+	<cstddef>
+	"json_internalarray.inl"
+	"json_internalmap.inl"
+	"json_valueiterator.inl"
+	<json/writer.h>
+	"json_tool.h"
+	<utility>
+	<assert.h>
+	<stdio.h>
+	<string.h>
+	<iostream>
+	<sstream>
+	<iomanip>
+
+1350370874 c:\trafficsimulator\source\libs\jsoncpp-0.6\json\json.h
+	<cpptl/config.h>
+	"config.h"
+	"forwards.h"
+	"forwards.h"
+	<string>
+	<vector>
+	<map>
+	<cpptl/smallmap.h>
+	<cpptl/forwards.h>
+	"features.h"
+	"value.h"
+	<deque>
+	<stack>
+	<string>
+	<iostream>
+	"value.h"
+	<vector>
+	<string>
+	<iostream>
+
+1352887085 source:c:\trafficsimulator\source\trafficcontroller\main.cpp
+	<iostream>
+
+1352888472 source:c:\trafficsimulator\source\trafficcontroller\socket\cvalidator.cpp
+	"CValidator.hpp"
+	<regex>
+
+1352793280 c:\trafficsimulator\source\trafficcontroller\socket\cvalidator.hpp
+	<string>
+

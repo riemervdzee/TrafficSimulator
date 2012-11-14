@@ -14,7 +14,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-DJSON_IS_AMALGAMATION" />
-					<Add directory="..\..\..\Source\Libs\JSoncpp-0.6" />
+					<Add directory="..\..\Source\Libs\JSoncpp-0.6" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -25,6 +25,7 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-DJSON_IS_AMALGAMATION" />
+					<Add directory="..\..\Source\Libs\JSoncpp-0.6" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -34,7 +35,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add option="-DJSON_IS_AMALGAMATION" />
 		</Compiler>
+		<Linker>
+			<Add library="libws2_32.a" />
+		</Linker>
+		<Unit filename="..\..\Source\TrafficController\Socket\WildShadeSock.cpp" />
+		<Unit filename="..\..\Source\TrafficController\Socket\WildShadeSock.hpp" />
 		<Unit filename="..\..\Source\TrafficController\jsoncpp.cpp" />
 		<Unit filename="..\..\Source\TrafficController\main.cpp" />
 		<Extensions>
