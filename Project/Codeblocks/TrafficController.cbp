@@ -35,6 +35,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="..\..\Source\TrafficController\jsoncpp.cpp" />
 		<Unit filename="..\..\Source\TrafficController\main.cpp" />
 		<Extensions>
 			<code_completion />
