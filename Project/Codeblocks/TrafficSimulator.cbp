@@ -33,6 +33,7 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-DJSON_IS_AMALGAMATION" />
+					<Add option="-DGLEW_STATIC" />
 					<Add directory="..\..\Source\Libs\JSoncpp-0.6" />
 					<Add directory="..\..\Source\Libs\glew-1.9.0\include" />
 				</Compiler>

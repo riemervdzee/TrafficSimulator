@@ -137,7 +137,6 @@ void CSimulationModel::LoadEntities()
         {
             ((CPedestrianTrafficLane*)laneGroups[laneG][lane])->SetPedStart(wmath::Vec3(pos.x, pos.y, pos.z));
         }
-
     }
 
     // set trafficlights in the correct lane

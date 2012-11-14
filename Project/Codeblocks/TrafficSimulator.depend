@@ -298,7 +298,7 @@
 	"CSimulationView.h"
 	"CNetworkView.h"
 
-1351845025 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\capplication.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\capplication.cpp
 	"CApplication.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -306,13 +306,11 @@
 	"CNetworkView.h"
 	<cstdio>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\capplication.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\capplication.h
 	<GL/glew.h>
 	<GL/glfw.h>
-	<json/json-forwards.h>
-	<json/json.h>
 
-1351844973 c:\users\marklaptop\desktop\trafficsim\source\libs\glfw-2.7.6\include\gl\glfw.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\libs\glfw-2.7.6\include\gl\glfw.h
 	<OpenGL/gl3.h>
 	<OpenGL/gl.h>
 	<OpenGL/glu.h>
@@ -320,11 +318,11 @@
 	<GL/gl.h>
 	<GL/glu.h>
 
-1351844972 c:\users\marklaptop\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json-forwards.h
+1352883487 c:\users\marklaptop\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json-forwards.h
 	<cpptl/config.h>
 	"config.h"
 
-1351844972 c:\users\marklaptop\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json.h
+1352883487 c:\users\marklaptop\desktop\trafficsim\source\libs\jsoncpp-0.6\json\json.h
 	<cpptl/config.h>
 	"config.h"
 	"forwards.h"
@@ -345,36 +343,42 @@
 	<string>
 	<iostream>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.h
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.h
 	<queue>
+	<list>
+	<json/json-forwards.h>
+	<json/json.h>
 	"Timer.h"
 	"CTrafficLaneGroup.h"
+	"CTrafficLane.h"
+	"CParticipant.h"
+	"CTrafficLight.h"
 	"TrafficDefs.h"
 	"TDW/TDWdefs.h"
 
-1351845564 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.h
 	"Camera.h"
 	"Skybox.h"
 	"CAbstractView.h"
 	"CStaticScene.h"
 
-1351844973 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cabstractview.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cabstractview.h
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\camera.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\camera.h
 	"Math/WildMath.h"
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\wildmath.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\wildmath.h
 	<cmath>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
 	"CAbstractView.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cnetworkview.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cnetworkview.cpp
 	"CNetworkView.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationcontroller.cpp
 	"CSimulationController.h"
 	"CSimulationModel.h"
 	"CSimulationView.h"
@@ -382,13 +386,16 @@
 	<iostream>
 	<fstream>
 
-1351845574 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
+1352889010 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationmodel.cpp
 	"CSimulationModel.h"
 	"CSimulationView.h"
 	"CNetworkView.h"
-	"TDW/TDWDefs.h"
+	<iostream>
+	<fstream>
+	<cstdlib>
+	<cstring>
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\jsoncpp.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\jsoncpp.cpp
 	"json/json.h"
 	<json/reader.h>
 	<json/value.h>
@@ -424,10 +431,10 @@
 	<sstream>
 	<iomanip>
 
-1351845008 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\main.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\main.cpp
 	"CApplication.h"
 
-1351845490 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\csimulationview.cpp
 	"CSimulationView.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
@@ -435,38 +442,38 @@
 	<cmath>
 	"../../Source/TrafficSimulator/Math/WildMath.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\camera.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\camera.cpp
 	"Camera.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\mat3.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\mat3.cpp
 	"WildMath.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\mat4.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\mat4.cpp
 	"WildMath.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\quat.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\quat.cpp
 	"WildMath.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\vec2.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\vec2.cpp
 	"WildMath.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\vec3.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\vec3.cpp
 	"WildMath.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\wildmath.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\math\wildmath.cpp
 	"WildMath.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\imgutil.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\imgutil.cpp
 	"Imgutil.h"
 	<iostream>
 	<fstream>
 	<cstring>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\imgutil.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\imgutil.h
 	<string>
 	<cstring>
 
-1351844973 c:\users\marklaptop\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\glew.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\glew.h
 	<stddef.h>
 	<inttypes.h>
 	<stdint.h>
@@ -474,43 +481,43 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\shader.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\shader.cpp
 	"Shader.h"
 	<cstdio>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\shader.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\shader.h
 	"GL/glew.h"
 	<GL/glfw.h>
 	<string>
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.cpp
 	"Texture2D.h"
 	"../imgutil.h"
 	<cmath>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\textures\texture2d.h
 	<string>
 	<cstdio>
 	"GL/glew.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\textures\texturescube.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\textures\texturescube.cpp
 	"TextureCube.h"
 	"../imgutil.h"
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\textures\texturecube.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\textures\texturecube.h
 	<string>
 	<cstdio>
 	"GL/glew.h"
 	<GL/glfw.h>
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\timer.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\timer.cpp
 	"Timer.h"
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\timer.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\timer.h
 	<GL/glew.h>
 	<GL/glfw.h>
 
-1351844973 source:c:\users\marklaptop\desktop\trafficsim\source\libs\glew-1.9.0\src\glew.c
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\libs\glew-1.9.0\src\glew.c
 	<GL/glew.h>
 	<GL/wglew.h>
 	<GL/glxew.h>
@@ -523,16 +530,16 @@
 	<dlfcn.h>
 	<mach-o/dyld.h>
 
-1351844973 c:\users\marklaptop\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\wglew.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\wglew.h
 	<windows.h>
 
-1351844973 c:\users\marklaptop\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\glxew.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\libs\glew-1.9.0\include\gl\glxew.h
 	<X11/Xlib.h>
 	<X11/Xutil.h>
 	<X11/Xmd.h>
 	<GL/glew.h>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\skybox.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\skybox.h
 	<string>
 	<GL/glew.h>
 	"../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h"
@@ -542,20 +549,20 @@
 	"../../Source/TrafficSimulator/Camera.h"
 	"../../Source/TrafficSimulator/Util.h"
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\buffers\vertexbuffer.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\buffers\vertexbuffer.h
 	"GL/glew.h"
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\buffers\indexbuffer.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\renderer\buffers\indexbuffer.h
 	"GL/glew.h"
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\util.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\util.h
 	<string>
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\util.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\util.cpp
 	"Util.h"
 	<fstream>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\trafficdefs.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\trafficdefs.h
 
 1351856927 source:c:\users\wilds\desktop\trafficsim\source\libs\glew-1.9.0\src\glew.c
 	<GL/glew.h>
@@ -718,7 +725,7 @@
 	<set>
 	<sstream>
 
-1351848437 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cstaticscene.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cstaticscene.h
 	<vector>
 	<map>
 	"TDW/TDWFile.h"
@@ -728,19 +735,19 @@
 	"Renderer/Shader.h"
 	"Renderer/Textures/Texture2D.h"
 
-1351847996 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.h
 	<string>
 	<vector>
 	"TDWDefs.h"
 	<cstring>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwdefs.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwdefs.h
 	<map>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.h
 	<fstream>
 
-1351851967 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cstaticscene.cpp
 	"CStaticScene.h"
 	"../../Source/TrafficSimulator/Camera.h"
 	"../../Source/TrafficSimulator/Math/WildMath.h"
@@ -748,40 +755,44 @@
 	<set>
 	<sstream>
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwfile.cpp
 	"TDWFile.h"
 
-1351848082 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\tdw\tdwloader.cpp
 	"TDWLoader.h"
 	"TDWFile.h"
 	<fstream>
 	<cmath>
 	<exception>
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cparticipant.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cparticipant.cpp
 	"CParticipant.h"
+	<cstdio>
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cparticipant.h
-	"TrafficDefs.h"
-	"CTrafficLane.h"
-
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\cparticipant.h
 	"TrafficDefs.h"
 	"Math/WildMath.h"
+
+1352890524 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlane.h
+	"TrafficDefs.h"
+	"CTrafficLaneGroup.h"
+	"CTrafficLight.h"
+	"CParticipant.h"
+	"Math/WildMath.h"
+	<vector>
+	<list>
 
 1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlane.cpp
 	"CTrafficLane.h"
 
-1351844974 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlight.cpp
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlight.cpp
 	"CTrafficLight.h"
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlight.h
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlight.h
 	"trafficDefs.h"
 	"Math/WildMath.h"
 
-1351844974 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.h
-	"TrafficDefs.h"
-	"CTrafficLane.h"
+1352883488 c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.h
 
 1352050772 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.h
 
@@ -814,6 +825,11 @@
 	"Math/WildMath.h"
 
 1352455886 source:c:\users\wilds\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.cpp
+	"CTrafficLaneGroup.h"
+	"CTrafficLane.h"
+	<cstdio>
+
+1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\ctrafficlanegroup.cpp
 	"CTrafficLaneGroup.h"
 	"CTrafficLane.h"
 	<cstdio>

@@ -240,26 +240,99 @@ wmath::Vec3 CPedestrianTrafficLane::GetPedStart(int group, int lane)
         case TRADEFS::WEST:
             break;
     }
+
+    return wmath::Vec3();
 }
 
 void CPedestrianTrafficLane::AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info)
 {
     // create participant
-    wmath::Vec3 correctStart = GetPedStart(info.fromDirection, info.fromLane);
     CParticipant par = CParticipant(info.type, info.fromDirection, info.toDirection, info.fromLane, pedStart);
     par.SetState(TRADEFS::GOTOSTOPLIGHT);
     par.SetHidden(false);
 
+    // add participant to the head list
     parList.push_front( par );
+
+    // add to this lane's queue
+    incomingQueue.push_back( &parList.front() );
 }
 
 void CPedestrianTrafficLane::UpdateParticipants( std::vector<CTrafficLight>& lightList,
                         CTrafficLaneGroup* groups, float dt)
 {
+        // process incoming qeueu, trying to process as many as possible
+    while(!incomingQueue.empty())
+    {
+        CParticipant* par = incomingQueue.front();
 
+        // check if the participant queue is empty
+        if(participantQueue.empty())
+        {
+            par->SetHidden(false);
+
+            // we can just add this par to the queue
+            participantQueue.push_back(par);
+            incomingQueue.erase(incomingQueue.begin());
+        }
+        else
+        {
+            // let's get the participant in the back
+            CParticipant* last = participantQueue.back();
+
+            // start,end & participant positions
+            wmath::Vec3 parPos = last->GetPosition();
+            wmath::Vec3 traDis = (parPos - wayStart);
+            float traLen = traDis.Length();
+            float parSize = CTrafficLane::GetParticipantSize(last->GetType());
+
+            // if the participant in the back has traveled a bigger distance than it's size
+            // we can add a the participant from the incoming queue to the participant queue
+            if( traLen > parSize)
+            {
+                par->SetHidden(false);
+                participantQueue.push_back(par);
+                incomingQueue.erase(incomingQueue.begin());
+            }
+            else // we break out of the loop
+                break;
+        }
+    }
+
+    // process all pedestrians in this lane
+    int counter = 0;
+    for( std::vector<CParticipant*>::iterator i(participantQueue.begin()), end(participantQueue.end()); i != end; ++i )
+    {
+        CParticipant* par = (*i);
+
+        // do stuff based on the par state
+        switch(par->GetState())
+        {
+            case TRADEFS::GOTOSTOPLIGHT:
+                GoToStoplight(*par, groups, counter++, dt);
+            break;
+            case TRADEFS::WAITATSTOPLIGHT:
+                WaitStoplight(*par, lightList, dt); counter++;
+            break;
+            case TRADEFS::ONCROSSROAD:
+                OnCrossroad(*par, groups, dt);
+            break;
+            case TRADEFS::GOTOEXIT:
+            {
+                GoToExit(*par, groups, dt);
+                if(par->Remove())
+                {
+                    i = participantQueue.erase( i );
+                }
+            }
+
+            break;
+        }
+    }
 }
 
-void CPedestrianTrafficLane::GoToStoplight(CParticipant& par, int index, float dt)
+void CPedestrianTrafficLane::GoToStoplight(CParticipant& par,
+                        CTrafficLaneGroup* groups, int index, float dt)
 {
     // participant positions
     wmath::Vec3 parPos = par.GetPosition();
@@ -306,5 +379,61 @@ void CPedestrianTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTraffi
         }
 
         // TODO TRAFFICLIGHT LOGIC BASED ON PARTICIPANT TYPE, LANE
+    }
+}
+
+void CPedestrianTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* groups, float dt)
+{
+    wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
+    wmath::Vec3 laneDir = end - wayStart;
+    wmath::Vec3 parPos = par.GetPosition();
+    wmath::Vec3 moveDir = (end - parPos);
+
+    // get length between 2 lane waypoints, from start to end
+    float laneLength = laneDir.Length();
+
+    // get length between par pos and end waypoint
+    float parLength = (parPos - wayStart).Length();
+
+    // check if we have reached our destination
+    laneDir.Norm();
+    moveDir.Norm();
+    if(parLength > laneLength)
+    {
+        // change state
+        par.SetState(TRADEFS::GOTOEXIT);
+    }
+    else
+    {
+        // set it's new position
+        par.SetPosition(parPos + moveDir * CTrafficLane::GetParticipantSpeed( par.GetType()) * dt);
+    }
+}
+
+void CPedestrianTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, float dt)
+{
+    wmath::Vec3 start = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
+    wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayEnd();
+    wmath::Vec3 laneDir = end - start;
+    wmath::Vec3 parPos = par.GetPosition();
+    wmath::Vec3 moveDir = (end - parPos);
+
+    // get length between 2 lane waypoints, from start to end
+    float laneLength = laneDir.Length();
+
+    // get length between par pos and end waypoint
+    float parLength = (parPos - start).Length();
+
+    // check if we have reached our destination
+    laneDir.Norm();
+    moveDir.Norm();
+    if(parLength > laneLength)
+    {
+        par.FlagForRemoval();
+    }
+    else
+    {
+        // set it's new position
+        par.SetPosition(parPos + moveDir * GetParticipantSpeed( par.GetType()) * dt);
     }
 }
