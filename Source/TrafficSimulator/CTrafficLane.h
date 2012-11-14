@@ -80,7 +80,7 @@ public:
     int GetMidLightID(){ return midLightID;}
 
     void SetPedStart(const wmath::Vec3& start){pedStart = start;}
-    wmath::Vec3 GetPedStart(int group, int lane);
+    wmath::Vec3 GetPedTo(int group, int lane, CTrafficLaneGroup* groups);
 
     void GoToStoplight(CParticipant& par, CTrafficLaneGroup* groups, int index, float dt);
     void WaitStoplight(CParticipant& par, std::vector<CTrafficLight>& lightList, float dt);

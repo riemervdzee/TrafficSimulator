@@ -2,6 +2,34 @@
 	{
 		"time": 0,
 		"type": "pedestrian",
+		"from": "E7",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "E0",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "W0",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "W7",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
 		"from": "N7",
 		"to": "S"
 	}
@@ -17,7 +45,14 @@
 		"time": 0,
 		"type": "pedestrian",
 		"from": "S0",
-		"to": "S"
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "S7",
+		"to": "N"
 	}
 	,
 	{
