@@ -23,7 +23,7 @@ bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& li
         std::string texName = tdwFile->GetNameByIndex( mats[m].objectName - 1);
 
         Texture2D temp;
-        temp.LoadTGA("Data\\Textures\\scene\\" + texName + ".tga", true);
+        temp.LoadTGA("Data/Textures/scene/" + texName + ".tga", true);
         materials.push_back(temp);
     }
 
@@ -164,8 +164,8 @@ bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& li
     std::string fragment;
 
     // creating shaders
-    LoadTextFile("Data\\shaders\\scene.vert", vertex);
-    LoadTextFile("Data\\shaders\\scene.frag", fragment);
+    LoadTextFile("Data/Shaders/scene.vert", vertex);
+    LoadTextFile("Data/Shaders/scene.frag", fragment);
 
     // load shaders
     shader.CreateProgram(vertex, fragment);
@@ -176,8 +176,8 @@ bool CStaticScene::Load(const char* fileName, std::vector<SceneTrafficLight>& li
     std::string dfragment;
 
     // creating shaders
-    LoadTextFile("Data\\shaders\\tra_col.vert", dvertex);
-    LoadTextFile("Data\\shaders\\tra_col.frag", dfragment);
+    LoadTextFile("Data/Shaders/tra_col.vert", dvertex);
+    LoadTextFile("Data/Shaders/tra_col.frag", dfragment);
 
     // load shaders
     debugShader.CreateProgram(dvertex, dfragment);

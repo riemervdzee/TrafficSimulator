@@ -12,7 +12,7 @@
 #include "CParticipant.h"
 #include "CTrafficLight.h"
 #include "TrafficDefs.h"
-#include "TDW/TDWdefs.h"
+#include "TDW/TDWDefs.h"
 
 class CNetworkView;
 class CSimulationView;

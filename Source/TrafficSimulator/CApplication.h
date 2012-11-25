@@ -1,7 +1,7 @@
 #ifndef CAPPLICATION_H
 #define CAPPLICATION_H
 
-#include <GL/glew.h>
+#include "GL/glew.h"
 #include <GL/glfw.h>
 
 class CSimulationController;

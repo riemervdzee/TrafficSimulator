@@ -4,7 +4,7 @@
  * Descr: class representing a 2D texture
  */
 #include "Texture2D.h"
-#include "../imgutil.h"
+#include "../Imgutil.h"
 #include <cmath>
 
 void Texture2D::LoadFromMemory(const char* source, const char resolution, bool mipmap)

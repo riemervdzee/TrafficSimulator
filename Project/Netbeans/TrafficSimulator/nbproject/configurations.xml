@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="84">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="TrafficSimulator"
+                   displayName="TrafficSimulator"
+                   projectFiles="true">
+      <logicalFolder name="Math" displayName="Math" projectFiles="true">
+        <itemPath>../../../Source/TrafficSimulator/Math/Mat3.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Math/Mat4.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Math/Quat.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Math/Vec2.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Math/Vec3.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Math/WildMath.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Math/WildMath.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="Renderer" displayName="Renderer" projectFiles="true">
+        <logicalFolder name="Buffers" displayName="Buffers" projectFiles="true">
+          <itemPath>../../../Source/TrafficSimulator/Renderer/Buffers/IndexBuffer.h</itemPath>
+          <itemPath>../../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="Textures" displayName="Textures" projectFiles="true">
+          <itemPath>../../../Source/TrafficSimulator/Renderer/Textures/Texture2D.cpp</itemPath>
+          <itemPath>../../../Source/TrafficSimulator/Renderer/Textures/Texture2D.h</itemPath>
+          <itemPath>../../../Source/TrafficSimulator/Renderer/Textures/TextureCube.h</itemPath>
+          <itemPath>../../../Source/TrafficSimulator/Renderer/Textures/TexturesCube.cpp</itemPath>
+        </logicalFolder>
+        <itemPath>../../../Source/TrafficSimulator/Renderer/Imgutil.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Renderer/Imgutil.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Renderer/Shader.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Renderer/Shader.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="TDW" displayName="TDW" projectFiles="true">
+        <itemPath>../../../Source/TrafficSimulator/TDW/TDWDefs.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/TDW/TDWFile.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/TDW/TDWFile.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/TDW/TDWLoader.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/TDW/TDWLoader.h</itemPath>
+      </logicalFolder>
+      <itemPath>../../../Source/TrafficSimulator/CAbstractView.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CApplication.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CApplication.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CNetworkView.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CNetworkView.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CParticipant.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CParticipant.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CSimulationController.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CSimulationController.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CSimulationModel.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CSimulationModel.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CSimulationView.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CSimulationView.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CStaticScene.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CStaticScene.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CTrafficLane.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CTrafficLane.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CTrafficLaneGroup.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CTrafficLaneGroup.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CTrafficLight.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/CTrafficLight.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/Camera.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/Camera.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/Skybox.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/Timer.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/Timer.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/TrafficDefs.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/Util.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/Util.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/jsoncpp.cpp</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/main.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../../../Source/TrafficSimulator</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../../../Source/Libs/JSoncpp-0.6</pElem>
+            <pElem>../../../Source/Libs/glew-1.9.0/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>JSON_IS_AMALGAMATION</Elem>
+          </preprocessorList>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>-lglfw</linkerOptionItem>
+            <linkerOptionItem>-lGLEW</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

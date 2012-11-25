@@ -41,11 +41,11 @@ bool CApplication::Create(unsigned width, unsigned height, bool fullscreen)
 
 	// create model and controller
 	mModel = new CSimulationModel();
-	mModel->LoadInputFromFile("Data\\inputFile.json");
+	mModel->LoadInputFromFile("Data/inputFile.json");
 	mController = new CSimulationController(mModel);
 	mController->SetRunning(true);
 
-	std::cout << "Model created!\nController created!\n\n";
+	std::cout << "Model created!\nController created!\n";
 
 	// add views
 	mController->SetSimulationView( new CSimulationView(width, height) );

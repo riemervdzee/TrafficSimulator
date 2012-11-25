@@ -1,7 +1,7 @@
 #ifndef CTRAFFICLIGHT_H
 #define CTRAFFICLIGHT_H
 
-#include "trafficDefs.h"
+#include "TrafficDefs.h"
 #include "Math/WildMath.h"
 
 class CTrafficLight

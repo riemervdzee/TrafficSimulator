@@ -114,8 +114,8 @@ public:
 		std::string fragment;
 
 		// creating shaders
-		LoadTextFile("Data\\shaders\\skybox.vert", vertex);
-		LoadTextFile("Data\\shaders\\skybox.frag", fragment);
+		LoadTextFile("Data/Shaders/skybox.vert", vertex);
+		LoadTextFile("Data/Shaders/skybox.frag", fragment);
 
 		// load shaders
 		mShader.CreateProgram(vertex, fragment);

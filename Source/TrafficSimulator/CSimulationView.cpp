@@ -40,22 +40,23 @@ void CSimulationView::Init()
     mMouseSensitivity = 8.0f;
 
     // init camera
-	mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 400.0f);
-	mCamera.LookAt(Vec3(32, 64, -32), Vec3(0, 32.0f, 1), Vec3(0, 1, 0));
+    mCamera.Perspective(60.0f, (float)width / (float)height, 1.f, 400.0f);
+    mCamera.LookAt(Vec3(32, 64, -32), Vec3(0, 32.0f, 1), Vec3(0, 1, 0));
 
-	// create skybox
-	mSkybox.Init("Data\\textures\\miramar", &mCamera);
+    // create skybox
+    mSkybox.Init("Data/Textures/miramar", &mCamera);
 
-    // load the scene
-    mScene.Load("Data\\crossroad.3dw", trafficLights, waypoints);
+    // load the scene           
+    if( !mScene.Load("Data/crossroad.3dw", trafficLights, waypoints) )                          
+        std::cout << "Could not load the scene" << std::endl;
 
     // load shader for participant
     std::string dvertex;
     std::string dfragment;
 
     // creating shaders
-    LoadTextFile("Data\\shaders\\tra_col.vert", dvertex);
-    LoadTextFile("Data\\shaders\\tra_col.frag", dfragment);
+    LoadTextFile("Data/Shaders/tra_col.vert", dvertex);
+    LoadTextFile("Data/Shaders/tra_col.frag", dfragment);
 
     // load shaders
     parShader.CreateProgram(dvertex, dfragment);

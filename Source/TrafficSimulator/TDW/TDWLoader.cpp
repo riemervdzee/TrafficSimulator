@@ -1,8 +1,10 @@
 #include "TDWLoader.h"
 #include "TDWFile.h"
 #include <fstream>
+#include <cstring>
 #include <cmath>
 #include <exception>
+#include <iostream>
 
 // static member
 MessageCallback TDWLoader::fpMessageCallback = 0;
@@ -35,9 +37,14 @@ TDWFile* TDWLoader::LoadFromFile(const char* filePath)
 	// used variables
 	std::ifstream fileStream;
 	TDWFile* tdwFile = new TDWFile();
+        memset((void*)tdwFile, 0, sizeof(TDWFile));
 
 	// try to open the file
-	fileStream.open(filePath, std::ios_base::binary | std::ios_base::in | std::ios_base::out);
+#ifndef __linux__
+	fileStream.open(filePath, std::ios_base::binary | std::ios_base::in);
+#else
+        fileStream.open(filePath);
+#endif
 	if( !fileStream.is_open() )
 	{
 		// return null if the file could not be opened
@@ -45,22 +52,26 @@ TDWFile* TDWLoader::LoadFromFile(const char* filePath)
 		return 0;
 	}
 
-	std::string msg(filePath);
+	// load in the header file
+	LoadHeader(fileStream, *tdwFile);
+        SendMessage("Header loaded!\n");
+
+	// load name table
+	LoadNameTable(fileStream, *tdwFile);
+        SendMessage("Nametable loaded!\n");
+
+	// load the objects
+	LoadObjects(fileStream, *tdwFile);
+        SendMessage("Objects loaded!\n");
+
+	fileStream.close();
+        
+        std::string msg(filePath);
 	msg += " file loaded!\n------------------------------";
 
 	// load in the file
 	SendMessage(msg.c_str());
-
-	// load in the header file
-	LoadHeader(fileStream, *tdwFile);
-
-	// load name table
-	LoadNameTable(fileStream, *tdwFile);
-
-	// load the objects
-	LoadObjects(fileStream, *tdwFile);
-
-	fileStream.close();
+        
 	return tdwFile;
 }
 
@@ -71,17 +82,23 @@ void TDWLoader::LoadHeader(std::ifstream& fileStream, TDWFile& file)
 
 	// read version number
 	fileStream.read( (char*)&file.mHeader.mapVersion, sizeof(u16));
+        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 
 	// read map flags
 	fileStream.read( (char*)&file.mHeader.mapFlags, sizeof(u8));
-
+        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
+                                        
 	// read name count & offset
 	fileStream.read( (char*)&file.mHeader.nameCount, sizeof(s32));
+        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 	fileStream.read( (char*)&file.mHeader.nameOffset, sizeof(s32));
+        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 
 	// read object count & offset
 	fileStream.read( (char*)&file.mHeader.objectCount, sizeof(s32));
+        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 	fileStream.read( (char*)&file.mHeader.objectOffset, sizeof(s32));
+        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 }
 
 void TDWLoader::LoadNameTable(std::ifstream& fileStream, TDWFile& file)

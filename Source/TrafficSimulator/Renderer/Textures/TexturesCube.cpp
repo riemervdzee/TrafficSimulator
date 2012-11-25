@@ -4,7 +4,7 @@
  * Descr: class representing a Cube texture
  */
 #include "TextureCube.h"
-#include "../imgutil.h"
+#include "../Imgutil.h"
 
 void TextureCube::LoadTGA(std::string filename, bool mipmap)
 {

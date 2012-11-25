@@ -59,7 +59,7 @@ void CSimulationModel::UpdateSim()
     simTime += dt;
 
     // Get participants from the queue if appropiate
-    while(simTime > (queue.top().time) && !queue.empty() )
+    while(simTime > ((queue.top()).time) && !queue.empty() )
     {
         // get participant from the top
         const TRADEFS::SimulationQueueParticipant_t& qPar = queue.top();
