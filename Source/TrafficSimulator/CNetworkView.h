@@ -4,10 +4,11 @@
 #include "CAbstractView.h"
 #include "RuneSocket.h"
 
+const int bufferSize = 8192;
+
 class CNetworkView : public CAbstractView
 {
     public:
-        CNetworkView();
         ~CNetworkView();
         
         // connect to the specified server
@@ -16,9 +17,14 @@ class CNetworkView : public CAbstractView
          // Send pending messages
          // process incoming message for trafficlights
          void UpdateNetwork();
+         
+    private:
+        void Translate(const char* buffer);
+    
     private:
         RuneSocket::RuneSocketSet socketSet;
         RuneSocket::RuneDataSocket dSocket;
+        char recBuffer[bufferSize];
              
 };
 
