@@ -1,0 +1,343 @@
+[
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "E7",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "E0",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "W0",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "W7",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "N7",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "N0",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "S0",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "pedestrian",
+		"from": "S7",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bike",
+		"from": "N1",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "N3",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "N3",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "N2",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "N4",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bus",
+		"from": "N5",
+		"to": "S"
+	}	,
+	{
+		"time": 0,
+		"type": "bike",
+		"from": "S1",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "S3",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "S2",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "S4",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bus",
+		"from": "S5",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bike",
+		"from": "W1",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "W3",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "W2",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "W4",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bus",
+		"from": "W5",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bike",
+		"from": "E1",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "E3",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "E2",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "E4",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bus",
+		"from": "E5",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bike",
+		"from": "N1",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "N3",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "N2",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "N4",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bus",
+		"from": "N5",
+		"to": "S"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bike",
+		"from": "S1",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "S3",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "S2",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "S4",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bus",
+		"from": "S5",
+		"to": "N"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bike",
+		"from": "W1",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "W3",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "W2",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "W4",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bus",
+		"from": "W5",
+		"to": "E"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bike",
+		"from": "E1",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "E3",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "E2",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "car",
+		"from": "E4",
+		"to": "W"
+	}
+	,
+	{
+		"time": 0,
+		"type": "bus",
+		"from": "E5",
+		"to": "W"
+	}
+]
