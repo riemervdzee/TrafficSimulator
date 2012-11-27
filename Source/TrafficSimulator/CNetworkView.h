@@ -19,7 +19,7 @@ class CNetworkView : public CAbstractView
          void UpdateNetwork();
          
     private:
-        void Translate(const char* buffer);
+        void Translate(const char* buffer, int bs);
     
     private:
         RuneSocket::RuneSocketSet socketSet;

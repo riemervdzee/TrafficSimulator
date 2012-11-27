@@ -17,6 +17,13 @@
 namespace RuneSocket
 {
     const int MAX = FD_SETSIZE;
+    
+    enum FD_ACTION
+    {
+        READ = 0,
+        WRITE,
+        EXCEP
+    };
 
     class RuneSocketSet
     {
@@ -33,20 +40,31 @@ namespace RuneSocket
             struct timeval t = { 0, p_time * 1000 };
 
             // copy the set over into the activity set.
-            m_activityset = m_set;
+            m_readset = m_set;
+            m_writeset = m_set;
+            m_excepset = m_set;
 
             // now run select() on the sockets.
             #ifdef WIN32
-                return select( 0, &m_activityset, 0, 0, &t );
+                return select( 0, &m_readset, &m_writeset, &m_excepset, &t );
             #else
                 if( m_socketdescs.size() == 0 ) return 0;
-                return select( *(m_socketdescs.rbegin()) + 1, &m_activityset, 0, 0, &t );
+                return select( *(m_socketdescs.rbegin()) + 1, &m_readset, &m_writeset, &m_excepset, &t );
             #endif
         }
 
-        inline bool HasActivity( const BaseSocket& p_sock )
+        inline bool HasActivity( const BaseSocket& p_sock, FD_ACTION action )
         {
-            return FD_ISSET( p_sock.GetSock(), &m_activityset ) != 0;
+            switch(action)
+            {
+                case READ:
+                    return FD_ISSET( p_sock.GetSock(), &m_readset ) != 0;
+                case WRITE:
+                    return FD_ISSET( p_sock.GetSock(), &m_writeset ) != 0;
+                case EXCEP:
+                    return FD_ISSET( p_sock.GetSock(), &m_excepset ) != 0;
+                    
+            }
         }
 
 
@@ -56,7 +74,9 @@ namespace RuneSocket
         fd_set m_set;
 
         // this set will represent all the sockets that have activity on them.
-        fd_set m_activityset;
+        fd_set m_readset;
+        fd_set m_writeset;
+        fd_set m_excepset;
 
         // this is only used for linux, since select() requires the largest
         // descriptor +1 passed into it. BLAH!

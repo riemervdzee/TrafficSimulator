@@ -23,18 +23,33 @@ void CNetworkView::Connect(std::string ip, short port)
         // add to the socket set
         socketSet.AddSocket(dSocket);
     }
-    catch(RuneSocket::Exception& E)
+    catch(RuneSocket::Exception& e)
     {
-        std::cout << "Could not connect to the server!" << std::endl;
+        std::cout << e.PrintError() << std::endl;
     }
 }
 
-void CNetworkView::Translate(const char* buffer)
+void CNetworkView::Translate(const char* buffer, int br)
 {
-    std::string buff(buffer); // puts the chars in to the string until '\0'
+    std::cout << "Bytes received: " << br << std::endl;
+    std::string buff;
+    int start = 0;
     
-    // DEBUG, show message
-    std::cout << buff << std::endl;
+    // DEBUG, show messages
+    while(br > 0)
+    {
+        buff = buffer + start; // puts the chars in to the string until '\0'
+        std::cout << buff << std::endl;
+        br -= (buff.size() + 1);
+        start += (buff.size() + 1);
+    
+        if(buff.compare("exit") == 0)
+        {
+            std::cout << "Disconnected from the server!" << std::endl;
+            socketSet.RemoveSocket(dSocket);
+            dSocket.Close();
+        }
+    }
 }
 
 void CNetworkView::UpdateNetwork()
@@ -43,17 +58,18 @@ void CNetworkView::UpdateNetwork()
     {
         try
         {
-            // wait for 16 min for socket action
+            // check for for socket action
             if(socketSet.Poll(16))
             {
                 // if this socket really has activity do stuff
-                if(socketSet.HasActivity(dSocket))
+                if(socketSet.HasActivity(dSocket, RuneSocket::READ))
                 {
                     // receive data
-                    dSocket.Receive(recBuffer, bufferSize);
+                    int br = dSocket.Receive(recBuffer, bufferSize);
                     
                     // handle data
-                    Translate(recBuffer);
+                    Translate(recBuffer, br);
+                    recBuffer[0] = '\0';
                 }
             }
             
@@ -62,7 +78,8 @@ void CNetworkView::UpdateNetwork()
         {
             if(e.ErrorCode() != RuneSocket::EOperationWouldBlock)
             {
-                std::cout << e.PrintError() << std::endl;
+                std::cout << e.PrintError() << " " << e.ErrorCode() << std::endl;
+                std::cout << "Disconnected from the server!" << std::endl;
                 socketSet.RemoveSocket(dSocket);
                 dSocket.Close();
             }
