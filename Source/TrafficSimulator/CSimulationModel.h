@@ -26,6 +26,7 @@ public:
     // inhereted
     void RegisterNetworkView(CNetworkView* observer);
     void RegisterSimulationView(CSimulationView* observer);
+    CNetworkView* GetNetworkView() { return mNetworkView; }
 
     // simulation updating
     void UpdateSim();

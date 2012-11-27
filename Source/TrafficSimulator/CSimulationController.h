@@ -17,6 +17,9 @@ public:
 
     void SetNetworkView(CNetworkView *view);
     void SetSimulationView(CSimulationView *view);
+    
+    // network
+    bool ConnectToNetwork();
 
     // mutators
     void SetRunning(bool state) { mAppIsRunning = state;}

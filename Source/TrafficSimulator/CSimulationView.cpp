@@ -73,6 +73,14 @@ void CSimulationView::Update(float dt)
         if(mController >= 0)
             mController->SetRunning(false);
     }
+    
+    static bool lastC = false; /// LAZY HACK!
+    if( glfwGetKey( 'C') == GLFW_PRESS) lastC = true;
+    if( glfwGetKey( 'C') == GLFW_RELEASE && lastC == true)
+    {
+        mController->ConnectToNetwork();
+        lastC = false;
+    }
 
     int speed = mMoveSpeed;
 

@@ -107,15 +107,20 @@
           <incDir>
             <pElem>../../../Source/Libs/JSoncpp-0.6</pElem>
             <pElem>../../../Source/Libs/glew-1.9.0/include</pElem>
+            <pElem>../../../Source/Libs/RuneSocket/include</pElem>
           </incDir>
           <preprocessorList>
             <Elem>JSON_IS_AMALGAMATION</Elem>
           </preprocessorList>
         </ccTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../../../Source/Libs/RuneSocket/lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerOptionItem>-lglfw</linkerOptionItem>
             <linkerOptionItem>-lGLEW</linkerOptionItem>
+            <linkerOptionItem>-lrunesocket</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

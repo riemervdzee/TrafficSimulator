@@ -29,3 +29,11 @@ void CSimulationController::SetSimulationView(CSimulationView *view)
     if(mModel != 0)
         mModel->RegisterSimulationView(view);
 }
+
+bool CSimulationController::ConnectToNetwork()
+{
+    if( mModel != 0)
+    {
+        mModel->GetNetworkView()->Connect("127.0.0.1", 1337);
+    }
+}
