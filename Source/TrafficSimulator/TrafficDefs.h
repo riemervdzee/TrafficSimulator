@@ -1,6 +1,8 @@
 #ifndef TRAFFICDEFS_H
 #define TRAFFICDEFS_H
 
+/* Keep this in sync in both projects! */
+
 namespace TRADEFS
 {
     const int MAXGROUPS = 4;
