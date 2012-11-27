@@ -46,12 +46,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add directory="$(#glfw.include)" />
+			<Add directory="..\..\Source\Libs\RuneSocket\include" />
 		</Compiler>
 		<Linker>
 			<Add library="glfw" />
 			<Add library="opengl32" />
 			<Add library="glu32" />
 			<Add library="gdi32" />
+			<Add library="ws2_32" />
 			<Add directory="$(#glfw.lib)" />
 		</Linker>
 		<Unit filename="..\..\Source\Libs\glew-1.9.0\src\glew.c">
@@ -87,6 +89,20 @@
 		<Unit filename="..\..\Source\TrafficSimulator\Math\Vec3.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\Math\WildMath.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\Math\WildMath.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\BaseSocket.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\BaseSocket.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneDataSocket.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneDataSocket.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneListenSocket.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneListenSocket.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocket.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketDefs.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketError.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketError.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketSet.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketSet.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketUtil.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketUtil.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Renderer\Buffers\IndexBuffer.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Renderer\Buffers\VertexBuffer.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Renderer\Imgutil.cpp" />

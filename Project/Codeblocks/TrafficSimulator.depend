@@ -186,15 +186,16 @@
 1351943797 c:\users\wilds\desktop\trafficsim\source\trafficsimulator\cnetworkview.h
 	"CAbstractView.h"
 
-1350374474 source:c:\trafficsimulator\source\trafficsimulator\cnetworkview.cpp
+1354018140 source:c:\trafficsimulator\source\trafficsimulator\cnetworkview.cpp
 	"CNetworkView.h"
 
-1350374474 c:\trafficsimulator\source\trafficsimulator\cnetworkview.h
-	"../../Source/TrafficSimulator/CAbstractView.h"
+1354018140 c:\trafficsimulator\source\trafficsimulator\cnetworkview.h
+	"CAbstractView.h"
+	"RuneSocket.h"
 
-1350374474 c:\trafficsimulator\source\trafficsimulator\cabstractview.h
+1352706389 c:\trafficsimulator\source\trafficsimulator\cabstractview.h
 
-1350374922 source:c:\trafficsimulator\source\trafficsimulator\csimulationcontroller.cpp
+1354018140 source:c:\trafficsimulator\source\trafficsimulator\csimulationcontroller.cpp
 	"CSimulationController.h"
 	"CSimulationModel.h"
 	"CSimulationView.h"
@@ -202,19 +203,37 @@
 	<iostream>
 	<fstream>
 
-1350374474 c:\trafficsimulator\source\trafficsimulator\csimulationcontroller.h
+1354018140 c:\trafficsimulator\source\trafficsimulator\csimulationcontroller.h
 
-1350374474 c:\trafficsimulator\source\trafficsimulator\csimulationmodel.h
+1354018140 c:\trafficsimulator\source\trafficsimulator\csimulationmodel.h
+	<queue>
+	<list>
+	<json/json-forwards.h>
+	<json/json.h>
+	"Timer.h"
+	"CTrafficLaneGroup.h"
+	"CTrafficLane.h"
+	"CParticipant.h"
+	"CTrafficLight.h"
+	"TrafficDefs.h"
+	"TDW/TDWDefs.h"
 
-1350374474 c:\trafficsimulator\source\trafficsimulator\csimulationview.h
-	"../../Source/TrafficSimulator/CAbstractView.h"
+1352706389 c:\trafficsimulator\source\trafficsimulator\csimulationview.h
+	"Camera.h"
+	"Skybox.h"
+	"CAbstractView.h"
+	"CStaticScene.h"
 
-1350374961 source:c:\trafficsimulator\source\trafficsimulator\csimulationmodel.cpp
+1354018140 source:c:\trafficsimulator\source\trafficsimulator\csimulationmodel.cpp
 	"CSimulationModel.h"
 	"CSimulationView.h"
 	"CNetworkView.h"
+	<iostream>
+	<fstream>
+	<cstdlib>
+	<cstring>
 
-1350374474 source:c:\trafficsimulator\source\trafficsimulator\jsoncpp.cpp
+1350370874 source:c:\trafficsimulator\source\trafficsimulator\jsoncpp.cpp
 	"json/json.h"
 	<json/reader.h>
 	<json/value.h>
@@ -250,7 +269,7 @@
 	<sstream>
 	<iomanip>
 
-1350374474 c:\trafficsimulator\source\libs\jsoncpp-0.6\json\json.h
+1350370874 c:\trafficsimulator\source\libs\jsoncpp-0.6\json\json.h
 	<cpptl/config.h>
 	"config.h"
 	"forwards.h"
@@ -271,15 +290,14 @@
 	<string>
 	<iostream>
 
-1350374983 source:c:\trafficsimulator\source\trafficsimulator\main.cpp
+1354018141 source:c:\trafficsimulator\source\trafficsimulator\main.cpp
 	"CApplication.h"
 
-1350374474 c:\trafficsimulator\source\trafficsimulator\capplication.h
+1354018140 c:\trafficsimulator\source\trafficsimulator\capplication.h
+	"GL/glew.h"
 	<GL/glfw.h>
-	<json/json-forwards.h>
-	<json/json.h>
 
-1350374474 c:\trafficsimulator\source\libs\glfw-2.7.6\include\gl\glfw.h
+1350370874 c:\trafficsimulator\source\libs\glfw-2.7.6\include\gl\glfw.h
 	<OpenGL/gl3.h>
 	<OpenGL/gl.h>
 	<OpenGL/glu.h>
@@ -287,16 +305,17 @@
 	<GL/gl.h>
 	<GL/glu.h>
 
-1350374474 c:\trafficsimulator\source\libs\jsoncpp-0.6\json\json-forwards.h
+1350370874 c:\trafficsimulator\source\libs\jsoncpp-0.6\json\json-forwards.h
 	<cpptl/config.h>
 	"config.h"
 
-1350374855 source:c:\trafficsimulator\source\trafficsimulator\capplication.cpp
+1354018140 source:c:\trafficsimulator\source\trafficsimulator\capplication.cpp
 	"CApplication.h"
 	"CSimulationController.h"
 	"CSimulationModel.h"
 	"CSimulationView.h"
 	"CNetworkView.h"
+	<cstdio>
 
 1352883488 source:c:\users\marklaptop\desktop\trafficsim\source\trafficsimulator\capplication.cpp
 	"CApplication.h"
@@ -834,4 +853,330 @@
 	"CTrafficLaneGroup.h"
 	"CTrafficLane.h"
 	<cstdio>
+
+1350381986 source:c:\trafficsimulator\source\libs\glew-1.9.0\src\glew.c
+	<GL/glew.h>
+	<GL/wglew.h>
+	<GL/glxew.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
+
+1350381986 c:\trafficsimulator\source\libs\glew-1.9.0\include\gl\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1350381986 c:\trafficsimulator\source\libs\glew-1.9.0\include\gl\wglew.h
+	<windows.h>
+
+1350381986 c:\trafficsimulator\source\libs\glew-1.9.0\include\gl\glxew.h
+	<X11/Xlib.h>
+	<X11/Xutil.h>
+	<X11/Xmd.h>
+	<GL/glew.h>
+
+1352706389 c:\trafficsimulator\source\trafficsimulator\timer.h
+	<GL/glew.h>
+	<GL/glfw.h>
+
+1352706389 c:\trafficsimulator\source\trafficsimulator\ctrafficlanegroup.h
+
+1354018141 c:\trafficsimulator\source\trafficsimulator\ctrafficlane.h
+	"TrafficDefs.h"
+	"CTrafficLaneGroup.h"
+	"CTrafficLight.h"
+	"CParticipant.h"
+	"Math/WildMath.h"
+	<vector>
+	<list>
+
+1354021985 c:\trafficsimulator\source\trafficsimulator\trafficdefs.h
+
+1354018141 c:\trafficsimulator\source\trafficsimulator\ctrafficlight.h
+	"TrafficDefs.h"
+	"Math/WildMath.h"
+
+1350381986 c:\trafficsimulator\source\trafficsimulator\math\wildmath.h
+	<cmath>
+
+1352706389 c:\trafficsimulator\source\trafficsimulator\cparticipant.h
+	"TrafficDefs.h"
+	"Math/WildMath.h"
+
+1354018141 c:\trafficsimulator\source\trafficsimulator\tdw\tdwdefs.h
+	<map>
+
+1350381986 c:\trafficsimulator\source\trafficsimulator\camera.h
+	"Math/WildMath.h"
+
+1354018141 c:\trafficsimulator\source\trafficsimulator\skybox.h
+	<string>
+	<GL/glew.h>
+	"../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h"
+	"../../Source/TrafficSimulator/Renderer/Buffers/IndexBuffer.h"
+	"../../Source/TrafficSimulator/Renderer/Textures/TextureCube.h"
+	"../../Source/TrafficSimulator/Renderer/Shader.h"
+	"../../Source/TrafficSimulator/Camera.h"
+	"../../Source/TrafficSimulator/Util.h"
+
+1351763323 c:\trafficsimulator\source\trafficsimulator\renderer\buffers\vertexbuffer.h
+	"GL/glew.h"
+
+1351763323 c:\trafficsimulator\source\trafficsimulator\renderer\buffers\indexbuffer.h
+	"GL/glew.h"
+
+1351763323 c:\trafficsimulator\source\trafficsimulator\renderer\textures\texturecube.h
+	<string>
+	<cstdio>
+	"GL/glew.h"
+	<GL/glfw.h>
+
+1352706389 c:\trafficsimulator\source\trafficsimulator\renderer\shader.h
+	"GL/glew.h"
+	<GL/glfw.h>
+	<string>
+
+1350381986 c:\trafficsimulator\source\trafficsimulator\util.h
+	<string>
+
+1352706389 c:\trafficsimulator\source\trafficsimulator\cstaticscene.h
+	<vector>
+	<map>
+	"TDW/TDWFile.h"
+	"TDW/TDWLoader.h"
+	"Renderer/Buffers/IndexBuffer.h"
+	"Renderer/Buffers/VertexBuffer.h"
+	"Renderer/Shader.h"
+	"Renderer/Textures/Texture2D.h"
+
+1352706389 c:\trafficsimulator\source\trafficsimulator\tdw\tdwfile.h
+	<string>
+	<vector>
+	"TDWDefs.h"
+	<cstring>
+
+1351763323 c:\trafficsimulator\source\trafficsimulator\tdw\tdwloader.h
+	<fstream>
+
+1352706389 c:\trafficsimulator\source\trafficsimulator\renderer\textures\texture2d.h
+	<string>
+	<cstdio>
+	"GL/glew.h"
+
+1354018140 c:\trafficsimulator\source\libs\runesocket\include\runesocket.h
+	"RuneSocketDefs.h"
+	"RuneSocketError.h"
+	"RuneSocketUtil.h"
+	"RuneSocketSet.h"
+	"RuneDataSocket.h"
+	"RuneListenSocket.h"
+
+1354018140 c:\trafficsimulator\source\libs\runesocket\include\runesocketdefs.h
+	<iostream>
+	<fstream>
+	<string>
+	"winsock2.h"
+	"Ws2tcpip.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<unistd.h>
+	<netdb.h>
+	<arpa/inet.h>
+	<errno.h>
+	<fcntl.h>
+
+1354018140 c:\trafficsimulator\source\libs\runesocket\include\runesocketerror.h
+	"RuneSocketDefs.h"
+	<exception>
+	<string>
+
+1354018140 c:\trafficsimulator\source\libs\runesocket\include\runesocketutil.h
+	<string>
+	"RuneSocketDefs.h"
+
+1354018140 c:\trafficsimulator\source\libs\runesocket\include\runesocketset.h
+	"RuneSocketDefs.h"
+	"BaseSocket.h"
+	<set>
+
+1354018140 c:\trafficsimulator\source\libs\runesocket\include\basesocket.h
+	"RuneSocketDefs.h"
+	"RuneSocketError.h"
+
+1354018140 c:\trafficsimulator\source\libs\runesocket\include\runedatasocket.h
+	"BaseSocket.h"
+
+1354018140 c:\trafficsimulator\source\libs\runesocket\include\runelistensocket.h
+	"BaseSocket.h"
+	"RuneDataSocket.h"
+
+1352706389 source:c:\trafficsimulator\source\trafficsimulator\cparticipant.cpp
+	"CParticipant.h"
+	<cstdio>
+
+1354018140 source:c:\trafficsimulator\source\trafficsimulator\csimulationview.cpp
+	"CSimulationView.h"
+	"CSimulationController.h"
+	"CSimulationModel.h"
+	<GL/glfw.h>
+	<cmath>
+	"../../Source/TrafficSimulator/Math/WildMath.h"
+
+1354018140 source:c:\trafficsimulator\source\trafficsimulator\cstaticscene.cpp
+	"CStaticScene.h"
+	"../../Source/TrafficSimulator/Camera.h"
+	"../../Source/TrafficSimulator/Math/WildMath.h"
+	"../../Source/TrafficSimulator/Util.h"
+	<set>
+	<sstream>
+
+1354018141 source:c:\trafficsimulator\source\trafficsimulator\ctrafficlane.cpp
+	"CTrafficLane.h"
+	<cstdio>
+
+1352706389 source:c:\trafficsimulator\source\trafficsimulator\ctrafficlanegroup.cpp
+	"CTrafficLaneGroup.h"
+	"CTrafficLane.h"
+	<cstdio>
+
+1352706389 source:c:\trafficsimulator\source\trafficsimulator\ctrafficlight.cpp
+	"CTrafficLight.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\camera.cpp
+	"Camera.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\math\mat3.cpp
+	"WildMath.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\math\mat4.cpp
+	"WildMath.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\math\quat.cpp
+	"WildMath.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\math\vec2.cpp
+	"WildMath.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\math\vec3.cpp
+	"WildMath.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\math\wildmath.cpp
+	"WildMath.h"
+
+1354024681 source:c:\trafficsimulator\source\trafficsimulator\network\basesocket.cpp
+	"BaseSocket.h"
+
+1354024681 c:\trafficsimulator\source\trafficsimulator\network\basesocket.h
+	"RuneSocketDefs.h"
+	"RuneSocketError.h"
+
+1354024681 c:\trafficsimulator\source\trafficsimulator\network\runesocketdefs.h
+	<iostream>
+	<fstream>
+	<string>
+	"winsock2.h"
+	"Ws2tcpip.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<unistd.h>
+	<netdb.h>
+	<arpa/inet.h>
+	<errno.h>
+	<fcntl.h>
+
+1354024681 c:\trafficsimulator\source\trafficsimulator\network\runesocketerror.h
+	"RuneSocketDefs.h"
+	<exception>
+	<string>
+
+1354024681 source:c:\trafficsimulator\source\trafficsimulator\network\runedatasocket.cpp
+	"RuneDataSocket.h"
+	<cstring>
+
+1354024681 c:\trafficsimulator\source\trafficsimulator\network\runedatasocket.h
+	"BaseSocket.h"
+
+1354024681 source:c:\trafficsimulator\source\trafficsimulator\network\runelistensocket.cpp
+	"RuneListenSocket.h"
+	<cstring>
+
+1354024681 c:\trafficsimulator\source\trafficsimulator\network\runelistensocket.h
+	"BaseSocket.h"
+	"RuneDataSocket.h"
+
+1354024681 source:c:\trafficsimulator\source\trafficsimulator\network\runesocketerror.cpp
+	"RuneSocketError.h"
+
+1354024681 source:c:\trafficsimulator\source\trafficsimulator\network\runesocketset.cpp
+	<algorithm>
+	"RuneSocketSet.h"
+
+1354024681 c:\trafficsimulator\source\trafficsimulator\network\runesocketset.h
+	"RuneSocketDefs.h"
+	"BaseSocket.h"
+	<set>
+
+1354024681 source:c:\trafficsimulator\source\trafficsimulator\network\runesocketutil.cpp
+	"RuneSocketUtil.h"
+	"RuneSocketError.h"
+	<time.h>
+	"windows.h"
+	<sys/time.h>
+
+1354024681 c:\trafficsimulator\source\trafficsimulator\network\runesocketutil.h
+	<string>
+	"RuneSocketDefs.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\renderer\imgutil.cpp
+	"Imgutil.h"
+	<iostream>
+	<fstream>
+	<cstring>
+
+1350381986 c:\trafficsimulator\source\trafficsimulator\renderer\imgutil.h
+	<string>
+	<cstring>
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\renderer\shader.cpp
+	"Shader.h"
+	<cstdio>
+
+1354018141 source:c:\trafficsimulator\source\trafficsimulator\renderer\textures\texture2d.cpp
+	"Texture2D.h"
+	"../Imgutil.h"
+	<cmath>
+
+1354018141 source:c:\trafficsimulator\source\trafficsimulator\renderer\textures\texturescube.cpp
+	"TextureCube.h"
+	"../Imgutil.h"
+
+1351763323 source:c:\trafficsimulator\source\trafficsimulator\tdw\tdwfile.cpp
+	"TDWFile.h"
+
+1354018141 source:c:\trafficsimulator\source\trafficsimulator\tdw\tdwloader.cpp
+	"TDWLoader.h"
+	"TDWFile.h"
+	<fstream>
+	<cstring>
+	<cmath>
+	<exception>
+	<iostream>
+
+1352706389 source:c:\trafficsimulator\source\trafficsimulator\timer.cpp
+	"Timer.h"
+
+1350381986 source:c:\trafficsimulator\source\trafficsimulator\util.cpp
+	"Util.h"
+	<fstream>
 

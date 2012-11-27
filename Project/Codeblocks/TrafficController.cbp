@@ -36,6 +36,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add option="-DJSON_IS_AMALGAMATION" />
+			<Add directory="..\..\Source\Libs\RuneSocket\include" />
 		</Compiler>
 		<Linker>
 			<Add library="libws2_32.a" />

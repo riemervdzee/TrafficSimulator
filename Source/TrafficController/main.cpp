@@ -1,4 +1,6 @@
 #include <iostream>
+#include "cTrafficController.h"
+#include "cSimulationModel.h"
 
 using namespace std;
 
