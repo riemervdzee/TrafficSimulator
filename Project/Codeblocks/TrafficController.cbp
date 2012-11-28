@@ -56,8 +56,17 @@
 		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketUtil.cpp" />
 		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketUtil.h" />
 		<Unit filename="..\..\Source\TrafficController\TrafficDefs.h" />
+		<Unit filename="..\..\Source\TrafficController\cConsoleView.cpp" />
+		<Unit filename="..\..\Source\TrafficController\cConsoleView.h" />
+		<Unit filename="..\..\Source\TrafficController\cNetworkView.cpp" />
+		<Unit filename="..\..\Source\TrafficController\cNetworkView.h" />
+		<Unit filename="..\..\Source\TrafficController\cSimulationModel.cpp" />
 		<Unit filename="..\..\Source\TrafficController\cSimulationModel.h" />
+		<Unit filename="..\..\Source\TrafficController\cTrafficController.cpp" />
 		<Unit filename="..\..\Source\TrafficController\cTrafficController.h" />
+		<Unit filename="..\..\Source\TrafficController\iAbstractView.h" />
+		<Unit filename="..\..\Source\TrafficController\iConsoleObserver.h" />
+		<Unit filename="..\..\Source\TrafficController\iNetworkObserver.h" />
 		<Unit filename="..\..\Source\TrafficController\jsoncpp.cpp" />
 		<Unit filename="..\..\Source\TrafficController\main.cpp" />
 		<Extensions>
