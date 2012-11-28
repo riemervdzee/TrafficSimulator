@@ -13,6 +13,7 @@ CSimulationModel::CSimulationModel()
     mNetworkView = 0;
     mSimulationView = 0;
     simTime = 0;
+    speedMultiplier = 1;
     mSimStarted = false;
 }
 
@@ -54,24 +55,15 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
     }
 }
 
-void CSimulationModel::SetSimState(bool s)
-{
-    mSimStarted = s;
-}
-
 void CSimulationModel::Connected()
 {
+    mSimStarted = true;
+    
     // send init message
     if(mNetworkView != 0)
     {
-        mNetworkView->SendString( PacketMaster::GetInitPackage(5620, 1));
-        
-        // test
-        mNetworkView->SendString( PacketMaster::GetTraLightPackage( TRADEFS::NORTH, 5, TRADEFS::PROCEED));
-        
-        std::string loop = PacketMaster::GetLoopPackage(TRADEFS::NORTH, 4, TRADEFS::CAR,
-                0, 1, TRADEFS::NORTH, 6);
-        mNetworkView->SendString( loop );
+        // send init messsage
+        mNetworkView->SendString( PacketMaster::GetInitPackage(queue.top().time, speedMultiplier));
     }
 }
 
@@ -79,12 +71,21 @@ void CSimulationModel::Disconnected()
 {
     mSimStarted = false;
     
-    // clear data structures
-}
-
-void CSimulationModel::ProcessMsg(Json::Value data)
-{
-    // handle msg
+    // clear queue
+    queue = std::priority_queue<TRADEFS::SimulationQueueParticipant_t>();
+    
+    // clear other
+    trafficLights.clear();
+    participants.clear();
+    
+    // clear Lanes
+    for(int i = 0; i < 4; i++)
+    {
+        laneGroups[i].Clear();
+    }
+    
+    // load input file again
+    LoadInputFromFile("Data/inputFile.json");
 }
 
 void CSimulationModel::UpdateSim()
@@ -252,6 +253,84 @@ void CSimulationModel::LoadInputFromFile(const char* fileName)
 
     std::cout << "Added " << queue.size() << " participants to the Queue\n" << std::endl;
     std::cout << "===============================\n";
+}
+
+void CSimulationModel::ParseLocation(const std::string& str, int& dir, int& lane)
+{
+    int size = str.size();
+
+    if( size > 2 || size < 1)
+        return;
+
+    if( size == 2)
+    {
+        // check direction
+        dir = GetDirection(str[0]);
+
+        // check lane
+        lane = GetLane(str[1]);
+
+    }
+    else
+    {
+       // check direction
+       dir = GetDirection(str[0]);
+    }
+}
+
+void CSimulationModel::ParseLightState(const std::string& str, int& state)
+{
+    if(str.compare("green") == 0)
+    {
+        state = TRADEFS::PROCEED;
+    }
+    else if(str.compare("red") == 0)
+    {
+        state = TRADEFS::STOP;
+    }
+    else if(str.compare("yellow") == 0)
+    {
+        state = TRADEFS::STOP_ALMOST;
+    }
+    else if(str.compare("blink") == 0)
+    {
+        state = TRADEFS::BLINKING;
+    }
+    else if(str.compare("off") == 0)
+    {
+        state = TRADEFS::OFF;
+    }
+    else
+    {
+        state = -1;
+    }
+}
+
+void CSimulationModel::ProcessMsg(const Json::Value& data)
+{
+    // handle msg
+    if( data.isMember("light") )
+    {
+        int dir, lane, state;
+        
+        std::string lightLocation = data["light"].asString();
+        std::string lightState = data["state"].asString();
+        
+        // parse strings
+        ParseLocation(lightLocation, dir, lane);
+        ParseLightState(lightState, state);
+        
+        if((dir >= 0 && dir < 4) && (lane >= 0 && lane < 8))
+        {
+            // change state of the corresponding light
+            int lightID = laneGroups[dir][lane]->GetLightID();
+            trafficLights.at(lightID).SetState((TRADEFS::TRAFFICLIGHTSTATE)state);
+        }
+        else
+        {
+            std::cout << "Could not process network light update!" << std::endl;
+        }
+    }
 }
 
 void CSimulationModel::LoadParticipants(Json::Value& root)

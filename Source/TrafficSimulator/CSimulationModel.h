@@ -29,10 +29,9 @@ public:
     CNetworkView* GetNetworkView() { return mNetworkView; }
     
     // state
-    void SetSimState(bool s);
     void Connected();
     void Disconnected();
-    void ProcessMsg(Json::Value data);
+    void ProcessMsg(const Json::Value& data);
 
     // simulation updating
     void UpdateSim();
@@ -53,6 +52,8 @@ private:
     void LoadParticipants(Json::Value& root);
     void ParseToLocation(const std::string& str, TRADEFS::SimulationQueueParticipant_t& dest);
     void ParseFromLocation(const std::string& str, TRADEFS::SimulationQueueParticipant_t& dest);
+    void ParseLocation(const std::string& str, int& dir, int& lane);
+    void ParseLightState(const std::string& str, int& state);
     TRADEFS::DIRECTION GetDirection(const char val);
     int GetLane(char val);
     // END INPUT FILE PROCESSING
@@ -64,6 +65,7 @@ private:
     // timer stuff
     float simTime;
     CTimer mTimer;
+    int speedMultiplier;
     bool mSimStarted;
 
     CTrafficLaneGroup                                           laneGroups[4];

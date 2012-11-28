@@ -48,6 +48,13 @@ void CCommonTrafficLane::AddParticipant(std::list<CParticipant>& parList,const T
     incomingQueue.push_back( &parList.front() );
 }
 
+// clear this lane
+void CCommonTrafficLane::Clear()
+{
+    incomingQueue.clear();
+    participantQueue.clear();
+}
+
 void CCommonTrafficLane::UpdateParticipants(std::vector<CTrafficLight>& lightList,
                                             CTrafficLaneGroup* groups, float dt)
 {
@@ -225,6 +232,15 @@ void CCommonTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, 
         // set it's new position
         par.SetPosition(parPos + moveDir * GetParticipantSpeed( par.GetType()) * dt);
     }
+}
+
+// clear this lane
+void CPedestrianTrafficLane::Clear()
+{
+    incomingQueue.clear();
+    participantQueue.clear();
+    pedStart = wmath::Vec3();
+    midLightID = -1;
 }
 
 void CPedestrianTrafficLane::AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info)

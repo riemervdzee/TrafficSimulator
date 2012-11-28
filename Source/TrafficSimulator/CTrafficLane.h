@@ -30,6 +30,7 @@ public:
     virtual void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info) = 0;
     virtual void UpdateParticipants(std::vector<CTrafficLight>& lightList,
                                     CTrafficLaneGroup* groups, float dt) = 0;
+    virtual void Clear() = 0;
 
     // static helpers
     static float GetParticipantSize(TRADEFS::PARTICIPANTS type);
@@ -50,6 +51,7 @@ public:
         participantQueue.reserve(32);
     }
     ~CCommonTrafficLane() {}
+    void Clear();
 
     void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info);
     void UpdateParticipants(std::vector<CTrafficLight>& lightList,
@@ -70,6 +72,7 @@ class CPedestrianTrafficLane: public CTrafficLane
 public:
     CPedestrianTrafficLane(){}
     ~CPedestrianTrafficLane(){}
+    void Clear();
 
     void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info);
     void UpdateParticipants( std::vector<CTrafficLight>& lightList,

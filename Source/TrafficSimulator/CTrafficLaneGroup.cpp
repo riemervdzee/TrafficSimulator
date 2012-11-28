@@ -15,6 +15,14 @@ CTrafficLaneGroup::CTrafficLaneGroup()
     }
 }
 
+void CTrafficLaneGroup::Clear()
+{
+    for(int i = 0; i < 7; i++)
+    {
+        lanes[i]->Clear();
+    }
+}
+
 CTrafficLaneGroup::~CTrafficLaneGroup()
 {
     // free memory for the lanes

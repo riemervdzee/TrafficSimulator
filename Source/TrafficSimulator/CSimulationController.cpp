@@ -36,7 +36,6 @@ bool CSimulationController::ConnectToNetwork()
     {
         if(mModel->GetNetworkView()->Connect("127.0.0.1", 1337))
         {
-            mModel->SetSimState(true);
             mModel->Connected();
         }
     }

@@ -10,6 +10,7 @@ public:
     ~CTrafficLaneGroup();
 
     CTrafficLane* operator[](int index);
+    void Clear();
 
 private:
     CTrafficLane* lanes[8];
