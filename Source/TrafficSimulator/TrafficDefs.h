@@ -67,6 +67,13 @@ namespace TRADEFS
         GOTOEXIT
     };
 
+    enum CONNECTIONSTATE
+    {
+        DOWN = 0,   // Socket ain't initialized yet / No connection
+        LISTENING,  // Listening to connections
+        CONNECTED,  // Connected
+    };
+
     // data structure for the queue
     struct SimulationQueueParticipant_t
     {
