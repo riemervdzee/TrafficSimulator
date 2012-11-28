@@ -25,6 +25,22 @@
         <itemPath>../../../Source/TrafficSimulator/Math/WildMath.cpp</itemPath>
         <itemPath>../../../Source/TrafficSimulator/Math/WildMath.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f1" displayName="Network" projectFiles="true">
+        <itemPath>../../../Source/TrafficSimulator/Network/BaseSocket.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/BaseSocket.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneDataSocket.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneDataSocket.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneListenSocket.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneListenSocket.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneSocket.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneSocketDefs.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneSocketError.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneSocketError.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneSocketSet.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneSocketSet.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneSocketUtil.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/Network/RuneSocketUtil.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="Renderer" displayName="Renderer" projectFiles="true">
         <logicalFolder name="Buffers" displayName="Buffers" projectFiles="true">
           <itemPath>../../../Source/TrafficSimulator/Renderer/Buffers/IndexBuffer.h</itemPath>
@@ -107,20 +123,15 @@
           <incDir>
             <pElem>../../../Source/Libs/JSoncpp-0.6</pElem>
             <pElem>../../../Source/Libs/glew-1.9.0/include</pElem>
-            <pElem>../../../Source/Libs/RuneSocket/include</pElem>
           </incDir>
           <preprocessorList>
             <Elem>JSON_IS_AMALGAMATION</Elem>
           </preprocessorList>
         </ccTool>
         <linkerTool>
-          <linkerAddLib>
-            <pElem>../../../Source/Libs/RuneSocket/lib</pElem>
-          </linkerAddLib>
           <linkerLibItems>
             <linkerOptionItem>-lglfw</linkerOptionItem>
             <linkerOptionItem>-lGLEW</linkerOptionItem>
-            <linkerOptionItem>-lrunesocket</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

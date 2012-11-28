@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Network/RuneSocket.h"
 #include "cTrafficController.h"
 #include "cSimulationModel.h"
 
@@ -6,6 +7,10 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    // listen state for incoming connection
+    
+    // Network processing state 
+    
+    // Simulation processing state
     return 0;
 }

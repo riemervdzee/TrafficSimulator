@@ -2,7 +2,7 @@
 #define CNETWORKVIEW_H
 
 #include "CAbstractView.h"
-#include "RuneSocket.h"
+#include "Network/RuneSocket.h"
 
 const int bufferSize = 8192;
 
