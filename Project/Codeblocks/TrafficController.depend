@@ -69,11 +69,17 @@
 	<string>
 	<iostream>
 
-1354093550 source:c:\trafficsimulator\source\trafficcontroller\main.cpp
+1354097467 source:c:\trafficsimulator\source\trafficcontroller\main.cpp
 	<iostream>
 	"Network/RuneSocket.h"
-	"cTrafficController.h"
+	"TrafficDefs.h"
+	"iAbstractView.h"
+	"iConsoleObserver.h"
+	"iNetworkObserver.h"
+	"cConsoleView.h"
+	"cNetworkView.h"
 	"cSimulationModel.h"
+	"cTrafficController.h"
 
 1352888472 source:c:\trafficsimulator\source\trafficcontroller\socket\cvalidator.cpp
 	"CValidator.hpp"
@@ -130,9 +136,9 @@
 	"BaseSocket.h"
 	"RuneDataSocket.h"
 
-1354093688 c:\trafficsimulator\source\trafficcontroller\ctrafficcontroller.h
+1354099306 c:\trafficsimulator\source\trafficcontroller\ctrafficcontroller.h
 
-1354093878 c:\trafficsimulator\source\trafficcontroller\csimulationmodel.h
+1354099205 c:\trafficsimulator\source\trafficcontroller\csimulationmodel.h
 	<string>
 
 1354024681 source:c:\trafficsimulator\source\trafficcontroller\network\basesocket.cpp
@@ -160,11 +166,33 @@
 	"windows.h"
 	<sys/time.h>
 
-1354095670 source:c:\trafficsimulator\source\trafficcontroller\cconsoleview.cpp
+1354099748 source:c:\trafficsimulator\source\trafficcontroller\cconsoleview.cpp
+	<iostream>
+	"cConsoleView.h"
 
-1354095687 source:c:\trafficsimulator\source\trafficcontroller\cnetworkview.cpp
+1354099340 source:c:\trafficsimulator\source\trafficcontroller\cnetworkview.cpp
+	"cNetworkView.h"
 
-1354096328 source:c:\trafficsimulator\source\trafficcontroller\csimulationmodel.cpp
+1354099357 source:c:\trafficsimulator\source\trafficcontroller\csimulationmodel.cpp
+	"cSimulationModel.h"
 
-1354096338 source:c:\trafficsimulator\source\trafficcontroller\ctrafficcontroller.cpp
+1354099366 source:c:\trafficsimulator\source\trafficcontroller\ctrafficcontroller.cpp
+	"cTrafficController.h"
+
+1354099194 c:\trafficsimulator\source\trafficcontroller\cnetworkview.h
+	"iAbstractView.h"
+	"iNetworkObserver.h"
+
+1354099883 c:\trafficsimulator\source\trafficcontroller\iabstractview.h
+
+1354099885 c:\trafficsimulator\source\trafficcontroller\inetworkobserver.h
+
+1354021980 c:\trafficsimulator\source\trafficcontroller\trafficdefs.h
+
+1354099881 c:\trafficsimulator\source\trafficcontroller\iconsoleobserver.h
+	<string>
+
+1354099804 c:\trafficsimulator\source\trafficcontroller\cconsoleview.h
+	"iAbstractView.h"
+	"iConsoleObserver.h"
 
