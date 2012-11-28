@@ -1,6 +1,7 @@
 #include "CSimulationModel.h"
 #include "CSimulationView.h"
 #include "CNetworkView.h"
+#include "PacketMaster.h"
 
 #include <iostream>
 #include <fstream>
@@ -12,6 +13,7 @@ CSimulationModel::CSimulationModel()
     mNetworkView = 0;
     mSimulationView = 0;
     simTime = 0;
+    mSimStarted = false;
 }
 
 CSimulationModel::~CSimulationModel()
@@ -52,43 +54,82 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
     }
 }
 
+void CSimulationModel::SetSimState(bool s)
+{
+    mSimStarted = s;
+}
+
+void CSimulationModel::Connected()
+{
+    // send init message
+    if(mNetworkView != 0)
+    {
+        mNetworkView->SendString( PacketMaster::GetInitPackage(0, 0));
+    }
+}
+
+void CSimulationModel::Disconnected()
+{
+    mSimStarted = false;
+    
+    // clear data structures
+}
+
+void CSimulationModel::ProcessMsg(Json::Value data)
+{
+    // handle msg
+}
+
 void CSimulationModel::UpdateSim()
 {
     mTimer.Tick();
-    float dt = mTimer.GetDeltaTime();
-    simTime += dt;
-
-    // Get participants from the queue if appropiate
-    while(simTime > ((queue.top()).time) && !queue.empty() )
+    float dt = dt = mTimer.GetDeltaTime();
+    
+    if(mSimStarted)
     {
-        // get participant from the top
-        const TRADEFS::SimulationQueueParticipant_t& qPar = queue.top();
+        simTime += dt;
 
-        // Easier to use lane type
-        CTrafficLane* lane = laneGroups[qPar.fromDirection][qPar.fromLane];
-        lane->AddParticipant(participants, qPar);
-
-        // TODO: send network update to the controller
-        // participant crossed the first "loop"
-
-        queue.pop();
-    }
-
-    // updateNetwork, get light messages, process
-    mNetworkView->UpdateNetwork();
-
-    // update all participants
-    UpdateParticipants(dt);
-
-    // cleanup this frame
-    std::list<CParticipant>::iterator parIt = participants.begin();
-    while(parIt != participants.end())
-    {
-        if(parIt->Remove())
+        // Get participants from the queue if appropiate
+        while(simTime > ((queue.top()).time) && !queue.empty() )
         {
-            parIt = participants.erase(parIt);
+            // get participant from the top
+            const TRADEFS::SimulationQueueParticipant_t& qPar = queue.top();
+
+            // Easier to use lane type
+            CTrafficLane* lane = laneGroups[qPar.fromDirection][qPar.fromLane];
+            lane->AddParticipant(participants, qPar);
+
+            // TODO: send network update to the controller
+            // participant crossed the first "loop"
+            if(mNetworkView != 0)
+            {
+                // create package
+                std::string pack = PacketMaster::GetLoopPackage(qPar.fromDirection, qPar.fromLane, qPar.type, 0,
+                        false, qPar.toDirection, qPar.toLane);
+
+                // send package
+                mNetworkView->SendString(pack);
+            }
+
+            queue.pop();
         }
-        else ++parIt;
+
+        // updateNetwork, get light messages, process
+        mNetworkView->UpdateNetwork();
+
+        // update all participants
+        UpdateParticipants(dt);
+
+        // cleanup this frame
+        std::list<CParticipant>::iterator parIt = participants.begin();
+        while(parIt != participants.end())
+        {
+            if(parIt->Remove())
+            {
+                parIt = participants.erase(parIt);
+            }
+            else ++parIt;
+        }
     }
 
     // process simulationview

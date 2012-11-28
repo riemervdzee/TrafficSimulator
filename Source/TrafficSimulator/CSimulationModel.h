@@ -27,6 +27,12 @@ public:
     void RegisterNetworkView(CNetworkView* observer);
     void RegisterSimulationView(CSimulationView* observer);
     CNetworkView* GetNetworkView() { return mNetworkView; }
+    
+    // state
+    void SetSimState(bool s);
+    void Connected();
+    void Disconnected();
+    void ProcessMsg(Json::Value data);
 
     // simulation updating
     void UpdateSim();
@@ -58,6 +64,7 @@ private:
     // timer stuff
     float simTime;
     CTimer mTimer;
+    bool mSimStarted;
 
     CTrafficLaneGroup                                           laneGroups[4];
     std::priority_queue<TRADEFS::SimulationQueueParticipant_t>  queue;

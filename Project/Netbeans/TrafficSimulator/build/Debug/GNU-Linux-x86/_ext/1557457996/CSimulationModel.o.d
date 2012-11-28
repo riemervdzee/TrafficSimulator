@@ -38,7 +38,8 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationModel.o: \
  ../../../Source/TrafficSimulator/Network/RuneSocketSet.h \
  ../../../Source/TrafficSimulator/Network/BaseSocket.h \
  ../../../Source/TrafficSimulator/Network/RuneDataSocket.h \
- ../../../Source/TrafficSimulator/Network/RuneListenSocket.h
+ ../../../Source/TrafficSimulator/Network/RuneListenSocket.h \
+ ../../../Source/TrafficSimulator/PacketMaster.h
 
 ../../../Source/TrafficSimulator/CSimulationModel.h:
 
@@ -117,3 +118,5 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationModel.o: \
 ../../../Source/TrafficSimulator/Network/RuneDataSocket.h:
 
 ../../../Source/TrafficSimulator/Network/RuneListenSocket.h:
+
+../../../Source/TrafficSimulator/PacketMaster.h:

@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/1557457996/PacketMaster.o \
 	${OBJECTDIR}/_ext/1010192629/Mat3.o \
 	${OBJECTDIR}/_ext/725317724/TDWFile.o \
 	${OBJECTDIR}/_ext/1189809995/RuneSocketUtil.o \
@@ -93,6 +94,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trafficsimulator: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trafficsimulator ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/_ext/1557457996/PacketMaster.o: ../../../Source/TrafficSimulator/PacketMaster.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1557457996
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1557457996/PacketMaster.o ../../../Source/TrafficSimulator/PacketMaster.cpp
 
 ${OBJECTDIR}/_ext/1010192629/Mat3.o: ../../../Source/TrafficSimulator/Math/Mat3.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1010192629
