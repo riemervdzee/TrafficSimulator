@@ -64,7 +64,14 @@ void CSimulationModel::Connected()
     // send init message
     if(mNetworkView != 0)
     {
-        mNetworkView->SendString( PacketMaster::GetInitPackage(0, 0));
+        mNetworkView->SendString( PacketMaster::GetInitPackage(5620, 1));
+        
+        // test
+        mNetworkView->SendString( PacketMaster::GetTraLightPackage( TRADEFS::NORTH, 5, TRADEFS::PROCEED));
+        
+        std::string loop = PacketMaster::GetLoopPackage(TRADEFS::NORTH, 4, TRADEFS::CAR,
+                0, 1, TRADEFS::NORTH, 6);
+        mNetworkView->SendString( loop );
     }
 }
 

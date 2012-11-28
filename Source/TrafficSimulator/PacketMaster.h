@@ -17,7 +17,14 @@ class PacketMaster
 public:
     static std::string GetInitPackage(int startTime, int multiplier = 1);
     static std::string GetTraLightPackage(int dir, int lane, int state);
-    static std::string GetLoopPackage(int lightDir, int lightLane, int type, int loopType, bool empty, int toDir, int toLane);
+    static std::string GetLoopPackage(int lightDir, int lightLane, int type, int loopType, int empty, int toDir, int toLane);
+    
+private:
+    static std::string GetEmpty(int e);
+    static std::string GetLoop(int l);
+    static std::string GetType(int type);
+    static std::string GetDir(int dir);
+    static std::string GetLightState(int state);
 };
 
 #endif	/* PACKETMASTER_H */
