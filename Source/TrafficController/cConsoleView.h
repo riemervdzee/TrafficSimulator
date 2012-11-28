@@ -10,8 +10,8 @@
 class cConsoleView : public iAbstractView, public iConsoleObserver
 {
 public:
-    // Empty constructor to override interface (private/non-working) constructors
-    cConsoleView() {}
+    //
+    ~cConsoleView() {}
 
     // Print function
     void Print( std::string str);

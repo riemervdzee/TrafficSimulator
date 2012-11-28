@@ -10,7 +10,7 @@ class iConsoleObserver
 {
 public:
     // Virtual deconstructor for inheritance
-    virtual ~iConsoleObserver();
+    virtual ~iConsoleObserver() {};
 
     //
     virtual void Print( std::string str) = 0;

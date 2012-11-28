@@ -9,7 +9,7 @@ class iNetworkObserver
 {
 public:
     // Virtual deconstructor for inheritance
-    virtual ~iNetworkObserver();
+    virtual ~iNetworkObserver() {};
 
     // Send function
     virtual void Send( int TrafficLightMessage) = 0; // TODO create type!

@@ -10,7 +10,7 @@ class iAbstractView
 {
 public:
     // Virtual deconstructor for inheritance
-    virtual ~iAbstractView();
+    virtual ~iAbstractView() {};
 
     // Setter of the current Controller
     inline void SetController( cTrafficController *TrafficController) { _TrafficController = TrafficController;}
