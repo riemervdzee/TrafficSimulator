@@ -1,7 +1,7 @@
 #ifndef CLASS_SIMULATIONMODEL_H
 #define CLASS_SIMULATIONMODEL_H
 
-//
+// Includes
 #include <string>
 
 // Class prototypes
@@ -29,8 +29,11 @@ public:
 private:
     bool _IsClientConnected;
     int  _Multiplier;
+
+    // NOTICE: CURRENT OBJECT IS _NOT_ OWNER OF THESE TWO OBJECTS!
     iNetworkObserver *_NetworkView;
     iConsoleObserver *_ConsoleView;
+
     /*TrafficLaneGroup[4] _CrossRoad; */ // Beter uitwerken!
 };
 

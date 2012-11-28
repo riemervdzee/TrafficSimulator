@@ -19,7 +19,6 @@ public:
     bool RunStatus();
 
 private:
-//    CSimulationModel        *mModel;
     cSimulationModel   *_SimulationModel;
 };
 
