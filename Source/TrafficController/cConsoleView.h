@@ -15,6 +15,9 @@ public:
 
     // Print function
     void Print( std::string str);
+
+    // Reads keyboard input for the Q key
+    bool GetQuitPress();
 };
 
 #endif // CLASS_CONSOLEVIEW_H

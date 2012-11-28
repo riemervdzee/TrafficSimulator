@@ -14,6 +14,9 @@ public:
 
     //
     virtual void Print( std::string str) = 0;
+
+    //
+    virtual bool GetQuitPress() = 0;
 };
 
 #endif // INTERFACE_CONSOLEOBSERVER_H

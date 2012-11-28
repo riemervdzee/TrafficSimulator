@@ -1,6 +1,7 @@
 // class cTrafficController
 
 #include "cTrafficController.h"
+#include "cSimulationModel.h"
 
 bool cTrafficController::Create()
 {
@@ -22,5 +23,5 @@ void cTrafficController::Update()
 
 bool cTrafficController::RunStatus()
 {
-    return true;
+    return !(_SimulationModel->getQuitPress());
 }

@@ -16,6 +16,14 @@ class iNetworkObserver;
  */
 class cSimulationModel
 {
+private:
+    //bool _IsClientConnected;
+    int  _Multiplier;
+
+    // NOTICE: CURRENT OBJECT IS _NOT_ OWNER OF THESE TWO OBJECTS!
+    iNetworkObserver *_NetworkView;
+    iConsoleObserver *_ConsoleView;
+
 public:
     cSimulationModel() : _Multiplier(1), _NetworkView(NULL), _ConsoleView(NULL) { }
 
@@ -29,16 +37,13 @@ public:
     inline void RegisterNetworkView( iNetworkObserver *Observer) { _NetworkView = Observer;}
     inline void RegisterConsoleView( iConsoleObserver *Observer) { _ConsoleView = Observer;}
 
-    //
+    // Check if we got a quit press or not
+    inline bool getQuitPress() { return _ConsoleView->GetQuitPress(); }
+
+    // Sends a message to the console
     inline void NotifyConsole( std::string Message) { _ConsoleView->Print( Message);}
 
-private:
-    //bool _IsClientConnected;
-    int  _Multiplier;
 
-    // NOTICE: CURRENT OBJECT IS _NOT_ OWNER OF THESE TWO OBJECTS!
-    iNetworkObserver *_NetworkView;
-    iConsoleObserver *_ConsoleView;
 
     /*TrafficLaneGroup[4] _CrossRoad; */ // Beter uitwerken!
 };
