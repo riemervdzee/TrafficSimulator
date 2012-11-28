@@ -28,6 +28,8 @@
       <logicalFolder name="f1" displayName="Network" projectFiles="true">
         <itemPath>../../../Source/TrafficSimulator/Network/BaseSocket.cpp</itemPath>
         <itemPath>../../../Source/TrafficSimulator/Network/BaseSocket.h</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/PacketMaster.cpp</itemPath>
+        <itemPath>../../../Source/TrafficSimulator/PacketMaster.h</itemPath>
         <itemPath>../../../Source/TrafficSimulator/Network/RuneDataSocket.cpp</itemPath>
         <itemPath>../../../Source/TrafficSimulator/Network/RuneDataSocket.h</itemPath>
         <itemPath>../../../Source/TrafficSimulator/Network/RuneListenSocket.cpp</itemPath>

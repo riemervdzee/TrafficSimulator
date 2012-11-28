@@ -32,14 +32,14 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationController.o: \
  ../../../Source/TrafficSimulator/Renderer/Shader.h \
  ../../../Source/TrafficSimulator/Renderer/Textures/Texture2D.h \
  ../../../Source/TrafficSimulator/CNetworkView.h \
- ../../../Source/Libs/RuneSocket/include/RuneSocket.h \
- ../../../Source/Libs/RuneSocket/include/RuneSocketDefs.h \
- ../../../Source/Libs/RuneSocket/include/RuneSocketError.h \
- ../../../Source/Libs/RuneSocket/include/RuneSocketUtil.h \
- ../../../Source/Libs/RuneSocket/include/RuneSocketSet.h \
- ../../../Source/Libs/RuneSocket/include/BaseSocket.h \
- ../../../Source/Libs/RuneSocket/include/RuneDataSocket.h \
- ../../../Source/Libs/RuneSocket/include/RuneListenSocket.h
+ ../../../Source/TrafficSimulator/Network/RuneSocket.h \
+ ../../../Source/TrafficSimulator/Network/RuneSocketDefs.h \
+ ../../../Source/TrafficSimulator/Network/RuneSocketError.h \
+ ../../../Source/TrafficSimulator/Network/RuneSocketUtil.h \
+ ../../../Source/TrafficSimulator/Network/RuneSocketSet.h \
+ ../../../Source/TrafficSimulator/Network/BaseSocket.h \
+ ../../../Source/TrafficSimulator/Network/RuneDataSocket.h \
+ ../../../Source/TrafficSimulator/Network/RuneListenSocket.h
 
 ../../../Source/TrafficSimulator/CSimulationController.h:
 
@@ -105,18 +105,18 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationController.o: \
 
 ../../../Source/TrafficSimulator/CNetworkView.h:
 
-../../../Source/Libs/RuneSocket/include/RuneSocket.h:
+../../../Source/TrafficSimulator/Network/RuneSocket.h:
 
-../../../Source/Libs/RuneSocket/include/RuneSocketDefs.h:
+../../../Source/TrafficSimulator/Network/RuneSocketDefs.h:
 
-../../../Source/Libs/RuneSocket/include/RuneSocketError.h:
+../../../Source/TrafficSimulator/Network/RuneSocketError.h:
 
-../../../Source/Libs/RuneSocket/include/RuneSocketUtil.h:
+../../../Source/TrafficSimulator/Network/RuneSocketUtil.h:
 
-../../../Source/Libs/RuneSocket/include/RuneSocketSet.h:
+../../../Source/TrafficSimulator/Network/RuneSocketSet.h:
 
-../../../Source/Libs/RuneSocket/include/BaseSocket.h:
+../../../Source/TrafficSimulator/Network/BaseSocket.h:
 
-../../../Source/Libs/RuneSocket/include/RuneDataSocket.h:
+../../../Source/TrafficSimulator/Network/RuneDataSocket.h:
 
-../../../Source/Libs/RuneSocket/include/RuneListenSocket.h:
+../../../Source/TrafficSimulator/Network/RuneListenSocket.h:
