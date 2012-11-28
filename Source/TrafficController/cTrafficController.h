@@ -2,7 +2,7 @@
 #define CLASS_TRAFFICCONTROLLER_H
 
 
-class CSimulationModel;
+class cSimulationModel;
 
 /*
  * Main controller class of the TrafficControl server
@@ -10,7 +10,7 @@ class CSimulationModel;
 class cTrafficController
 {
 public:
-    CTrafficControler( cSimulationModel *SimulationModel) : _SimulationModel(SimulationModel) {}
+    cTrafficController( cSimulationModel *SimulationModel) : _SimulationModel(SimulationModel) {}
 
     bool Create();
     void Destroy();

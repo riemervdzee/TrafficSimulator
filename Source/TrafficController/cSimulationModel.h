@@ -1,6 +1,13 @@
 #ifndef CLASS_SIMULATIONMODEL_H
 #define CLASS_SIMULATIONMODEL_H
 
+//
+#include <string>
+
+// Class prototypes
+class iConsoleObserver;
+class iNetworkObserver;
+
 /*
  * The model holder of the TrafficServer and AI executor
  */
@@ -14,16 +21,16 @@ public:
     void Update();
 
     // Registers
-    RegisterConsoleView( iConsoleObserver);
-    RegisterNetworkView( iNetworkObserver);
-    NotifyConsole( string Message);
-    UpdateNetwork();
+    void RegisterConsoleView( iConsoleObserver *Observer);
+    void RegisterNetworkView( iNetworkObserver *Observer);
+    void NotifyConsole( std::string Message);
+    void UpdateNetwork();
 
 private:
     bool _IsClientConnected;
     int  _Multiplier;
     iNetworkObserver *_NetworkView;
-    iConsoleOBserver *_ConsoleView;
+    iConsoleObserver *_ConsoleView;
     /*TrafficLaneGroup[4] _CrossRoad; */ // Beter uitwerken!
 };
 

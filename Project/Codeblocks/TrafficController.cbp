@@ -41,8 +41,23 @@
 		<Linker>
 			<Add library="libws2_32.a" />
 		</Linker>
-		<Unit filename="..\..\Source\TrafficController\Socket\WildShadeSock.cpp" />
-		<Unit filename="..\..\Source\TrafficController\Socket\WildShadeSock.hpp" />
+		<Unit filename="..\..\Source\TrafficController\Network\BaseSocket.cpp" />
+		<Unit filename="..\..\Source\TrafficController\Network\BaseSocket.h" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneDataSocket.cpp" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneDataSocket.h" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneListenSocket.cpp" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneListenSocket.h" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneSocket.h" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketDefs.h" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketError.cpp" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketError.h" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketSet.cpp" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketSet.h" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketUtil.cpp" />
+		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketUtil.h" />
+		<Unit filename="..\..\Source\TrafficController\TrafficDefs.h" />
+		<Unit filename="..\..\Source\TrafficController\cSimulationModel.h" />
+		<Unit filename="..\..\Source\TrafficController\cTrafficController.h" />
 		<Unit filename="..\..\Source\TrafficController\jsoncpp.cpp" />
 		<Unit filename="..\..\Source\TrafficController\main.cpp" />
 		<Extensions>
