@@ -189,9 +189,10 @@
 1354018140 source:c:\trafficsimulator\source\trafficsimulator\cnetworkview.cpp
 	"CNetworkView.h"
 
-1354018140 c:\trafficsimulator\source\trafficsimulator\cnetworkview.h
+1354099578 c:\trafficsimulator\source\trafficsimulator\cnetworkview.h
 	"CAbstractView.h"
-	"RuneSocket.h"
+	"Network/RuneSocket.h"
+	<queue>
 
 1352706389 c:\trafficsimulator\source\trafficsimulator\cabstractview.h
 
@@ -205,7 +206,7 @@
 
 1354018140 c:\trafficsimulator\source\trafficsimulator\csimulationcontroller.h
 
-1354018140 c:\trafficsimulator\source\trafficsimulator\csimulationmodel.h
+1354099578 c:\trafficsimulator\source\trafficsimulator\csimulationmodel.h
 	<queue>
 	<list>
 	<json/json-forwards.h>
@@ -899,7 +900,7 @@
 	<vector>
 	<list>
 
-1354021985 c:\trafficsimulator\source\trafficsimulator\trafficdefs.h
+1354101150 c:\trafficsimulator\source\trafficsimulator\trafficdefs.h
 
 1354018141 c:\trafficsimulator\source\trafficsimulator\ctrafficlight.h
 	"TrafficDefs.h"
@@ -1179,4 +1180,12 @@
 1350381986 source:c:\trafficsimulator\source\trafficsimulator\util.cpp
 	"Util.h"
 	<fstream>
+
+1354024681 c:\trafficsimulator\source\trafficsimulator\network\runesocket.h
+	"RuneSocketDefs.h"
+	"RuneSocketError.h"
+	"RuneSocketUtil.h"
+	"RuneSocketSet.h"
+	"RuneDataSocket.h"
+	"RuneListenSocket.h"
 

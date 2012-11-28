@@ -4,8 +4,11 @@
 // Includes
 #include <string>
 
+#include "iConsoleObserver.h"
+//#include "iNetworkObserver.h"
+
 // Class prototypes
-class iConsoleObserver;
+//class iConsoleObserver;
 class iNetworkObserver;
 
 /*
@@ -14,20 +17,23 @@ class iNetworkObserver;
 class cSimulationModel
 {
 public:
-    cSimulationModel() : _IsClientConnected(false), _Multiplier(1), _NetworkView(NULL), _ConsoleView(NULL) {}
+    cSimulationModel() : _Multiplier(1), _NetworkView(NULL), _ConsoleView(NULL) { }
 
     //bool Create(); // required?
 
+    // Update functions
     void Update();
-
-    // Registers
-    void RegisterConsoleView( iConsoleObserver *Observer);
-    void RegisterNetworkView( iNetworkObserver *Observer);
-    void NotifyConsole( std::string Message);
     void UpdateNetwork();
 
+    // Registers
+    inline void RegisterNetworkView( iNetworkObserver *Observer) { _NetworkView = Observer;}
+    inline void RegisterConsoleView( iConsoleObserver *Observer) { _ConsoleView = Observer;}
+
+    //
+    inline void NotifyConsole( std::string Message) { _ConsoleView->Print( Message);}
+
 private:
-    bool _IsClientConnected;
+    //bool _IsClientConnected;
     int  _Multiplier;
 
     // NOTICE: CURRENT OBJECT IS _NOT_ OWNER OF THESE TWO OBJECTS!
