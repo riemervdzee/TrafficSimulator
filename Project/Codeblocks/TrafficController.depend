@@ -12,7 +12,7 @@
 	<netdb.h>
 	<apra/inet.h>
 
-1352885100 source:c:\trafficsimulator\source\trafficcontroller\jsoncpp.cpp
+1354018154 source:c:\trafficsimulator\source\trafficcontroller\jsoncpp.cpp
 	"json/json.h"
 	<json/reader.h>
 	<json/value.h>
@@ -69,13 +69,69 @@
 	<string>
 	<iostream>
 
-1352887085 source:c:\trafficsimulator\source\trafficcontroller\main.cpp
+1354093550 source:c:\trafficsimulator\source\trafficcontroller\main.cpp
 	<iostream>
+	"Network/RuneSocket.h"
+	"cTrafficController.h"
+	"cSimulationModel.h"
 
 1352888472 source:c:\trafficsimulator\source\trafficcontroller\socket\cvalidator.cpp
 	"CValidator.hpp"
 	<regex>
 
 1352793280 c:\trafficsimulator\source\trafficcontroller\socket\cvalidator.hpp
+	<string>
+
+1354024681 c:\trafficsimulator\source\trafficcontroller\network\runesocket.h
+	"RuneSocketDefs.h"
+	"RuneSocketError.h"
+	"RuneSocketUtil.h"
+	"RuneSocketSet.h"
+	"RuneDataSocket.h"
+	"RuneListenSocket.h"
+
+1354024681 c:\trafficsimulator\source\trafficcontroller\network\runesocketdefs.h
+	<iostream>
+	<fstream>
+	<string>
+	"winsock2.h"
+	"Ws2tcpip.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<unistd.h>
+	<netdb.h>
+	<arpa/inet.h>
+	<errno.h>
+	<fcntl.h>
+
+1354024681 c:\trafficsimulator\source\trafficcontroller\network\runesocketerror.h
+	"RuneSocketDefs.h"
+	<exception>
+	<string>
+
+1354024681 c:\trafficsimulator\source\trafficcontroller\network\runesocketutil.h
+	<string>
+	"RuneSocketDefs.h"
+
+1354024681 c:\trafficsimulator\source\trafficcontroller\network\runesocketset.h
+	"RuneSocketDefs.h"
+	"BaseSocket.h"
+	<set>
+
+1354024681 c:\trafficsimulator\source\trafficcontroller\network\basesocket.h
+	"RuneSocketDefs.h"
+	"RuneSocketError.h"
+
+1354024681 c:\trafficsimulator\source\trafficcontroller\network\runedatasocket.h
+	"BaseSocket.h"
+
+1354024681 c:\trafficsimulator\source\trafficcontroller\network\runelistensocket.h
+	"BaseSocket.h"
+	"RuneDataSocket.h"
+
+1354093688 c:\trafficsimulator\source\trafficcontroller\ctrafficcontroller.h
+
+1354093878 c:\trafficsimulator\source\trafficcontroller\csimulationmodel.h
 	<string>
 
