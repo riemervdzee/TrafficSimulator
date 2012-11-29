@@ -21,11 +21,14 @@ int main()
     cSimulationModel model;
     cConsoleView viewConsole;
     cNetworkView viewNetwork;
+    
     model.RegisterConsoleView( &viewConsole);
     model.RegisterNetworkView( &viewNetwork);
 
     // Create controller
     cTrafficController controller( &model);
+    viewNetwork.SetController(&controller);
+    viewConsole.SetController(&controller);
     controller.Create();
 
     // Main while loop

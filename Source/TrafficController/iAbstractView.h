@@ -10,6 +10,7 @@ class iAbstractView
 {
 public:
     // Virtual deconstructor for inheritance
+    iAbstractView():_TrafficController(0) {}
     virtual ~iAbstractView() {};
 
     // Setter of the current Controller

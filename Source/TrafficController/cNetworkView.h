@@ -1,14 +1,13 @@
 #ifndef CLASS_NETWORKVIEW_H
 #define CLASS_NETWORKVIEW_H
 
-#include <RuneSocket.h>
+#include "Network/RuneSocket.h"
 
 #include "iAbstractView.h"
 #include "iNetworkObserver.h"
 
-/*
- *
- */
+const int bufferSize = 8192;
+
 class cNetworkView : public iAbstractView, public iNetworkObserver
 {
 public:
@@ -17,7 +16,7 @@ public:
     ~cNetworkView();
 
     // Send messages
-    void Send( int TrafficLightMessage);
+    void Send(std::string TrafficLightMessage);
 
     // Check for any messages
     void Update();
@@ -26,8 +25,6 @@ protected:
     RuneSocket::RuneSocketSet    sockSet;
     RuneSocket::RuneListenSocket ServerSocket;
     RuneSocket::RuneDataSocket   ClientSocket;
-
-
 };
 
 #endif // CLASS_NETWORKVIEW_H

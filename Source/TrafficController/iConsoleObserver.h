@@ -13,7 +13,7 @@ public:
     virtual ~iConsoleObserver() {};
 
     //
-    virtual void Print( std::string str) = 0;
+    virtual void Print(const std::string& msg) = 0;
 
     //
     virtual bool GetQuitPress() = 0;

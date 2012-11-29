@@ -9,9 +9,9 @@ using namespace std;
 /*
  * A very difficult print function..
  */
-void cConsoleView::Print( std::string str)
+void cConsoleView::Print(const std::string& msg)
 {
-    cout << str << endl;
+    std::cout << msg << std::endl;
 }
 
 /*
@@ -20,7 +20,7 @@ void cConsoleView::Print( std::string str)
 bool cConsoleView::GetQuitPress()
 {
     // Try to get a char in the keyboard buffer
-    int val = getch();
+    int val = 0;//getch();
 
     // Is it empty?
     if( val == 0)

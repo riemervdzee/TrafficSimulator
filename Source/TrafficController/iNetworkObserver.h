@@ -12,7 +12,7 @@ public:
     virtual ~iNetworkObserver() {};
 
     // Send function
-    virtual void Send( int TrafficLightMessage) = 0; // TODO create type!
+    virtual void Send(std::string TrafficLightMessage) = 0;
 
     // Update
     virtual void Update() = 0;

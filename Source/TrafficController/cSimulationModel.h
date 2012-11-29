@@ -38,12 +38,12 @@ public:
     inline void RegisterConsoleView( iConsoleObserver *Observer) { _ConsoleView = Observer;}
 
     // Check if we got a quit press or not
-    inline bool getQuitPress() { return _ConsoleView->GetQuitPress(); }
+    inline bool getQuitPress() { if(_ConsoleView != 0) return _ConsoleView->GetQuitPress(); }
 
     // Sends a message to the console
-    inline void NotifyConsole( std::string Message) { _ConsoleView->Print( Message);}
+    inline void NotifyConsole(const std::string& msg) { if(_ConsoleView != 0) _ConsoleView->Print(msg);}
 
-
+    void ProcessMessage(const std::string& msg);
 
     /*TrafficLaneGroup[4] _CrossRoad; */ // Beter uitwerken!
 };

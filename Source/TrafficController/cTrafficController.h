@@ -1,7 +1,7 @@
 #ifndef CLASS_TRAFFICCONTROLLER_H
 #define CLASS_TRAFFICCONTROLLER_H
 
-
+#include <string>
 class cSimulationModel;
 
 /*
@@ -17,6 +17,8 @@ public:
 
     void Update();
     bool RunStatus();
+    
+    void TranslateMessage(const std::string& msg);
 
 private:
     cSimulationModel   *_SimulationModel;

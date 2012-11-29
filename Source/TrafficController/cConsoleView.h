@@ -3,6 +3,7 @@
 
 #include "iAbstractView.h"
 #include "iConsoleObserver.h"
+#include <string>
 
 /*
  *
@@ -14,7 +15,7 @@ public:
     ~cConsoleView() {}
 
     // Print function
-    void Print( std::string str);
+    void Print(const std::string& msg);
 
     // Reads keyboard input for the Q key
     bool GetQuitPress();

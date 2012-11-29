@@ -107,7 +107,6 @@ void CSimulationModel::UpdateSim()
             CTrafficLane* lane = laneGroups[qPar.fromDirection][qPar.fromLane];
             lane->AddParticipant(participants, qPar);
 
-            // TODO: send network update to the controller
             // participant crossed the first "loop"
             if(mNetworkView != 0)
             {
