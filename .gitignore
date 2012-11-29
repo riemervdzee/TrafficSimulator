@@ -16,3 +16,5 @@
 
 # Add codeblocks layoutfile
 *.layout
+/Project/Netbeans/TrafficController/build/
+/Project/Netbeans/TrafficController/dist/

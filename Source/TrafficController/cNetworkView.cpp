@@ -37,7 +37,7 @@ void cNetworkView::Send(std::string TrafficLightMessage)
 {
     if(ClientSocket.IsConnected())
     {
-        ClientSocket.Send(TrafficLightMessage.c_str(), TrafficLightMessage.size());
+        msgQueue.push(TrafficLightMessage);
     }
 }
 
@@ -99,6 +99,12 @@ void cNetworkView::Update()
                 if(sockSet.HasActivity(ClientSocket, WRITE))
                 {
                     // get messages from the queue and send to client
+                    while(!msgQueue.empty())
+                    {
+                        std::string& msg = msgQueue.front();
+                        ClientSocket.Send(msg.c_str(), msg.size());
+                        msgQueue.pop();
+                    }
                 }
 
             }

@@ -52,13 +52,13 @@ std::string  PacketMaster::GetLoopPackage(int lightDir, int lightLane,
     // light
             << "\"light\": " << "\"" << GetDir(lightDir) << lightLane << "\",\n"
     //type        
-            << "\"type: \": " << "\"" << GetType(type) << "\",\n"
+            << "\"type\": " << "\"" << GetType(type) << "\",\n"
     // loop
             << "\"loop\": " << "\"" << GetLoop(loopType) << "\",\n"
     // empty
             << "\"empty\": " << "\"" << GetEmpty(empty) << "\",\n"
     // to
-            << "\"to\": " << GetDir(toDir) << toLane << "\"\n";
+            << "\"to\": \"" << GetDir(toDir) << toLane << "\"\n";
     
     strStream << "}";
     

@@ -5,7 +5,8 @@
 #include <string>
 
 #include "iConsoleObserver.h"
-//#include "iNetworkObserver.h"
+#include "json/json-forwards.h"
+#include "json/json.h"
 
 // Class prototypes
 //class iConsoleObserver;
@@ -43,7 +44,7 @@ public:
     // Sends a message to the console
     inline void NotifyConsole(const std::string& msg) { if(_ConsoleView != 0) _ConsoleView->Print(msg);}
 
-    void ProcessMessage(const std::string& msg);
+    void ProcessMessage(const Json::Value& data);
 
     /*TrafficLaneGroup[4] _CrossRoad; */ // Beter uitwerken!
 };

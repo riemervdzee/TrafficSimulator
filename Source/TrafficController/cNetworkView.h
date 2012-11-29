@@ -5,8 +5,9 @@
 
 #include "iAbstractView.h"
 #include "iNetworkObserver.h"
+#include <queue>
 
-const int bufferSize = 8192;
+const int bufferSize = 4096;
 
 class cNetworkView : public iAbstractView, public iNetworkObserver
 {
@@ -25,6 +26,7 @@ protected:
     RuneSocket::RuneSocketSet    sockSet;
     RuneSocket::RuneListenSocket ServerSocket;
     RuneSocket::RuneDataSocket   ClientSocket;
+    std::queue<std::string> msgQueue;
 };
 
 #endif // CLASS_NETWORKVIEW_H
