@@ -160,6 +160,21 @@ void CSimulationModel::UpdateParticipants(float dt)
     // update participants that have passed trafficlights
 }
 
+float GetRotAngle(int dir)
+{
+    switch(dir)
+    {
+        case TRADEFS::NORTH:
+            return 180.0f;
+        case TRADEFS::EAST:
+            return 270.0f;
+        case TRADEFS::WEST:
+            return 90.0f;
+        default: 
+            return 0;
+    }
+}
+
 void CSimulationModel::LoadEntities()
 {
     // set waypoints in the correct lane
@@ -198,16 +213,14 @@ void CSimulationModel::LoadEntities()
 
         if(lane == 8) // special light for pedestrians in the middle used by 2 lanes
         {
-
-            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ));
+            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z), GetRotAngle(laneG) ));
             ((CPedestrianTrafficLane*)laneGroups[laneG][TRADEFS::LANE_PEDESTRIAN_ONE])->SetMidTrafficlight( trafficLights.size() - 1 );
             ((CPedestrianTrafficLane*)laneGroups[laneG][TRADEFS::LANE_PEDESTRIAN_TWO])->SetMidTrafficlight( trafficLights.size() - 1 );
         }
         else
         {
-
             // add light to the correct lane
-            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z) ));
+            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z),GetRotAngle(laneG)  ));
             laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 );
         }
     }
@@ -321,6 +334,8 @@ void CSimulationModel::ProcessMsg(const Json::Value& data)
         
         if((dir >= 0 && dir < 4) && (lane >= 0 && lane < 8))
         {
+            std::cout << "TrafficLight message processed!" << std::endl;
+            
             // change state of the corresponding light
             int lightID = laneGroups[dir][lane]->GetLightID();
             trafficLights.at(lightID).SetState((TRADEFS::TRAFFICLIGHTSTATE)state);

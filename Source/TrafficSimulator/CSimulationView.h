@@ -6,6 +6,16 @@
 #include "CAbstractView.h"
 #include "CStaticScene.h"
 
+#include "../../Source/TrafficSimulator/Math/WildMath.h"
+
+using wmath::Vec3;
+
+struct dCube
+{
+    Vec3 position[36]; // cube
+    Vec3 color[36];
+};
+
 class CSimulationView : public CAbstractView
 {
 public:
@@ -23,6 +33,10 @@ public:
 private:
     void DrawLights();
     void DrawParticipants();
+    
+    // creates a cube for trafficlights and participants
+    void addCube(dCube& cube, Vec3 pos, 
+            int w, int h, int d, Vec3 color, float rotation);
 
 private:
     Camera mCamera;
@@ -36,6 +50,11 @@ private:
     // participant drawing
     ShaderProgram   parShader;
     VertexBuffer    parVertexBuffer;
+    
+    
+    // trafficlight drawin
+    ShaderProgram   traShader;
+    VertexBuffer    traVertexBuffer;
 
     // mouse
     int mMoveSpeed;

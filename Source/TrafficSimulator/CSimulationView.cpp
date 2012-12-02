@@ -5,8 +5,6 @@
 #include <GL/glfw.h>
 #include <cmath>
 
-#include "../../Source/TrafficSimulator/Math/WildMath.h"
-
 using namespace wmath;
 
 CSimulationView::CSimulationView(int width, int height)
@@ -60,9 +58,11 @@ void CSimulationView::Init()
 
     // load shaders
     parShader.CreateProgram(dvertex, dfragment);
+    traShader.CreateProgram(dvertex, dfragment);
 
     // create buffer for participants
     parVertexBuffer.Create(sizeof(wmath::Vec3) * 128, GL_DYNAMIC_DRAW);
+    traVertexBuffer.Create(sizeof(dCube) * 128, GL_DYNAMIC_DRAW);
 }
 
 void CSimulationView::Update(float dt)
@@ -133,9 +133,109 @@ void CSimulationView::Update(float dt)
 	// ########## END CAMERA KEYBOARD MOVEMENT ###########
 }
 
+void CSimulationView::addCube(dCube& cube, wmath::Vec3 pos, 
+        int w, int h, int d, wmath::Vec3 color, float rotation)
+{     
+    // FRONT
+    cube.position[0] = Vec3(-0.5 * w, -0.5 * h, -0.5 * d);
+    cube.position[1] = Vec3(0.5 * w, -0.5 * h, -0.5 * d);
+    cube.position[2] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    
+    cube.position[3] = Vec3(-0.5 * w, -0.5 * h, -0.5 * d);
+    cube.position[4] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    cube.position[5] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
+    
+    // BACK
+    cube.position[6] = Vec3(0.5 * w, -0.5 * h, 0.5 * d);
+    cube.position[7] = Vec3(-0.5 * w, -0.5 * h, 0.5 * d);
+    cube.position[8] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    
+    cube.position[9] = Vec3(0.5 * w, -0.5 * h, 0.5 * d);
+    cube.position[10] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    cube.position[11] = Vec3(0.5 * w, 0.5 * h, 0.5 * d);
+    
+    // LEFT
+    cube.position[12] = Vec3(-0.5 * w, -0.5 * h, 0.5 * d);
+    cube.position[13] = Vec3(-0.5 * w, -0.5 * h, -0.5 * d);
+    cube.position[14] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
+    
+    cube.position[15] = Vec3(-0.5 * w, -0.5 * h, 0.5 * d);
+    cube.position[16] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
+    cube.position[17] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    
+    // RIGHT
+    cube.position[18] = Vec3(0.5 * w, -0.5 * h, 0.5 * d);
+    cube.position[19] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    cube.position[20] = Vec3(0.5 * w, -0.5 * h, -0.5 * d);
+    
+    cube.position[21] = Vec3(0.5 * w, -0.5 * h, 0.5 * d);
+    cube.position[22] = Vec3(0.5 * w, 0.5 * h, 0.5 * d);
+    cube.position[23] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    
+    // TOP
+    cube.position[24] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    cube.position[25] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    cube.position[26] = Vec3(0.5 * w, 0.5 * h, 0.5 * d);
+    
+    cube.position[27] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    cube.position[28] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
+    cube.position[29] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    
+    // BOTTOM
+    /*cube.position[30] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    cube.position[31] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    cube.position[32] = Vec3(0.5 * w, 0.5 * h, 0.5 * d);
+    
+    cube.position[33] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    cube.position[34] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
+    cube.position[35] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);*/
+    
+    // put color and rotate vertices
+    wmath::Mat3 rotMat = wmath::Mat3::RotationY(rotation);
+    for(int i = 0; i < 36; ++i)
+    {
+        cube.color[i] = color;
+        cube.position[i] = pos + cube.position[i]; 
+    }
+}
+
 void CSimulationView::DrawLights()
 {
     std::vector<CTrafficLight>& lights = mModel->GetTrafficLigths();
+    std::vector<CTrafficLight>::iterator traIt;
+    if( lights.size() > 0)
+    {
+        std::vector<dCube> traLights;
+        
+        for(traIt = lights.begin(); traIt != lights.end(); ++traIt)
+        {
+            // create cube here
+            dCube light;
+            addCube(light, traIt->GetPosition(), 4, 4, 2, 
+                    Vec3(1.0, 1.0, 1.0), traIt->GetRotation());
+            
+            // push the cube
+            traLights.push_back(light);
+        }
+        
+        // put in to vertexbuffer
+        traVertexBuffer.SubData(&traLights[0], sizeof(dCube) * traLights.size() );
+        
+        traShader.Bind();
+        int projViewMatrix = glGetUniformLocation(traShader.GetID(), "mvpMatrix");
+        
+        // draw participants
+        wmath::Mat4 projView = mCamera.GetProjection() * mCamera.GetView();
+        glUniformMatrix4fv(projViewMatrix, 1, GL_FALSE, (GLfloat*)&projView);
+
+        traVertexBuffer.Bind();
+        glEnableVertexAttribArray(0);
+        traVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(Vec3), 0 );
+
+        glDrawArrays(GL_TRIANGLES, 0, traLights.size() * sizeof(dCube));
+
+        traShader.Unbind();
+    }
 }
 
 void CSimulationView::DrawParticipants()
@@ -166,7 +266,7 @@ void CSimulationView::DrawParticipants()
 
         parVertexBuffer.Bind();
         glEnableVertexAttribArray(0);
-        parVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(wmath::Vec3), 0 );
+        parVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, 0, 0 );
 
         glPointSize(16);
         glDrawArrays(GL_POINTS, 0, parPositions.size());

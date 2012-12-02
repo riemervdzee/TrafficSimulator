@@ -30,6 +30,7 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationModel.o: \
  ../../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h \
  ../../../Source/TrafficSimulator/Renderer/Shader.h \
  ../../../Source/TrafficSimulator/Renderer/Textures/Texture2D.h \
+ ../../../Source/TrafficSimulator/../../Source/TrafficSimulator/Math/WildMath.h \
  ../../../Source/TrafficSimulator/CNetworkView.h \
  ../../../Source/TrafficSimulator/Network/RuneSocket.h \
  ../../../Source/TrafficSimulator/Network/RuneSocketDefs.h \
@@ -100,6 +101,8 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationModel.o: \
 ../../../Source/TrafficSimulator/Renderer/Shader.h:
 
 ../../../Source/TrafficSimulator/Renderer/Textures/Texture2D.h:
+
+../../../Source/TrafficSimulator/../../Source/TrafficSimulator/Math/WildMath.h:
 
 ../../../Source/TrafficSimulator/CNetworkView.h:
 

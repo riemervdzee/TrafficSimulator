@@ -20,6 +20,7 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationView.o: \
  ../../../Source/TrafficSimulator/Renderer/Buffers/VertexBuffer.h \
  ../../../Source/TrafficSimulator/Renderer/Shader.h \
  ../../../Source/TrafficSimulator/Renderer/Textures/Texture2D.h \
+ ../../../Source/TrafficSimulator/../../Source/TrafficSimulator/Math/WildMath.h \
  ../../../Source/TrafficSimulator/CSimulationController.h \
  ../../../Source/TrafficSimulator/CSimulationModel.h \
  ../../../Source/Libs/JSoncpp-0.6/json/json-forwards.h \
@@ -30,8 +31,7 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationView.o: \
  ../../../Source/TrafficSimulator/TrafficDefs.h \
  ../../../Source/TrafficSimulator/CTrafficLight.h \
  ../../../Source/TrafficSimulator/CParticipant.h \
- ../../../Source/TrafficSimulator/TDW/TDWDefs.h \
- ../../../Source/TrafficSimulator/../../Source/TrafficSimulator/Math/WildMath.h
+ ../../../Source/TrafficSimulator/TDW/TDWDefs.h
 
 ../../../Source/TrafficSimulator/CSimulationView.h:
 
@@ -73,6 +73,8 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationView.o: \
 
 ../../../Source/TrafficSimulator/Renderer/Textures/Texture2D.h:
 
+../../../Source/TrafficSimulator/../../Source/TrafficSimulator/Math/WildMath.h:
+
 ../../../Source/TrafficSimulator/CSimulationController.h:
 
 ../../../Source/TrafficSimulator/CSimulationModel.h:
@@ -94,5 +96,3 @@ build/Debug/GNU-Linux-x86/_ext/1557457996/CSimulationView.o: \
 ../../../Source/TrafficSimulator/CParticipant.h:
 
 ../../../Source/TrafficSimulator/TDW/TDWDefs.h:
-
-../../../Source/TrafficSimulator/../../Source/TrafficSimulator/Math/WildMath.h:
