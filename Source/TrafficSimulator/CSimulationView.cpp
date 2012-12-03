@@ -62,7 +62,7 @@ void CSimulationView::Init()
 
     // create buffer for participants
     parVertexBuffer.Create(sizeof(wmath::Vec3) * 128, GL_DYNAMIC_DRAW);
-    traVertexBuffer.Create(sizeof(dCube) * 128, GL_DYNAMIC_DRAW);
+    traVertexBuffer.Create(sizeof(dCube) * trafficLights.size(), GL_DYNAMIC_DRAW);
 }
 
 void CSimulationView::Update(float dt)
@@ -134,68 +134,68 @@ void CSimulationView::Update(float dt)
 }
 
 void CSimulationView::addCube(dCube& cube, wmath::Vec3 pos, 
-        int w, int h, int d, wmath::Vec3 color, float rotation)
+        float w, float h, float d, wmath::Vec3 color, float rotation)
 {     
     // FRONT
-    cube.position[0] = Vec3(-0.5 * w, -0.5 * h, -0.5 * d);
-    cube.position[1] = Vec3(0.5 * w, -0.5 * h, -0.5 * d);
-    cube.position[2] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    cube.verts[0].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
+    cube.verts[1].position = Vec3(0.5f * w, -0.5f * h, -0.5f * d);
+    cube.verts[2].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
     
-    cube.position[3] = Vec3(-0.5 * w, -0.5 * h, -0.5 * d);
-    cube.position[4] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
-    cube.position[5] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
+    cube.verts[3].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
+    cube.verts[4].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
+    cube.verts[5].position = Vec3(-0.5f * w, 0.5f * h, -0.5f * d);
     
     // BACK
-    cube.position[6] = Vec3(0.5 * w, -0.5 * h, 0.5 * d);
-    cube.position[7] = Vec3(-0.5 * w, -0.5 * h, 0.5 * d);
-    cube.position[8] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    cube.verts[6].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[7].position = Vec3(-0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[8].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
     
-    cube.position[9] = Vec3(0.5 * w, -0.5 * h, 0.5 * d);
-    cube.position[10] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
-    cube.position[11] = Vec3(0.5 * w, 0.5 * h, 0.5 * d);
+    cube.verts[9].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[10].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
+    cube.verts[11].position = Vec3(0.5f * w, 0.5f * h, 0.5f * d);
     
     // LEFT
-    cube.position[12] = Vec3(-0.5 * w, -0.5 * h, 0.5 * d);
-    cube.position[13] = Vec3(-0.5 * w, -0.5 * h, -0.5 * d);
-    cube.position[14] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
+    cube.verts[12].position = Vec3(-0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[13].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
+    cube.verts[14].position = Vec3(-0.5f * w, 0.5f * h, -0.5f * d);
     
-    cube.position[15] = Vec3(-0.5 * w, -0.5 * h, 0.5 * d);
-    cube.position[16] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
-    cube.position[17] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
+    cube.verts[15].position = Vec3(-0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[16].position = Vec3(-0.5f * w, 0.5f * h, -0.5f * d);
+    cube.verts[17].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
     
     // RIGHT
-    cube.position[18] = Vec3(0.5 * w, -0.5 * h, 0.5 * d);
-    cube.position[19] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
-    cube.position[20] = Vec3(0.5 * w, -0.5 * h, -0.5 * d);
+    cube.verts[18].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[19].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
+    cube.verts[20].position = Vec3(0.5f * w, -0.5f * h, -0.5f * d);
     
-    cube.position[21] = Vec3(0.5 * w, -0.5 * h, 0.5 * d);
-    cube.position[22] = Vec3(0.5 * w, 0.5 * h, 0.5 * d);
-    cube.position[23] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    cube.verts[21].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[22].position = Vec3(0.5f * w, 0.5f * h, 0.5f * d);
+    cube.verts[23].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
     
     // TOP
-    cube.position[24] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
-    cube.position[25] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
-    cube.position[26] = Vec3(0.5 * w, 0.5 * h, 0.5 * d);
+    cube.verts[24].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
+    cube.verts[25].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
+    cube.verts[26].position = Vec3(0.5f * w, 0.5f * h, 0.5f * d);
     
-    cube.position[27] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
-    cube.position[28] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
-    cube.position[29] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
+    cube.verts[27].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
+    cube.verts[28].position = Vec3(-0.5f * w, 0.5f * h, -0.5f * d);
+    cube.verts[29].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
     
     // BOTTOM
-    /*cube.position[30] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
-    cube.position[31] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);
-    cube.position[32] = Vec3(0.5 * w, 0.5 * h, 0.5 * d);
+    cube.verts[30].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
+    cube.verts[31].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[32].position = Vec3(0.5f * w, -0.5f * h, -0.5f * d);
     
-    cube.position[33] = Vec3(-0.5 * w, 0.5 * h, 0.5 * d);
-    cube.position[34] = Vec3(-0.5 * w, 0.5 * h, -0.5 * d);
-    cube.position[35] = Vec3(0.5 * w, 0.5 * h, -0.5 * d);*/
+    cube.verts[33].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
+    cube.verts[34].position = Vec3(-0.5f * w, -0.5f * h, 0.5f * d);
+    cube.verts[35].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
     
     // put color and rotate vertices
     wmath::Mat3 rotMat = wmath::Mat3::RotationY(rotation);
     for(int i = 0; i < 36; ++i)
     {
-        cube.color[i] = color;
-        cube.position[i] = pos + cube.position[i]; 
+        cube.verts[i].color = color;
+        cube.verts[i].position = pos + (rotMat *  cube.verts[i].position); 
     }
 }
 
@@ -211,8 +211,8 @@ void CSimulationView::DrawLights()
         {
             // create cube here
             dCube light;
-            addCube(light, traIt->GetPosition(), 4, 4, 2, 
-                    Vec3(1.0, 1.0, 1.0), traIt->GetRotation());
+            addCube(light, traIt->GetPosition(), 3.0f, 3.0f, 0.5f, 
+                    Vec3(0.1f, 0.1f, 0.1f), traIt->GetRotation());
             
             // push the cube
             traLights.push_back(light);
@@ -230,9 +230,11 @@ void CSimulationView::DrawLights()
 
         traVertexBuffer.Bind();
         glEnableVertexAttribArray(0);
-        traVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(Vec3), 0 );
+        glEnableVertexAttribArray(1);
+        traVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(cubeVert), 0 );
+        traVertexBuffer.SetAttribPointer(1, 3, GL_FLOAT, sizeof(cubeVert), (void*)sizeof(Vec3) );
 
-        glDrawArrays(GL_TRIANGLES, 0, traLights.size() * sizeof(dCube));
+        glDrawArrays(GL_TRIANGLES, 0, traLights.size() * 72);
 
         traShader.Unbind();
     }

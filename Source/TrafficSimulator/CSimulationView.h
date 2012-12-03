@@ -10,10 +10,15 @@
 
 using wmath::Vec3;
 
+struct cubeVert
+{
+    Vec3 position;
+    Vec3 color;
+};
+
 struct dCube
 {
-    Vec3 position[36]; // cube
-    Vec3 color[36];
+    cubeVert verts[36];
 };
 
 class CSimulationView : public CAbstractView
@@ -36,7 +41,7 @@ private:
     
     // creates a cube for trafficlights and participants
     void addCube(dCube& cube, Vec3 pos, 
-            int w, int h, int d, Vec3 color, float rotation);
+            float w, float h, float d, Vec3 color, float rotation);
 
 private:
     Camera mCamera;
