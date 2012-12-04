@@ -19,8 +19,12 @@ void cConsoleView::Print(const std::string& msg)
  */
 bool cConsoleView::GetQuitPress()
 {
+#ifndef HAS_GETCH
+    return false;
+#else
+
     // Try to get a char in the keyboard buffer
-    int val = 0;//getch();
+    int val = getch();
 
     // Is it empty?
     if( val == 0)
@@ -31,4 +35,5 @@ bool cConsoleView::GetQuitPress()
         return true;
     else
         return false;
+#endif
 }
