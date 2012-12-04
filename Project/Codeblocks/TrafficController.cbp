@@ -41,6 +41,7 @@
 		<Linker>
 			<Add library="libws2_32.a" />
 		</Linker>
+		<Unit filename="..\..\Source\TrafficController\EventQueue\iEvent.h" />
 		<Unit filename="..\..\Source\TrafficController\Network\BaseSocket.cpp" />
 		<Unit filename="..\..\Source\TrafficController\Network\BaseSocket.h" />
 		<Unit filename="..\..\Source\TrafficController\Network\RuneDataSocket.cpp" />
@@ -58,6 +59,9 @@
 		<Unit filename="..\..\Source\TrafficController\PacketMaster.cpp" />
 		<Unit filename="..\..\Source\TrafficController\PacketMaster.h" />
 		<Unit filename="..\..\Source\TrafficController\TrafficDefs.h" />
+		<Unit filename="..\..\Source\TrafficController\Util.h" />
+		<Unit filename="..\..\Source\TrafficController\cArbitrator.cpp" />
+		<Unit filename="..\..\Source\TrafficController\cArbitrator.h" />
 		<Unit filename="..\..\Source\TrafficController\cConsoleView.cpp" />
 		<Unit filename="..\..\Source\TrafficController\cConsoleView.h" />
 		<Unit filename="..\..\Source\TrafficController\cNetworkView.cpp" />
