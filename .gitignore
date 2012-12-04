@@ -14,7 +14,10 @@
 # Compiled executables
 *.exe
 
-# Add codeblocks layoutfile
+# Codeblocks layout and dependencies projectfiles
 *.layout
+*.depend
+
+# Specific netbeans project-paths
 /Project/Netbeans/TrafficController/build/
 /Project/Netbeans/TrafficController/dist/
