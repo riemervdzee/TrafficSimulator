@@ -21,7 +21,7 @@ int main()
     cSimulationModel model;
     cConsoleView viewConsole;
     cNetworkView viewNetwork;
-    
+
     model.RegisterConsoleView( &viewConsole);
     model.RegisterNetworkView( &viewNetwork);
 
@@ -35,9 +35,13 @@ int main()
     while( controller.RunStatus())
     {
         controller.Update();
-        
+
         // sleep 1 ms, convert to microseconds
+#ifdef WIN32
+        Sleep( 1);
+#else
         usleep(1 * 1000);
+#endif
     }
 
     // Destroy objects
