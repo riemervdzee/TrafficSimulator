@@ -55,6 +55,8 @@
 		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketSet.h" />
 		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketUtil.cpp" />
 		<Unit filename="..\..\Source\TrafficController\Network\RuneSocketUtil.h" />
+		<Unit filename="..\..\Source\TrafficController\PacketMaster.cpp" />
+		<Unit filename="..\..\Source\TrafficController\PacketMaster.h" />
 		<Unit filename="..\..\Source\TrafficController\TrafficDefs.h" />
 		<Unit filename="..\..\Source\TrafficController\cConsoleView.cpp" />
 		<Unit filename="..\..\Source\TrafficController\cConsoleView.h" />

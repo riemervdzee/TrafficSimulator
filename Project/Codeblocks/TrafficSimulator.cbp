@@ -103,6 +103,8 @@
 		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketSet.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketUtil.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\Network\RuneSocketUtil.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\PacketMaster.cpp" />
+		<Unit filename="..\..\Source\TrafficSimulator\PacketMaster.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Renderer\Buffers\IndexBuffer.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Renderer\Buffers\VertexBuffer.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Renderer\Imgutil.cpp" />
