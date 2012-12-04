@@ -2,6 +2,9 @@
  * Contains cross-platform ulity functions
  */
 
+#ifndef TC_UTIL_H
+#define TC_UTIL_H
+
 // Preprocessor, checking for multiple defines (add as wanted!)
 #if (defined _WIN32 || defined _WIN64)
   #define TC_WINDOWS 1
@@ -27,3 +30,6 @@ inline void TC_Sleep( unsigned int t)
 /*
  * Get time function TODO actually do it
  */
+
+
+#endif // TC_UTIL_H
