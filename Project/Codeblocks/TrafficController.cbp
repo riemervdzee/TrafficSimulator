@@ -41,6 +41,14 @@
 		<Linker>
 			<Add library="libws2_32.a" />
 		</Linker>
+		<Unit filename="..\..\Source\TrafficController\EventQueue\cBike.cpp" />
+		<Unit filename="..\..\Source\TrafficController\EventQueue\cBike.h" />
+		<Unit filename="..\..\Source\TrafficController\EventQueue\cBus.cpp" />
+		<Unit filename="..\..\Source\TrafficController\EventQueue\cBus.h" />
+		<Unit filename="..\..\Source\TrafficController\EventQueue\cCar.cpp" />
+		<Unit filename="..\..\Source\TrafficController\EventQueue\cCar.h" />
+		<Unit filename="..\..\Source\TrafficController\EventQueue\cPedestrian.cpp" />
+		<Unit filename="..\..\Source\TrafficController\EventQueue\cPedestrian.h" />
 		<Unit filename="..\..\Source\TrafficController\EventQueue\iEvent.h" />
 		<Unit filename="..\..\Source\TrafficController\Network\BaseSocket.cpp" />
 		<Unit filename="..\..\Source\TrafficController\Network\BaseSocket.h" />
