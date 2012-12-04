@@ -26,6 +26,9 @@ const float RAD2DEG = 180.0f / PI;
 const float EPSILONS = 1e-6f;
 const float EPSILONH = 1e-3f;
 
+float Wrap(float value, float lower, float upper);
+float ShortestAngleBetween(float firstPhi, float secondPhi);
+
 //------------------------------------
 // makes it easy to use the shortest arc when interpolating between two angles.
 // reference[1]: 3D Math primer for graphics and game development.

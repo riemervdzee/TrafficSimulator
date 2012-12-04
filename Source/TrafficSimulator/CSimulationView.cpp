@@ -21,6 +21,10 @@ void CSimulationView::Dispose()
 {
     mSkybox.Dispose();
     mScene.Dispose();
+    traShader.Dispose();
+    parShader.Dispose();
+    traVertexBuffer.Dispose();
+    parVertexBuffer.Dispose();
 }
 
 void CSimulationView::Init()
@@ -308,7 +312,7 @@ void CSimulationView::CreateParticipantCube(dCube& cube, CParticipant& par)
                 color, rot , Vec3());
             break;
         case TRADEFS::BUS:
-                addCube(cube, pos, 8.0f, 8.0f, TRADEFS::BUSSIZE, 
+                addCube(cube, pos, 8.0f, 14.0f, TRADEFS::BUSSIZE, 
                 color, rot , Vec3());
             break;
     }

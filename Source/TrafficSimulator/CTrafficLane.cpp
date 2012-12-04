@@ -198,7 +198,7 @@ void CCommonTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLig
 
         if(light.GetState() != TRADEFS::STOP)
         {
-            light.SetState(TRADEFS::STOP);
+            //light.SetState(TRADEFS::STOP);
             par.SetState(TRADEFS::ONCROSSROAD);
         }
 
@@ -208,24 +208,57 @@ void CCommonTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLig
 
 void CCommonTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* groups, float dt)
 {
-    wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
-    wmath::Vec3 laneDir = end - wayStart;
+    // Vectors
     wmath::Vec3 parPos = par.GetPosition();
-    wmath::Vec3 moveDir = (end - parPos);
+    wmath::Vec3 laneDir = wayEnd - wayStart;
+    wmath::Vec3 moveDir = (wayEnd - parPos); moveDir.Norm();
+    float parSize = CTrafficLane::GetParticipantSize(par.GetType());
 
     // get length between 2 lane waypoints, from start to end
-    float laneLength = laneDir.Length();
+    float laneLength = laneDir.Length();// + parSize + TRADEFS::CHEATLEN;
 
     // get length between par pos and end waypoint
     float parLength = (parPos - wayStart).Length();
 
     // check if we have reached our destination
-    laneDir.Norm();
-    moveDir.Norm();
     if(parLength > laneLength)
     {
-        // change state
-        par.SetState(TRADEFS::GOTOEXIT);
+        wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
+        laneDir = end - wayStart;
+        moveDir = (end - parPos);
+
+        // get length between 2 lane waypoints, from start to end
+        laneLength = laneDir.Length();
+
+        // get length between par pos and end waypoint
+        parLength = (parPos - wayStart).Length();
+
+        // check if we have reached our destination
+        laneDir.Norm();
+        moveDir.Norm();
+
+        // get new rot
+        float wantRot = atan2(laneDir.x, laneDir.z);
+        float curRot = par.GetRotation() * wmath::DEG2RAD;
+        float difRot = wmath::ShortestAngleBetween(curRot, wantRot);
+        curRot *= wmath::RAD2DEG;
+        difRot *= wmath::RAD2DEG;
+
+        if( !(difRot >= -0.1f && difRot <= 0.1f))
+        {
+            par.SetRotation( curRot + difRot * dt );
+        }
+
+        if(parLength > laneLength)
+        {
+            // change state
+            par.SetState(TRADEFS::GOTOEXIT);
+        }
+        else
+        {
+            // set it's new position
+            par.SetPosition(parPos + moveDir * CTrafficLane::GetParticipantSpeed( par.GetType()) * dt);
+        }
     }
     else
     {
@@ -251,6 +284,19 @@ void CCommonTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, 
     // check if we have reached our destination
     laneDir.Norm();
     moveDir.Norm();
+    
+    // get new rot
+    float wantRot = atan2(laneDir.x, laneDir.z);
+    float curRot = par.GetRotation() * wmath::DEG2RAD;
+    float difRot = wmath::ShortestAngleBetween(curRot, wantRot);
+    curRot *= wmath::RAD2DEG;
+    difRot *= wmath::RAD2DEG;
+    
+    if( !(difRot >= -0.1f && difRot <= 0.1f))
+    {
+        par.SetRotation( curRot + difRot * dt );
+    }
+    
     if(parLength > laneLength)
     {
         par.FlagForRemoval();
