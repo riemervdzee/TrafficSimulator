@@ -18,6 +18,9 @@
 *.layout
 *.depend
 
+# Ignore shader folder (copy the wanted shader version to this path)
+/Build/Win32/Data/Shaders/
+
 # Specific netbeans project-paths
 /Project/Netbeans/TrafficController/build/
 /Project/Netbeans/TrafficController/dist/
