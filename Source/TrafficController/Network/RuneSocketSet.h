@@ -1,9 +1,9 @@
-/* 
+/*
  * File:   RuneSocketSet.h
  * Author: Mark van der Wal
- * 
+ *
  * Handles sets of sockets for activity
- * 
+ *
  * Created on November 26, 2012, 1:21 PM
  */
 
@@ -17,7 +17,7 @@
 namespace RuneSocket
 {
     const int MAX = FD_SETSIZE;
-    
+
     enum FD_ACTION
     {
         READ = 0,
@@ -29,10 +29,10 @@ namespace RuneSocket
     {
     public:
         RuneSocketSet();
-        
+
         void AddSocket( const BaseSocket& p_sock );
         void RemoveSocket( const BaseSocket& p_sock );
-        
+
         inline int Poll( long p_time = 0 )
         {
             // this is the time value structure. It will determine how long
@@ -63,7 +63,8 @@ namespace RuneSocket
                     return FD_ISSET( p_sock.GetSock(), &m_writeset ) != 0;
                 case EXCEP:
                     return FD_ISSET( p_sock.GetSock(), &m_excepset ) != 0;
-                    
+                default:
+                    return false;
             }
         }
 
