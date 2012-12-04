@@ -1,9 +1,9 @@
 #include <iostream>
 
-
 #include "Network/RuneSocket.h"
 
 #include "TrafficDefs.h"
+#include "Util.h"
 
 #include "iAbstractView.h"
 #include "iConsoleObserver.h"
@@ -15,6 +15,9 @@
 #include "cTrafficController.h"
 using namespace std;
 
+/*
+ * Main entry of the TrafficController program
+ */
 int main()
 {
     // Create model and views
@@ -34,14 +37,11 @@ int main()
     // Main while loop
     while( controller.RunStatus())
     {
+        // Let the controller do his thing
         controller.Update();
 
-        // sleep 1 ms, convert to microseconds
-#ifdef WIN32
-        Sleep( 1);
-#else
-        usleep(1 * 1000);
-#endif
+        // Sleep 20ms
+        TC_Sleep( 20);
     }
 
     // Destroy objects
