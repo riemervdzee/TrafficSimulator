@@ -23,12 +23,12 @@ bool cConsoleView::GetQuitPress()
     return false;
 #else
 
-    // Try to get a char in the keyboard buffer
-    int val = getch();
-
-    // Is it empty?
-    if( val == 0)
+    // Check for a keyboard bash
+    if (!_kbhit())
         return false;
+
+    // Try to get a char in the keyboard buffer
+    int val = _getch();
 
     // Poll for Q
     if(val == 'q' || val == 'Q')
