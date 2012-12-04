@@ -21,6 +21,14 @@ bool CApplication::Create(unsigned width, unsigned height, bool fullscreen)
         glfwTerminate();
         return false;
 	}
+        
+        // position window in the middle
+        GLFWvidmode desktopMode;
+        glfwGetDesktopMode(&desktopMode);
+
+        int xPos = desktopMode.Width / 2 - width / 2;
+        int yPos = desktopMode.Height / 2 - height / 2 - 48;
+        glfwSetWindowPos(xPos, yPos);
 
     // set window stuff
 	glfwSetWindowTitle("TrafficSimulator 2012/2013 - Riemer v/d Zee & Mark van der Wal");

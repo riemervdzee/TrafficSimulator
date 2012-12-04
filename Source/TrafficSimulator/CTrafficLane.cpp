@@ -33,12 +33,32 @@ float CTrafficLane::GetParticipantSize(TRADEFS::PARTICIPANTS type)
     }
  }
 
+float GetRotAngle(int dir)
+{
+    switch(dir)
+    {
+        case TRADEFS::NORTH:
+            return 180.0f;
+        case TRADEFS::EAST:
+            return 270.0f;
+        case TRADEFS::WEST:
+            return 90.0f;
+        default: 
+            return 0.0f;
+    }
+}
+
 // HACKY SHIT MAN POINTERS TO LIST ELEMENT
 // BUT IT WORKS FOR NOW!
 void CCommonTrafficLane::AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info)
 {
+    wmath::Vec3 startPos = (wayStart - wayEnd); startPos.Norm();
+    float parSize = CTrafficLane::GetParticipantSize(info.type);
+    startPos *= (parSize / 2.0f);
+    startPos = wayStart + startPos;
+    
     // create participant
-    CParticipant par = CParticipant(info.type, info.fromDirection, info.toDirection, info.fromLane, wayStart);
+    CParticipant par = CParticipant(info.type, info.fromDirection, info.toDirection, info.fromLane, startPos, GetRotAngle(info.fromDirection));
     par.SetState(TRADEFS::GOTOSTOPLIGHT);
 
     // add participant to pocessing list!
@@ -80,12 +100,14 @@ void CCommonTrafficLane::UpdateParticipants(std::vector<CTrafficLight>& lightLis
             // start,end & participant positions
             wmath::Vec3 parPos = last->GetPosition();
             wmath::Vec3 traDis = (parPos - wayStart);
-            float traLen = traDis.Length();
+
             float parSize = CTrafficLane::GetParticipantSize(last->GetType());
+            float traLen = traDis.Length();
 
             // if the participant in the back has traveled a bigger distance than it's size
             // we can add a the participant from the incoming queue to the participant queue
-            if( traLen > parSize)
+            //if( traLen > parSize)
+            if( traLen > (TRADEFS::BUMPDIST + parSize))
             {
                 par->SetHidden(false);
                 participantQueue.push_back(par);
@@ -136,13 +158,19 @@ void CCommonTrafficLane::GoToStoplight(CParticipant& par, int index, float dt)
     // directions
     wmath::Vec3 laneDir = wayEnd - wayStart;
     wmath::Vec3 moveDir = (wayEnd - parPos); moveDir.Norm();
+    float parSize = CTrafficLane::GetParticipantSize(par.GetType());
 
     // get length between 2 lane waypoints, from start to end
-    float laneLength = laneDir.Length(); laneDir.Norm();
-    laneLength -= (CTrafficLane::GetParticipantSize( par.GetType() ) *  index);
+    float laneLength = laneDir.Norm() - (TRADEFS::BUMPDIST + TRADEFS::CHEATLEN);
+    laneLength -= parSize *  index;
+    
+    if( index != 0)
+    {
+        laneLength -= TRADEFS::BUMPDIST;
+    }
 
     // get length between par pos and end waypoint
-    float parLength = (parPos - wayStart).Length();
+    float parLength = (parPos - wayStart).Length() + parSize / 2.0f;
 
     // check if we have reached our destination
     if(parLength > laneLength)
@@ -170,7 +198,7 @@ void CCommonTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLig
 
         if(light.GetState() != TRADEFS::STOP)
         {
-            light.SetState(TRADEFS::STOP);
+            //light.SetState(TRADEFS::STOP);
             par.SetState(TRADEFS::ONCROSSROAD);
         }
 
@@ -180,24 +208,57 @@ void CCommonTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLig
 
 void CCommonTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* groups, float dt)
 {
-    wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
-    wmath::Vec3 laneDir = end - wayStart;
+    // Vectors
     wmath::Vec3 parPos = par.GetPosition();
-    wmath::Vec3 moveDir = (end - parPos);
+    wmath::Vec3 laneDir = wayEnd - wayStart;
+    wmath::Vec3 moveDir = (wayEnd - parPos); moveDir.Norm();
+    float parSize = CTrafficLane::GetParticipantSize(par.GetType());
 
     // get length between 2 lane waypoints, from start to end
-    float laneLength = laneDir.Length();
+    float laneLength = laneDir.Length();// + parSize + TRADEFS::CHEATLEN;
 
     // get length between par pos and end waypoint
     float parLength = (parPos - wayStart).Length();
 
     // check if we have reached our destination
-    laneDir.Norm();
-    moveDir.Norm();
     if(parLength > laneLength)
     {
-        // change state
-        par.SetState(TRADEFS::GOTOEXIT);
+        wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
+        laneDir = end - wayStart;
+        moveDir = (end - parPos);
+
+        // get length between 2 lane waypoints, from start to end
+        laneLength = laneDir.Length();
+
+        // get length between par pos and end waypoint
+        parLength = (parPos - wayStart).Length();
+
+        // check if we have reached our destination
+        laneDir.Norm();
+        moveDir.Norm();
+
+        // get new rot
+        float wantRot = atan2(laneDir.x, laneDir.z);
+        float curRot = par.GetRotation() * wmath::DEG2RAD;
+        float difRot = wmath::ShortestAngleBetween(curRot, wantRot);
+        curRot *= wmath::RAD2DEG;
+        difRot *= wmath::RAD2DEG;
+
+        if( !(difRot >= -0.1f && difRot <= 0.1f))
+        {
+            par.SetRotation( curRot + difRot * dt );
+        }
+
+        if(parLength > laneLength)
+        {
+            // change state
+            par.SetState(TRADEFS::GOTOEXIT);
+        }
+        else
+        {
+            // set it's new position
+            par.SetPosition(parPos + moveDir * CTrafficLane::GetParticipantSpeed( par.GetType()) * dt);
+        }
     }
     else
     {
@@ -223,6 +284,19 @@ void CCommonTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, 
     // check if we have reached our destination
     laneDir.Norm();
     moveDir.Norm();
+    
+    // get new rot
+    float wantRot = atan2(laneDir.x, laneDir.z);
+    float curRot = par.GetRotation() * wmath::DEG2RAD;
+    float difRot = wmath::ShortestAngleBetween(curRot, wantRot);
+    curRot *= wmath::RAD2DEG;
+    difRot *= wmath::RAD2DEG;
+    
+    if( !(difRot >= -0.1f && difRot <= 0.1f))
+    {
+        par.SetRotation( curRot + difRot * dt );
+    }
+    
     if(parLength > laneLength)
     {
         par.FlagForRemoval();
@@ -246,7 +320,7 @@ void CPedestrianTrafficLane::Clear()
 void CPedestrianTrafficLane::AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info)
 {
     // create participant
-    CParticipant par = CParticipant(info.type, info.fromDirection, info.toDirection, info.fromLane, pedStart);
+    CParticipant par = CParticipant(info.type, info.fromDirection, info.toDirection, info.fromLane, pedStart, GetRotAngle(info.fromDirection));
     par.SetState(TRADEFS::GOTOSTOPLIGHT);
     par.SetHidden(false);
 

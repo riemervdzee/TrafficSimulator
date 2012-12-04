@@ -5,6 +5,7 @@
 #include "Skybox.h"
 #include "CAbstractView.h"
 #include "CStaticScene.h"
+#include "CParticipant.h"
 
 #include "../../Source/TrafficSimulator/Math/WildMath.h"
 
@@ -42,6 +43,7 @@ private:
     // creates a cube for trafficlights and participants
     void addCube(dCube& cube, Vec3 pos, 
             float w, float h, float d, Vec3 color, float rotation, Vec3 extr);
+    void CreateParticipantCube(dCube& cube, CParticipant& par);
 
 private:
     Camera mCamera;

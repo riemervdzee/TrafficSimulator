@@ -21,6 +21,10 @@ void CSimulationView::Dispose()
 {
     mSkybox.Dispose();
     mScene.Dispose();
+    traShader.Dispose();
+    parShader.Dispose();
+    traVertexBuffer.Dispose();
+    parVertexBuffer.Dispose();
 }
 
 void CSimulationView::Init()
@@ -61,7 +65,7 @@ void CSimulationView::Init()
     traShader.CreateProgram(dvertex, dfragment);
 
     // create buffer for participants
-    parVertexBuffer.Create(sizeof(wmath::Vec3) * 128, GL_DYNAMIC_DRAW);
+    parVertexBuffer.Create(sizeof(dCube) * 256, GL_DYNAMIC_DRAW);
     traVertexBuffer.Create(sizeof(dCube) * trafficLights.size() * 2, GL_DYNAMIC_DRAW);
 }
 
@@ -287,27 +291,58 @@ void CSimulationView::DrawLights()
     }
 }
 
+void CSimulationView::CreateParticipantCube(dCube& cube, CParticipant& par)
+{
+    float rot = par.GetRotation();
+    Vec3 pos = par.GetPosition();
+    Vec3 color = Vec3(0.3f, 0.6f, 0.2f);
+    
+    switch(par.GetType())
+    {
+        case TRADEFS::CAR:
+                addCube(cube, pos, 6.0f, 5.0f, TRADEFS::CARSIZE, 
+                color, rot , Vec3());
+            break;
+        case TRADEFS::BIKE:
+                addCube(cube, pos, 1.0f, 3.0f, TRADEFS::BIKESIZE, 
+                color, rot , Vec3());
+            break;
+        case TRADEFS::PEDESTRIAN:
+                addCube(cube, pos, TRADEFS::PEDSIZE, 5.0f, TRADEFS::PEDSIZE, 
+                color, rot , Vec3());
+            break;
+        case TRADEFS::BUS:
+                addCube(cube, pos, 8.0f, 14.0f, TRADEFS::BUSSIZE, 
+                color, rot , Vec3());
+            break;
+    }
+}
+
 void CSimulationView::DrawParticipants()
 {
     std::list<CParticipant>& participants = mModel->GetParticipants();
     std::list<CParticipant>::iterator parIt;
     if( participants.size() > 0)
     {
-        std::vector<wmath::Vec3> parPositions;
-
-        parShader.Bind();
-        int projViewMatrix = glGetUniformLocation(parShader.GetID(), "mvpMatrix");
+        std::vector<dCube> parCubes;
+        dCube parti;
 
         for(parIt = participants.begin(); parIt != participants.end(); ++parIt)
         {
             if((*parIt).Hidden())
                 continue;
+            
+            // create the size of the rectangle
+            CreateParticipantCube(parti, *parIt);
 
-            parPositions.push_back((*parIt).GetPosition());
+            parCubes.push_back(parti);
         }
+        
+        parShader.Bind();
+        int projViewMatrix = glGetUniformLocation(parShader.GetID(), "mvpMatrix");
 
         // put in to vertexbuffer
-        parVertexBuffer.SubData(&parPositions[0], sizeof(wmath::Vec3) * parPositions.size()  );
+        parVertexBuffer.SubData(&parCubes[0], sizeof(dCube) * parCubes.size()  );
 
         // draw participants
         wmath::Mat4 projView = mCamera.GetProjection() * mCamera.GetView();
@@ -315,10 +350,11 @@ void CSimulationView::DrawParticipants()
 
         parVertexBuffer.Bind();
         glEnableVertexAttribArray(0);
-        parVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, 0, 0 );
+        glEnableVertexAttribArray(1);
+        traVertexBuffer.SetAttribPointer(0, 3, GL_FLOAT, sizeof(cubeVert), 0 );
+        traVertexBuffer.SetAttribPointer(1, 3, GL_FLOAT, sizeof(cubeVert), (void*)sizeof(Vec3) );
 
-        glPointSize(16);
-        glDrawArrays(GL_POINTS, 0, parPositions.size());
+        glDrawArrays(GL_TRIANGLES, 0, parCubes.size() * 72);
 
         parShader.Unbind();
     }

@@ -7,7 +7,7 @@
 class CParticipant
 {
     public:
-        CParticipant(TRADEFS::PARTICIPANTS type, int from, int to, int lane, wmath::Vec3 pos);
+        CParticipant(TRADEFS::PARTICIPANTS type, int from, int to, int lane, wmath::Vec3 pos, float rot);
         void SetState(TRADEFS::PARTICIPANTSTATE t) { state = t;}
 
         TRADEFS::PARTICIPANTSTATE   GetState(){ return state; }
@@ -23,12 +23,16 @@ class CParticipant
 
         bool Hidden(){ return hidden; }
         void SetHidden(bool hid) { hidden = hid;}
+        
+        void SetRotation(float rot){ this->rotation = rot; }
+        float GetRotation(){ return rotation; }
 
     private:
         TRADEFS::PARTICIPANTS type;
         TRADEFS::PARTICIPANTSTATE state;
 
         wmath::Vec3 position;
+        float rotation;
         int laneGroupFrom;
         int laneGroupTo;
         int laneFrom;

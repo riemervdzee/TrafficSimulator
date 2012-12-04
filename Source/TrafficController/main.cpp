@@ -35,6 +35,9 @@ int main()
     while( controller.RunStatus())
     {
         controller.Update();
+        
+        // sleep 1 ms, convert to microseconds
+        usleep(1 * 1000);
     }
 
     // Destroy objects

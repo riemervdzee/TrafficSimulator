@@ -9,6 +9,39 @@ Description: Math library
 
 namespace wmath
 {
+        /// <summary>Normalizes a value in a wraparound numeric range</summary> 
+        /// <param name="value">Value to be normalized</param> 
+        /// <param name="lower">Lower wraparound point (inclusive)</param> 
+        /// <param name="upper">Upper wraparound point (exclusive)</param> 
+        /// <returns>The normalized input value</returns> 
+        float Wrap(float value, float lower, float upper) 
+        { 
+            float distance = upper - lower; 
+            float times = (float)floorf((value - lower) / distance); 
+
+            return value - (times * distance); 
+        }
+    
+        /// <summary> 
+        ///   Calculates the smallest angle between two absolute directions 
+        /// </summary> 
+        /// <param name="firstPhi">First absolute direction in radians</param> 
+        /// <param name="secondPhi">Second absolute direction in radians</param> 
+        /// <returns>The smallest angle between both directions</returns> 
+        float ShortestAngleBetween(float firstPhi, float secondPhi) 
+        { 
+            float difference = secondPhi - firstPhi; 
+
+            // Just unroll the difference of both angles and we have the angle 
+            float angle = Wrap(difference, 0.0f, TWOPI); 
+
+            // Go the other way around if we got the longer path 
+            if(angle >= PI) 
+              angle -= TWOPI; 
+
+            return angle; 
+        } 
+    
 	// Makes it easy to use the shortest arc when interpolating between two angles.
 	// Reference[1]: 3D Math primer for graphics and game development.
 	float WrapPI(float theta)
@@ -26,7 +59,7 @@ namespace wmath
 
 		return theta;
 	}
-
+        
 	// Let's use see if the value is close enough to some other value
 	bool IsCloseEnough(float value, float near)
 	{
