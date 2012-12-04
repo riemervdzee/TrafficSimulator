@@ -1,4 +1,4 @@
-//#version 330
+#version 330
 
 in vec3 inPos;
 out vec3 UV;
