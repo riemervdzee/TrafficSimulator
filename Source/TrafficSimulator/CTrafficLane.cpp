@@ -168,9 +168,9 @@ void CCommonTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLig
         // we need to check if it can proceed
         CTrafficLight& light = lightList[lightID];
 
-        if(light.GetState() != TRADEFS::OFF)
+        if(light.GetState() != TRADEFS::STOP)
         {
-            light.SetState(TRADEFS::OFF);
+            light.SetState(TRADEFS::STOP);
             par.SetState(TRADEFS::ONCROSSROAD);
         }
 

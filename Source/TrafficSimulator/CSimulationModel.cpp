@@ -160,18 +160,49 @@ void CSimulationModel::UpdateParticipants(float dt)
     // update participants that have passed trafficlights
 }
 
-float GetRotAngle(int dir)
+float GetRotAngle(int dir, int lane)
 {
-    switch(dir)
+    if(lane == TRADEFS::LANE_PEDESTRIAN_TWO)
     {
-        case TRADEFS::NORTH:
-            return 180.0f;
-        case TRADEFS::EAST:
-            return 270.0f;
-        case TRADEFS::WEST:
-            return 90.0f;
-        default: 
-            return 0;
+        switch(dir)
+        {
+            case TRADEFS::NORTH:
+                return 270.0f;
+            case TRADEFS::EAST:
+                return 0.0f;
+            case TRADEFS::WEST:
+                return 180.0f;
+            default: 
+                return 90.0f;
+        }
+    }
+    else if( lane == TRADEFS::LANE_PEDESTRIAN_ONE)
+    {
+        switch(dir)
+        {
+            case TRADEFS::NORTH:
+                return 90.0f;
+            case TRADEFS::EAST:
+                return 180.0f;
+            case TRADEFS::WEST:
+                return 0.0f;
+            default: 
+                return 270.0f;
+        }
+    }
+    else
+    {
+        switch(dir)
+        {
+            case TRADEFS::NORTH:
+                return 180.0f;
+            case TRADEFS::EAST:
+                return 270.0f;
+            case TRADEFS::WEST:
+                return 90.0f;
+            default: 
+                return 0.0f;
+        }
     }
 }
 
@@ -213,15 +244,24 @@ void CSimulationModel::LoadEntities()
 
         if(lane == 8) // special light for pedestrians in the middle used by 2 lanes
         {
-            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z), GetRotAngle(laneG) ));
+            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z), GetRotAngle(laneG, lane), TRADEFS::PED ));
             ((CPedestrianTrafficLane*)laneGroups[laneG][TRADEFS::LANE_PEDESTRIAN_ONE])->SetMidTrafficlight( trafficLights.size() - 1 );
             ((CPedestrianTrafficLane*)laneGroups[laneG][TRADEFS::LANE_PEDESTRIAN_TWO])->SetMidTrafficlight( trafficLights.size() - 1 );
         }
         else
         {
             // add light to the correct lane
-            trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z),GetRotAngle(laneG)  ));
-            laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 );
+            if( lane == TRADEFS::LANE_PEDESTRIAN_ONE || lane == TRADEFS::LANE_PEDESTRIAN_TWO ||
+                    lane == TRADEFS::LANE_BIKE)
+            {
+                trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z),GetRotAngle(laneG, lane), TRADEFS::PED ));
+                laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 ); 
+            }
+            else
+            {
+                trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z),GetRotAngle(laneG, lane), TRADEFS::OTHER  ));
+                laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 );
+            }
         }
     }
 }

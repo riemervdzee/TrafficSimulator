@@ -17,6 +17,12 @@ namespace TRADEFS
     const float BUSSPEED = 6.5f;
     const float PEDSPEED = 10.0f;
     const float BIKESPEED = 4.0f;
+    
+    enum PEDTYPE
+    {
+        OTHER = 0,
+        PED,
+    };
 
     enum DIRECTION
     {

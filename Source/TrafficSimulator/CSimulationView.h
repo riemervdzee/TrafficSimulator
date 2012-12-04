@@ -41,7 +41,7 @@ private:
     
     // creates a cube for trafficlights and participants
     void addCube(dCube& cube, Vec3 pos, 
-            float w, float h, float d, Vec3 color, float rotation);
+            float w, float h, float d, Vec3 color, float rotation, Vec3 extr);
 
 private:
     Camera mCamera;

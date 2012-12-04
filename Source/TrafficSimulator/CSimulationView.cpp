@@ -62,7 +62,7 @@ void CSimulationView::Init()
 
     // create buffer for participants
     parVertexBuffer.Create(sizeof(wmath::Vec3) * 128, GL_DYNAMIC_DRAW);
-    traVertexBuffer.Create(sizeof(dCube) * trafficLights.size(), GL_DYNAMIC_DRAW);
+    traVertexBuffer.Create(sizeof(dCube) * trafficLights.size() * 2, GL_DYNAMIC_DRAW);
 }
 
 void CSimulationView::Update(float dt)
@@ -134,7 +134,7 @@ void CSimulationView::Update(float dt)
 }
 
 void CSimulationView::addCube(dCube& cube, wmath::Vec3 pos, 
-        float w, float h, float d, wmath::Vec3 color, float rotation)
+        float w, float h, float d, wmath::Vec3 color, float rotation, Vec3 extr)
 {     
     // FRONT
     cube.verts[0].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
@@ -192,10 +192,30 @@ void CSimulationView::addCube(dCube& cube, wmath::Vec3 pos,
     
     // put color and rotate vertices
     wmath::Mat3 rotMat = wmath::Mat3::RotationY(rotation);
+    wmath::Mat4 tranMat = wmath::Mat4::Translate(pos);
     for(int i = 0; i < 36; ++i)
     {
         cube.verts[i].color = color;
-        cube.verts[i].position = pos + (rotMat *  cube.verts[i].position); 
+        cube.verts[i].position = tranMat * rotMat * (cube.verts[i].position + extr); 
+    }
+}
+
+Vec3 GetLightColor(int state)
+{
+    switch(state)
+    {
+        case TRADEFS::PROCEED:
+            return Vec3(0.0f, 0.8f, 0.0f);
+        case TRADEFS::STOP:
+            return Vec3(0.8f, 0.0f, 0.0f);
+        case TRADEFS::OFF:
+            return Vec3(0.1f, 0.1f, 0.1f);
+        case TRADEFS::STOP_ALMOST:
+        case TRADEFS::PROCEED_BLINKING:
+        case TRADEFS::BLINKING:
+            return Vec3(0.6f, 0.2f, 0.3f);
+        default: 
+            return Vec3(0.0f, 0.8f, 0.0f); 
     }
 }
 
@@ -206,16 +226,43 @@ void CSimulationView::DrawLights()
     if( lights.size() > 0)
     {
         std::vector<dCube> traLights;
+        dCube lightBounds;
+        dCube light;
+        Vec3 color;
+        Vec3 pos;
+        Vec3 posL;
+        posL.z -= 0.4f;
+        float scale = 1.0f;
+        float rot;
         
         for(traIt = lights.begin(); traIt != lights.end(); ++traIt)
         {
             // create cube here
-            dCube light;
-            addCube(light, traIt->GetPosition(), 3.0f, 3.0f, 0.5f, 
-                    Vec3(0.1f, 0.1f, 0.1f), traIt->GetRotation());
+            pos = traIt->GetPosition();
+            rot = traIt->GetRotation();
+            
+            // check scale
+            if( traIt->GetPedType() == TRADEFS::PED)
+            {
+                scale = 0.5f;
+            }
+            else
+                scale = 1.0f;
+            
+            // base on trafficlight type we create a smaller or bigger version
+            addCube(lightBounds, pos, 3.0f * scale, 3.0f * scale, 0.5f, 
+                    Vec3(0.1f, 0.1f, 0.1f), rot , Vec3());
+            
+            // check light state and adjust color to that
+            color = GetLightColor( traIt->GetState());
+            
+            // get position
+            addCube(light, pos, 1.5f * scale, 1.5f * scale, 0.25f, 
+                    color, rot, posL);
             
             // push the cube
             traLights.push_back(light);
+            traLights.push_back(lightBounds);
         }
         
         // put in to vertexbuffer
