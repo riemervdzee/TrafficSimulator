@@ -1,4 +1,4 @@
-#version 330
+//#version 330
 
 in vec3 UV;
 out vec4 fragcolor;
