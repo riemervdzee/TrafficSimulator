@@ -3,13 +3,14 @@
 
 // Includes
 #include <string>
+#include <ctime>
 
-#include "iConsoleObserver.h"
 #include "json/json-forwards.h"
 #include "json/json.h"
+#include "iConsoleObserver.h"
+#include "cArbitrator.h"
 
-// Class prototypes
-//class iConsoleObserver;
+// Class prototypesx
 class iNetworkObserver;
 
 /*
@@ -18,15 +19,23 @@ class iNetworkObserver;
 class cSimulationModel
 {
 private:
-    //bool _IsClientConnected;
-    int  _Multiplier;
+    bool _IsClientConnected;
 
     // NOTICE: CURRENT OBJECT IS _NOT_ OWNER OF THESE TWO OBJECTS!
     iNetworkObserver *_NetworkView;
     iConsoleObserver *_ConsoleView;
 
+    // Arbiter obj, handles all events
+    cArbitrator _Arbitrator;
+
+    //
+    int _CurrentSimTime;
+    int _Multiplier;
+    time_t _CurrentRealTime;
+
 public:
-    cSimulationModel() : _Multiplier(1), _NetworkView(NULL), _ConsoleView(NULL) { }
+    cSimulationModel() : _IsClientConnected(false), _NetworkView(NULL),
+        _ConsoleView(NULL), _CurrentSimTime(0), _Multiplier(0), _CurrentRealTime(0) { }
 
     //bool Create(); // required?
 
@@ -39,14 +48,12 @@ public:
     inline void RegisterConsoleView( iConsoleObserver *Observer) { _ConsoleView = Observer;}
 
     // Check if we got a quit press or not
-    inline bool getQuitPress() { if(_ConsoleView != 0) return _ConsoleView->GetQuitPress(); }
+    inline bool getQuitPress() { if(_ConsoleView != 0) return _ConsoleView->GetQuitPress(); else return false; }
 
     // Sends a message to the console
     inline void NotifyConsole(const std::string& msg) { if(_ConsoleView != 0) _ConsoleView->Print(msg);}
 
     void ProcessMessage(const Json::Value& data);
-
-    /*TrafficLaneGroup[4] _CrossRoad; */ // Beter uitwerken!
 };
 
 #endif // CLASS_SIMULATIONMODEL_H
