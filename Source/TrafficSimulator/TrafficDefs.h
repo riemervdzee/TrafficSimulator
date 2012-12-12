@@ -19,7 +19,7 @@ namespace TRADEFS
     const float BUSSPEED = 7.0f;
     const float PEDSPEED = 4.0f;
     const float BIKESPEED = 5.0f;
-    
+
     enum PEDTYPE
     {
         OTHER = 0,
@@ -75,14 +75,7 @@ namespace TRADEFS
         GOTOEXIT
     };
 
-    enum CONNECTIONSTATE
-    {
-        DOWN = 0,   // Socket ain't initialized yet / No connection
-        LISTENING,  // Listening to connections
-        CONNECTED,  // Connected
-    };
-
-    // data structure for the queue
+    // Data structure for the simulation queue, and eventPackage for the Controller
     struct SimulationQueueParticipant_t
     {
         int time;
@@ -91,7 +84,9 @@ namespace TRADEFS
         TRADEFS::DIRECTION toDirection;
         int fromLane;
         int toLane;
+        bool empty; /* Only used in the Controller */
 
+        /* Only used in the Simulator */
         bool operator < ( const SimulationQueueParticipant_t &a ) const {
             return  a.time < time;
         }

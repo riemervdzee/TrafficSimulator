@@ -5,18 +5,26 @@
 
 namespace TRADEFS
 {
+    const int CHEATLEN = 3;
     const int MAXGROUPS = 4;
     const int MAXLANES = 8;
+    const int BUMPDIST = 2;
 
     const float CARSIZE = 11.0f;
     const float BUSSIZE = 22.0f;
-    const float BIKESIZE = 6.0f;
+    const float BIKESIZE = 5.0f;
     const float PEDSIZE = 2.0f;
 
     const float CARSPEED = 8.0f;
-    const float BUSSPEED = 6.5f;
-    const float PEDSPEED = 10.0f;
-    const float BIKESPEED = 4.0f;
+    const float BUSSPEED = 7.0f;
+    const float PEDSPEED = 4.0f;
+    const float BIKESPEED = 5.0f;
+
+    enum PEDTYPE
+    {
+        OTHER = 0,
+        PED,
+    };
 
     enum DIRECTION
     {
@@ -67,14 +75,7 @@ namespace TRADEFS
         GOTOEXIT
     };
 
-    enum CONNECTIONSTATE
-    {
-        DOWN = 0,   // Socket ain't initialized yet / No connection
-        LISTENING,  // Listening to connections
-        CONNECTED,  // Connected
-    };
-
-    // data structure for the queue
+    // Data structure for the simulation queue, and eventPackage for the Controller
     struct SimulationQueueParticipant_t
     {
         int time;
@@ -83,7 +84,9 @@ namespace TRADEFS
         TRADEFS::DIRECTION toDirection;
         int fromLane;
         int toLane;
+        bool empty; /* Only used in the Controller */
 
+        /* Only used in the Simulator */
         bool operator < ( const SimulationQueueParticipant_t &a ) const {
             return  a.time < time;
         }
