@@ -85,6 +85,7 @@ namespace TRADEFS
         int fromLane;
         int toLane;
         bool empty; /* Only used in the Controller */
+        bool lane; /* Only used in the Controller */
 
         /* Only used in the Simulator */
         bool operator < ( const SimulationQueueParticipant_t &a ) const {
