@@ -49,6 +49,7 @@
 		<Unit filename="..\..\Source\TrafficController\EventQueue\cCar.h" />
 		<Unit filename="..\..\Source\TrafficController\EventQueue\cPedestrian.cpp" />
 		<Unit filename="..\..\Source\TrafficController\EventQueue\cPedestrian.h" />
+		<Unit filename="..\..\Source\TrafficController\EventQueue\iEvent.cpp" />
 		<Unit filename="..\..\Source\TrafficController\EventQueue\iEvent.h" />
 		<Unit filename="..\..\Source\TrafficController\Network\BaseSocket.cpp" />
 		<Unit filename="..\..\Source\TrafficController\Network\BaseSocket.h" />
