@@ -11,32 +11,30 @@ class cNetworkView;
 class cCar : public iEvent
 {
 protected:
-    // What kind of Participant caused the event
-    /*TRADEFS::PARTICIPANTS _Type;
+    // Constants
+    static const int WAITTIME_GREEN = 10;
+    static const int WAITTIME_ORANGE = 3;
 
-    // The TC time of when the event was generated
-    int _TimeReceived;
-
-    // Current "score" of the object, the higher the earlier
-    int _Score;*/
+    // We count the amount of cars on the lane
+    int _Count;
 
 public:
     // Virtual (de)constructor for inheritance
-    inline cCar() { _Type = TRADEFS::CAR;}
-    ~cCar() {}
+    cCar( TRADEFS::SimulationQueueParticipant_t Event);
+    ~cCar();
 
-    // For sorting
-    /*bool operator < ( const iEvent &a ) const {
-        return  a._Score < _Score;
-    }*/
+    // Asks the event to add another event (same lane), returns true if succesfull
+    // If returned false, a new iEvent inherited obj will be created for the new event
+    // For bikes, this is always true, counts the amount of cars in the queue
+    bool AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
 
     // Calculates the current score of the event based on the current Time
     void CalculateScore( int CurrentTime);
 
     // Let the event control the TrafficLights, returns the time required for the next state-change
-    int ExecuteActionGreen  ( const cNetworkView *);
-    int ExecuteActionOrange ( const cNetworkView *);
-    int ExecuteActionRed    ( const cNetworkView *);
+    int  ExecuteActionGreen  ( cNetworkView *);
+    int  ExecuteActionOrange ( cNetworkView *);
+    bool ExecuteActionRed    ( cNetworkView *);
 
 };
 
