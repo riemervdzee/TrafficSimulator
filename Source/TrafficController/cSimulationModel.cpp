@@ -82,17 +82,10 @@ void cSimulationModel::ProcessMessage(const Json::Value& data)
     // The received package is a light loop package
     else if(data.isMember("light"))
     {
-        // We find the empty = true packages quite boring
-        if ( data["empty"].asBool() == true)
-        {
-            cout << "We are too fly for empty=true packages" << endl;
-            return;
-        }
-
         // Assemble event package
         TRADEFS::SimulationQueueParticipant_t Event;
         Event.time  = _CurrentSimTime; /* Use the SimTime of the controller, of when the package arrived */
-        Event.empty = GetEmpty( data["empty"].asString());
+        Event.empty = data["empty"].asBool();
         Event.loop  = GetLoop ( data["loop"].asString());
         Event.type  = GetType ( data["type"].asString());
 
@@ -129,17 +122,6 @@ void cSimulationModel::ProcessMessage(const Json::Value& data)
 }
 
 /* PackageMaster inverter functions follow here */
-bool GetEmpty( string e)
-{
-    if (strcmp( e.c_str(), "false") == 0)
-        return false;
-    else if (strcmp( e.c_str(), "true") == 0)
-        return true;
-
-    cout << "[ERROR] Could not identify empty! Abandon ship, it is sinking!" << endl;
-    return false;
-}
-
 int GetLoop( string loop)
 {
 
