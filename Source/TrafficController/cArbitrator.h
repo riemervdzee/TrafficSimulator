@@ -37,18 +37,18 @@ private:
     ARBIT::LaneControl_t _LaneControls[4];
 
     iEvent* _CurrentEvent;
-    ARBIT::EVENTORDER _CurrentState;
+    ARBIT::EVENTORDER _NextLightState;
 
     int _TimeNextEvent;
 
 public:
     //
-    cArbitrator(); : _CurrentEvent( NULL), _CurrentState( ARBIT::GREEN)
+    cArbitrator();
     ~cArbitrator() {}
 
     void AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
 
-    void Update( const iNetworkObserver*, int t);
+    void Update( iNetworkObserver*, int t);
 
 };
 

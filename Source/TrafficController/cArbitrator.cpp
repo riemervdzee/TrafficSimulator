@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 
 #include "cArbitrator.h"
 #include "EventQueue/cBike.h"
@@ -12,7 +13,7 @@ using namespace TRADEFS;
 /**
  * Constructor
  */
-cArbitrator::cArbitrator() : _CurrentEvent( NULL), _CurrentState( ARBIT::GREEN)
+cArbitrator::cArbitrator() : _CurrentEvent( NULL), _NextLightState( ARBIT::GREEN), _TimeNextEvent( 0)
 {
     // Set every lane to NULL
     for(int i = 0; i < 4; i++)
@@ -33,7 +34,7 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
     {
         // Is it a bike or participant? (handling them is quite similar)
         case TRADEFS::BIKE:
-        case TRADEFS::PARTICIPANTS:
+        case TRADEFS::PEDESTRIAN:
             // Is the lane empty?
             if( lane == NULL)
             {
@@ -44,7 +45,7 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
                 if( Event.type == TRADEFS::BIKE)
                     obj = new cBike( Event);
                 else
-                    obj = new CParticipant( Event);
+                    obj = new cPedestrian( Event);
 
                 // Push it and set the Lane to this iEvent
                 _Queue.push_back ( obj);
@@ -52,7 +53,7 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
             }
             else
             {
-                lane->AddEvent( event);
+                lane->AddEvent( Event);
             }
 
             break;
@@ -100,7 +101,75 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 /**
  *
  */
-void cArbitrator::Update( const iNetworkObserver*, int t)
+void cArbitrator::Update( iNetworkObserver *Observer, int t)
 {
+    // Check if we even got events, and whether it is time or not
+    if( _Queue.size() > 0 && _TimeNextEvent <= t)
+    {
+        // Switch on what the next state will be
+        switch( _NextLightState)
+        {
+            case ARBIT::GREEN:
+            {
 
+                // Go through all events, let them calculate the score
+                for ( vector<iEvent*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+                    (*i)->CalculateScore( t);
+
+
+                // Sort it and load up the first element
+                sort ( _Queue.begin(), _Queue.end());
+                _CurrentEvent = _Queue.at(0);
+
+                // Execute the green function, get the time required for the next state change
+                int val = _CurrentEvent->ExecuteActionGreen( (cNetworkView*) Observer);
+                _TimeNextEvent = val + t;
+
+                // Set the next Lightstate to Orange
+                _NextLightState = ARBIT::ORANGE;
+
+                break;
+            }
+
+            case ARBIT::ORANGE:
+            {
+                // Orange is quite simple, just execute it and get to the choppah
+                int val = _CurrentEvent->ExecuteActionOrange( (cNetworkView*) Observer);
+                _TimeNextEvent = val + t;
+
+                // Set the next Lightstate to Orange
+                _NextLightState = ARBIT::RED;
+
+                // Exception, some iEvent implementers return 0 here, if this is true, just re-execute the current function
+                if (val == 0)
+                    Update( Observer, t);
+            }
+
+            case ARBIT::RED:
+            {
+                // Execute the red function
+                bool ret = _CurrentEvent->ExecuteActionRed( (cNetworkView*) Observer);
+
+                // If ret is true, we can remove the bloody thing
+                if( ret)
+                {
+                    // Reset the lane entry and remove it from the queue
+                    _LaneControls[ _CurrentEvent->getFromDirection()].lane[ _CurrentEvent->getFromLane()] = NULL;
+                    _Queue.erase (_Queue.begin());
+
+                    // Delete the obj itself
+                    delete _CurrentEvent;
+                }
+                else
+                {
+                    // Otherwise, reset the time
+                    _CurrentEvent->ResetTime( t);
+                }
+
+                // Re-execute the current function
+                _NextLightState = ARBIT::GREEN;
+                Update( Observer, t);
+            }
+        }
+    }
 }
