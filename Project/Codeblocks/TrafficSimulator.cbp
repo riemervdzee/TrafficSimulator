@@ -17,11 +17,13 @@
 					<Add option="-g" />
 					<Add option="-DJSON_IS_AMALGAMATION" />
 					<Add option="-DGLEW_STATIC" />
+					<Add option="-DWIN32" />
 					<Add directory="..\..\Source\Libs\JSoncpp-0.6" />
-					<Add directory="..\..\Source\Libs\glew-1.9.0\include" />
+					<Add directory="..\..\Source\Libs\include" />
 				</Compiler>
 				<Linker>
-					<Add directory="..\..\Source\Libs\glew-1.9.0\lib" />
+					<Add option="-lws2_32" />
+					<Add directory="..\..\Source\Libs\lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -56,9 +58,6 @@
 			<Add library="ws2_32" />
 			<Add directory="$(#glfw.lib)" />
 		</Linker>
-		<Unit filename="..\..\Source\Libs\glew-1.9.0\src\glew.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="..\..\Source\TrafficSimulator\CAbstractView.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\CApplication.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\CApplication.h" />
@@ -126,6 +125,7 @@
 		<Unit filename="..\..\Source\TrafficSimulator\TrafficDefs.h" />
 		<Unit filename="..\..\Source\TrafficSimulator\Util.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\Util.h" />
+		<Unit filename="..\..\Source\TrafficSimulator\glew.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\jsoncpp.cpp" />
 		<Unit filename="..\..\Source\TrafficSimulator\main.cpp" />
 		<Extensions>

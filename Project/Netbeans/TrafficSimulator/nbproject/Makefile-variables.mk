@@ -7,13 +7,13 @@ CND_BASEDIR=`pwd`
 CND_BUILDDIR=build
 CND_DISTDIR=dist
 # Debug configuration
-CND_PLATFORM_Debug=GNU-Linux-x86
-CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
+CND_PLATFORM_Debug=MinGW-Windows
+CND_ARTIFACT_DIR_Debug=dist/Debug/MinGW-Windows
 CND_ARTIFACT_NAME_Debug=trafficsimulator
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/trafficsimulator
-CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
+CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/trafficsimulator
+CND_PACKAGE_DIR_Debug=dist/Debug/MinGW-Windows/package
 CND_PACKAGE_NAME_Debug=trafficsimulator.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/trafficsimulator.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/trafficsimulator.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
