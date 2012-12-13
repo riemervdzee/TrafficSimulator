@@ -82,6 +82,9 @@ void cSimulationModel::ProcessMessage(const Json::Value& data)
     // The received package is a light loop package
     else if(data.isMember("light"))
     {
+        //
+        cout << "Received loop package" << endl;
+
         // Assemble event package
         TRADEFS::SimulationQueueParticipant_t Event;
         Event.time  = _CurrentSimTime; /* Use the SimTime of the controller, of when the package arrived */
@@ -112,12 +115,18 @@ void cSimulationModel::ProcessMessage(const Json::Value& data)
         sStream >> buffPartial;
         sStream >> Event.toLane;// ? Event.fromLane : 0;
 
+        _Arbitrator.AddEvent( Event);
+
         /*// Debug
         cout << data["type"].asString() << endl;
         cout << data["light"].asString() << endl;
         cout << data["loop"].asString() << endl;
         cout << data["empty"].asString() << endl;
         cout << data["to"].asString() << endl; //*/
+    }
+    else
+    {
+        cout << "[Error] Received unknown package" << endl;
     }
 }
 
