@@ -58,7 +58,7 @@ void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
 void CSimulationModel::Connected()
 {
     mSimStarted = true;
-    
+
     // send init message
     if(mNetworkView != 0)
     {
@@ -70,20 +70,20 @@ void CSimulationModel::Connected()
 void CSimulationModel::Disconnected()
 {
     mSimStarted = false;
-    
+
     // clear queue
     queue = std::priority_queue<TRADEFS::SimulationQueueParticipant_t>();
-    
+
     // clear other
     trafficLights.clear();
     participants.clear();
-    
+
     // clear Lanes
     for(int i = 0; i < 4; i++)
     {
         laneGroups[i].Clear();
     }
-    
+
     // load input file again
     LoadInputFromFile("Data/inputFile.json");
 }
@@ -91,8 +91,8 @@ void CSimulationModel::Disconnected()
 void CSimulationModel::UpdateSim()
 {
     mTimer.Tick();
-    float dt = dt = mTimer.GetDeltaTime();
-    
+    float dt = mTimer.GetDeltaTime();
+
     if(mSimStarted)
     {
         simTime += dt;
@@ -172,7 +172,7 @@ float GetRotAngle(int dir, int lane)
                 return 0.0f;
             case TRADEFS::WEST:
                 return 180.0f;
-            default: 
+            default:
                 return 90.0f;
         }
     }
@@ -186,7 +186,7 @@ float GetRotAngle(int dir, int lane)
                 return 180.0f;
             case TRADEFS::WEST:
                 return 0.0f;
-            default: 
+            default:
                 return 270.0f;
         }
     }
@@ -200,7 +200,7 @@ float GetRotAngle(int dir, int lane)
                 return 270.0f;
             case TRADEFS::WEST:
                 return 90.0f;
-            default: 
+            default:
                 return 0.0f;
         }
     }
@@ -255,7 +255,7 @@ void CSimulationModel::LoadEntities()
                     lane == TRADEFS::LANE_BIKE)
             {
                 trafficLights.push_back(CTrafficLight( wmath::Vec3(pos.x , pos.y, pos.z),GetRotAngle(laneG, lane), TRADEFS::PED ));
-                laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 ); 
+                laneGroups[laneG][lane]->SetTrafficlight( trafficLights.size() - 1 );
             }
             else
             {
@@ -364,18 +364,18 @@ void CSimulationModel::ProcessMsg(const Json::Value& data)
     if( data.isMember("light") )
     {
         int dir, lane, state;
-        
+
         std::string lightLocation = data["light"].asString();
         std::string lightState = data["state"].asString();
-        
+
         // parse strings
         ParseLocation(lightLocation, dir, lane);
         ParseLightState(lightState, state);
-        
+
         if((dir >= 0 && dir < 4) && (lane >= 0 && lane < 8))
         {
             std::cout << "TrafficLight message processed!" << std::endl;
-            
+
             // change state of the corresponding light
             int lightID = laneGroups[dir][lane]->GetLightID();
             trafficLights.at(lightID).SetState((TRADEFS::TRAFFICLIGHTSTATE)state);
