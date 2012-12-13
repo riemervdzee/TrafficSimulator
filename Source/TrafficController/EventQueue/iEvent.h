@@ -41,6 +41,11 @@ public:
     // Reset the timereceived on this package
     inline void ResetTime( int time) { _TimeReceived = time;}
 
+    // A few getters
+    inline TRADEFS::PARTICIPANTS getType()          { return _Type;}
+    inline TRADEFS::DIRECTION    getFromDirection() { return _FromDirection;}
+    inline int                   getFromLane()      { return _FromLane;}
+
     // Calculates the current score of the event based on the current Time
     virtual void CalculateScore( int CurrentTime);
 
