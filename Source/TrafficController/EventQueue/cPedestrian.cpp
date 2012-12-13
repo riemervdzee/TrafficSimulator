@@ -23,21 +23,21 @@ bool cPedestrian::AddEvent( TRADEFS::SimulationQueueParticipant_t Event)
     return true;
 }
 
-int cPedestrian::ExecuteActionGreen  ( const cNetworkView *)
+int cPedestrian::ExecuteActionGreen ( cNetworkView *view)
 {
     //TODO send message
 
     return 0;
 }
 
-int cPedestrian::ExecuteActionOrange ( const cNetworkView *)
+int cPedestrian::ExecuteActionOrange ( cNetworkView *view)
 {
     //TODO send message
 
     return 0;
 }
 
-bool cPedestrian::ExecuteActionRed    ( const cNetworkView *)
+bool cPedestrian::ExecuteActionRed ( cNetworkView *view)
 {
     //TODO send message
 

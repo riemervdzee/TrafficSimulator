@@ -23,21 +23,21 @@ bool cBus::AddEvent( TRADEFS::SimulationQueueParticipant_t Event)
     return false;
 }
 
-int cBus::ExecuteActionGreen  ( const cNetworkView *)
+int cBus::ExecuteActionGreen ( cNetworkView *view)
 {
     //TODO send message
 
     return 0;
 }
 
-int cBus::ExecuteActionOrange ( const cNetworkView *)
+int cBus::ExecuteActionOrange ( cNetworkView *view)
 {
     //TODO send message
 
     return 0;
 }
 
-bool cBus::ExecuteActionRed    ( const cNetworkView *)
+bool cBus::ExecuteActionRed ( cNetworkView *view)
 {
     //TODO send message
 

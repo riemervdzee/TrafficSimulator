@@ -23,21 +23,21 @@ bool cBike::AddEvent( TRADEFS::SimulationQueueParticipant_t Event)
     return true;
 }
 
-int cBike::ExecuteActionGreen  ( const cNetworkView *)
+int cBike::ExecuteActionGreen ( cNetworkView *view)
 {
     //TODO send message
 
     return 0;
 }
 
-int cBike::ExecuteActionOrange ( const cNetworkView *)
+int cBike::ExecuteActionOrange ( cNetworkView *view)
 {
     //TODO send message
 
     return 0;
 }
 
-bool cBike::ExecuteActionRed    ( const cNetworkView *)
+bool cBike::ExecuteActionRed ( cNetworkView *view)
 {
     //TODO send message
 
