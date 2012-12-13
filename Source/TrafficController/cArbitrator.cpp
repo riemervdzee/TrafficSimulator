@@ -1,5 +1,6 @@
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 #include "cArbitrator.h"
 #include "EventQueue/cBike.h"
@@ -28,6 +29,8 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 {
     // Check if there is any iEvent for the current Event already (same direction/lane)
     iEvent* lane = _LaneControls[ Event.fromDirection].lane[ Event.fromLane];
+
+    cout << "[arbit] AddEvent: EventType= " << Event.type << " , LaneControl= " << lane << endl;
 
     // Switch on the type
     switch( Event.type)
@@ -106,11 +109,16 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
     // Check if we even got events, and whether it is time or not
     if( _Queue.size() > 0 && _TimeNextEvent <= t)
     {
+        //
+        cout << "[arbit] Update: Time is up and queue size is " << _Queue.size() << endl;
+
         // Switch on what the next state will be
         switch( _NextLightState)
         {
             case ARBIT::GREEN:
             {
+                // Debug
+                cout << "[arbit] Update: State is green" << endl;
 
                 // Go through all events, let them calculate the score
                 for ( vector<iEvent*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
@@ -133,6 +141,9 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
 
             case ARBIT::ORANGE:
             {
+                // Debug
+                cout << "[arbit] Update: State is orange" << endl;
+
                 // Orange is quite simple, just execute it and get to the choppah
                 int val = _CurrentEvent->ExecuteActionOrange( (cNetworkView*) Observer);
                 _TimeNextEvent = val + t;
@@ -147,6 +158,9 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
 
             case ARBIT::RED:
             {
+                // Debug
+                cout << "[arbit] Update: State is red" << endl;
+
                 // Execute the red function
                 bool ret = _CurrentEvent->ExecuteActionRed( (cNetworkView*) Observer);
 
