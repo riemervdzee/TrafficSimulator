@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="84">
+<configurationDescriptor version="80">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -95,6 +95,7 @@
       <itemPath>../../../Source/TrafficSimulator/TrafficDefs.h</itemPath>
       <itemPath>../../../Source/TrafficSimulator/Util.cpp</itemPath>
       <itemPath>../../../Source/TrafficSimulator/Util.h</itemPath>
+      <itemPath>../../../Source/TrafficSimulator/glew.cpp</itemPath>
       <itemPath>../../../Source/TrafficSimulator/jsoncpp.cpp</itemPath>
       <itemPath>../../../Source/TrafficSimulator/main.cpp</itemPath>
     </logicalFolder>
@@ -124,16 +125,21 @@
         <ccTool>
           <incDir>
             <pElem>../../../Source/Libs/JSoncpp-0.6</pElem>
-            <pElem>../../../Source/Libs/glew-1.9.0/include</pElem>
+            <pElem>../../../Source/Libs/include</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>GLEW_STATIC</Elem>
             <Elem>JSON_IS_AMALGAMATION</Elem>
           </preprocessorList>
         </ccTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../../../Source/Libs/lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerOptionItem>-lglfw</linkerOptionItem>
-            <linkerOptionItem>-lGLEW</linkerOptionItem>
+            <linkerOptionItem>-lws2_32</linkerOptionItem>
+            <linkerOptionItem>-lopengl32</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
