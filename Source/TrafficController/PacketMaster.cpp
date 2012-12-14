@@ -31,7 +31,7 @@ std::string  PacketMaster::GetTraLightPackage(int dir, int lane, int state)
     std::stringstream strStream;
 
     // light
-    strStream << "[{\"light\": \"" << GetDir(dir) << lane << "\", "
+    strStream << "[{\"light\": \"" << GetDir(dir) << lane << "\", ";
 
     //state
     strStream << "\"state\": \"" << GetLightState(state) << "\"}]\n";
