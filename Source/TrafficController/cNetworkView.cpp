@@ -48,7 +48,7 @@ void cNetworkView::Update()
 {
     char buffer[bufferSize];
     buffer[0] = '\0';
-    
+
     try
     {
         // Poll for socket activity
@@ -65,8 +65,14 @@ void cNetworkView::Update()
                     sockSet.AddSocket(ClientSocket);
 
                     // show message
-                    std::cout << "Client connected: " << 
+                    std::cout << "Client connected: " <<
                             GetIPString(ClientSocket.GetRemoteAddress()) << endl;
+
+                    // Notify the TrafficController of the change of network activity
+                    if(_TrafficController != NULL)
+                    {
+                        _TrafficController->SetNetworkState( true);
+                    }
                 }
 
                 if(sockSet.HasActivity(ClientSocket, READ))
@@ -74,7 +80,7 @@ void cNetworkView::Update()
                     int br = ClientSocket.Receive(buffer, bufferSize);
                     std::string buff;
                     int start = 0;
-                    
+
                     if(br > (bufferSize - 1))
                     {
                         std::cout << "Too many bytes to process!" << std::endl;
@@ -83,12 +89,12 @@ void cNetworkView::Update()
                     while(br > 0)
                     {
                         buff = buffer + start; // puts the chars in to the string until '\0'
-                        
+
                         if(_TrafficController != 0)
                         {
                             _TrafficController->TranslateMessage(buff);
                         }
-                        
+
                         br -= (buff.size() + 1);
                         start += (buff.size() + 1);
                     }
@@ -116,13 +122,19 @@ void cNetworkView::Update()
                     {
                         sockSet.RemoveSocket(ClientSocket);
                         ClientSocket.Close();
-                        cout << "Client: " << GetIPString(ClientSocket.GetRemoteAddress()) 
+                        cout << "Client: " << GetIPString(ClientSocket.GetRemoteAddress())
                                 << " disconnected!" << std::endl;
+
+                        // Notify the TrafficController of the change of network activity
+                        if(_TrafficController != NULL)
+                        {
+                            _TrafficController->SetNetworkState( false);
+                        }
                     }
                     else
                     {
                         std::cout << e.PrintError() << endl;
-                        
+
                         // must terminate server
                     }
 
@@ -131,7 +143,7 @@ void cNetworkView::Update()
                         ServerSocket.Close();
                         sockSet.RemoveSocket(ServerSocket);
                         std::cout << "HOLY SHIT! " << __FILE__ << " " << __LINE__ << std::endl;
-                        
+
                         // must terminate server
                     }
 
@@ -142,7 +154,7 @@ void cNetworkView::Update()
     catch(Exception& e)
     {
         std::cout << "Error: " << e.PrintError() << endl;
-        
+
         // must terminate server
     }
 }

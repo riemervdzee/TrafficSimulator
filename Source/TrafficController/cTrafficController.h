@@ -17,7 +17,9 @@ public:
 
     void Update();
     bool RunStatus();
-    
+
+    void SetNetworkState( bool state);
+
     void TranslateMessage(const std::string& msg);
 
 private:

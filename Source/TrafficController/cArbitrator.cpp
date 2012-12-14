@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include "PacketMaster.h"
+#include "cNetworkView.h"
 #include "cArbitrator.h"
 #include "EventQueue/cBike.h"
 #include "EventQueue/cBus.h"
@@ -12,9 +14,9 @@ using namespace ARBIT;
 using namespace TRADEFS;
 
 /**
- * Constructor
+ * Clears the Cache
  */
-cArbitrator::cArbitrator() : _CurrentEvent( NULL), _NextLightState( ARBIT::GREEN), _TimeNextEvent( 0)
+void cArbitrator::FlushCache()
 {
     // Set every lane to NULL
     for(int i = 0; i < 4; i++)
@@ -23,7 +25,50 @@ cArbitrator::cArbitrator() : _CurrentEvent( NULL), _NextLightState( ARBIT::GREEN
 }
 
 /**
- *
+ * Constructor
+ */
+cArbitrator::cArbitrator() : _CurrentEvent( NULL), _NextLightState( ARBIT::GREEN), _TimeNextEvent( 0)
+{
+    // We start with an empty cache
+    FlushCache();
+}
+
+/**
+ * Send to the client that all lights should be red
+ */
+void cArbitrator::EventConnectionEstablished( iNetworkObserver *view)
+{
+    // TODO write this
+    //cout << "[debug]EventConnectionEstablished: Check if this function is actually called" << endl;
+
+    // For every possible TrafficLight, put them on RED
+    for(int dir = 0; dir < 4; dir++)
+        for(int lane = 0; lane < 8; lane++)
+            view->Send( PacketMaster::GetTraLightPackage( dir, lane, TRADEFS::STOP) );
+}
+
+/**
+ * Basically reset the cArbitrator object
+ */
+void cArbitrator::EventConnectionLost()
+{
+    //cout << "[debug]EventConnectionLost: Check if this function is actually called" << endl;
+    // Go through the queue and remove every object
+    for ( vector<iEvent*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+        delete (*i);
+
+    // Clears the queue and flush the cache
+    _Queue.clear();
+    FlushCache();
+
+    // Reset the remaining variables (Same value as in constructor)
+    _CurrentEvent   = NULL;
+    _NextLightState = ARBIT::GREEN;
+    _TimeNextEvent  = 0;
+}
+
+/**
+ * Adds a loop Event to the Arbitrator
  */
 void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 {
@@ -102,7 +147,7 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 }
 
 /**
- *
+ * Update function
  */
 void cArbitrator::Update( iNetworkObserver *Observer, int t)
 {

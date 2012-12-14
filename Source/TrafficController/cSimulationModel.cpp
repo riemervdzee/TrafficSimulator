@@ -43,6 +43,21 @@ void cSimulationModel::UpdateNetwork()
     }
 }
 
+
+void cSimulationModel::EventConnectionEstablished()
+{
+    // Set var
+    _IsClientConnected = true;
+    _Arbitrator.EventConnectionEstablished( _NetworkView);
+}
+
+void cSimulationModel::EventConnectionLost()
+{
+    // Set var
+    _IsClientConnected = false;
+    _Arbitrator.EventConnectionLost();
+}
+
 void cSimulationModel::ProcessMessage(const Json::Value& data)
 {
     stringstream sStream;
@@ -76,9 +91,6 @@ void cSimulationModel::ProcessMessage(const Json::Value& data)
 
         // Set the current time RealTime
         _CurrentRealTime = time (NULL);
-
-        // Tell the sim that we are connected TODO detect whether we are connected as well!
-        _IsClientConnected = true;
     }
     // The received package is a light loop package
     else if(data.isMember("light"))

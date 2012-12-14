@@ -30,6 +30,19 @@ bool cTrafficController::RunStatus()
     return !(_SimulationModel->getQuitPress());
 }
 
+void cTrafficController::SetNetworkState( bool state)
+{
+    // Check if we got a SimModel
+    if( _SimulationModel == NULL)
+        return;
+
+    // Notify
+    if( state)
+        _SimulationModel->EventConnectionEstablished();
+    else
+        _SimulationModel->EventConnectionLost();
+}
+
 void cTrafficController::TranslateMessage(const std::string& msg)
 {
     if(_SimulationModel != 0)

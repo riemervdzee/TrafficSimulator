@@ -19,25 +19,25 @@ class iNetworkObserver;
 class cSimulationModel
 {
 private:
-    bool _IsClientConnected;
-
     // NOTICE: CURRENT OBJECT IS _NOT_ OWNER OF THESE TWO OBJECTS!
     iNetworkObserver *_NetworkView;
     iConsoleObserver *_ConsoleView;
 
+    // Bool tells whether we got a connection
+    bool _IsClientConnected;
+
     // Arbiter obj, handles all events
     cArbitrator _Arbitrator;
 
-    //
+    // Time variables (note that we got a distiction between Realtime = humanlife time, and Simtime = time in the application)
     int _CurrentSimTime;
     int _Multiplier;
     time_t _CurrentRealTime;
 
 public:
-    cSimulationModel() : _IsClientConnected(false), _NetworkView(NULL),
-        _ConsoleView(NULL), _CurrentSimTime(0), _Multiplier(0), _CurrentRealTime(0) { }
-
-    //bool Create(); // required?
+    // Constructor
+    cSimulationModel() :  _NetworkView(NULL), _ConsoleView(NULL),
+        _IsClientConnected(false), _CurrentSimTime(0), _Multiplier(0), _CurrentRealTime(0) { }
 
     // Update functions
     void Update();
@@ -46,6 +46,10 @@ public:
     // Registers
     inline void RegisterNetworkView( iNetworkObserver *Observer) { _NetworkView = Observer;}
     inline void RegisterConsoleView( iConsoleObserver *Observer) { _ConsoleView = Observer;}
+
+    // Message handlers when we got a Connection or not
+    void EventConnectionEstablished();
+    void EventConnectionLost();
 
     // Check if we got a quit press or not
     inline bool getQuitPress() { if(_ConsoleView != 0) return _ConsoleView->GetQuitPress(); else return false; }
