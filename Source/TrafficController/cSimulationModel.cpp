@@ -58,88 +58,102 @@ void cSimulationModel::EventConnectionLost()
     _Arbitrator.EventConnectionLost();
 }
 
-void cSimulationModel::ProcessMessage(const Json::Value& data)
+void cSimulationModel::ProcessMessage(const Json::Value& array)
 {
     stringstream sStream;
 
-    // check which message we have
-    // Check for a starttime package (init pack)
-    if(data.isMember("starttime"))
+    // Go through all packages
+    for( unsigned int i = 0; i < array.size(); ++i)
     {
-        int hours = 0;
-        int minutes = 0;
+        const Json::Value &data = array[i];
 
-        // init package
-        cout << "Starttime package" << endl;
+        // check which message we have
+        // Check for a starttime package (init pack)
+        if(data.isMember("starttime"))
+        {
+            int hours = 0;
+            int minutes = 0;
 
-        // parse time
-        string stime = data["starttime"].asString();
-        sStream << stime.substr(0, 2);
-        sStream >> hours;
-        sStream.clear();
-        sStream << stime.substr(3, 2);
-        sStream >> minutes;
+            // init package
+            cout << "Starttime package" << endl;
 
-        // convert to seconds
-        _CurrentSimTime = hours * 3600 + minutes * 60;
+            // parse time
+            string stime = data["starttime"].asString();
+            sStream << stime.substr(0, 2);
+            sStream >> hours;
+            sStream.clear();
+            sStream << stime.substr(3, 2);
+            sStream >> minutes;
 
-        // DEBUG
-        cout << "H: " << hours * 3600 << "  M: " << minutes * 60 << endl;
+            // convert to seconds
+            _CurrentSimTime = hours * 3600 + minutes * 60;
 
-        // get the multiplier
-        _Multiplier = data["multiplier"].asInt();
+            // DEBUG
+            cout << "H: " << hours * 3600 << "  M: " << minutes * 60 << endl;
 
-        // Set the current time RealTime
-        _CurrentRealTime = time (NULL);
-    }
-    // The received package is a light loop package
-    else if(data.isMember("light"))
-    {
-        //
-        cout << "Received loop package" << endl;
+            // get the multiplier
+            //_Multiplier = 1;
 
-        // Assemble event package
-        TRADEFS::SimulationQueueParticipant_t Event;
-        Event.time  = _CurrentSimTime; /* Use the SimTime of the controller, of when the package arrived */
-        Event.empty = data["empty"].asBool();
-        Event.loop  = GetLoop ( data["loop"].asString());
-        Event.type  = GetType ( data["type"].asString());
+            // Set the current time RealTime
+            _CurrentRealTime = time (NULL);
+        }
 
-        // Split both Light and To in halfs
-        string buffReceived, buffPartial;
+        // Check for multiplier packages
+        else if(data.isMember("multiplier"))
+        {
+            // get the multiplier
+            _Multiplier = data["multiplier"].asInt();
+        }
 
-        // First "from"/"light"
-        buffReceived = data["light"].asString();
-        sStream << buffReceived.substr(0, 1);
-        sStream >> buffPartial;
-        Event.fromDirection = GetDir( buffPartial);
+        // The received package is a light loop package
+        else if(data.isMember("light"))
+        {
+            //
+            cout << "Received loop package" << endl;
 
-        sStream << buffReceived.substr(1, 2);
-        sStream >> buffPartial;
-        Event.fromLane = atoi( buffPartial.c_str());
+            // Assemble event package
+            TRADEFS::SimulationQueueParticipant_t Event;
+            Event.time  = _CurrentSimTime; /* Use the SimTime of the controller, of when the package arrived */
+            Event.empty = data["empty"].asBool();
+            Event.loop  = GetLoop ( data["loop"].asString());
+            Event.type  = GetType ( data["type"].asString());
 
-        // Second "to"
-        buffReceived = data["to"].asString();
-        sStream << buffReceived.substr(0, 1);
-        sStream >> buffPartial;
-        Event.toDirection = GetDir( buffPartial);
+            // Split both Light and To in halfs
+            string buffReceived, buffPartial;
 
-        sStream << buffReceived.substr(1, 2);
-        sStream >> buffPartial;
-        Event.toLane = atoi( buffPartial.c_str());
+            // First "from"/"light"
+            buffReceived = data["light"].asString();
+            sStream << buffReceived.substr(0, 1);
+            sStream >> buffPartial;
+            Event.fromDirection = GetDir( buffPartial);
 
-        _Arbitrator.AddEvent( Event);
+            sStream << buffReceived.substr(1, 2);
+            sStream >> buffPartial;
+            Event.fromLane = atoi( buffPartial.c_str());
 
-        /*// Debug
-        cout << data["type"].asString() << endl;
-        cout << data["light"].asString() << endl;
-        cout << data["loop"].asString() << endl;
-        cout << data["empty"].asString() << endl;
-        cout << data["to"].asString() << endl; //*/
-    }
-    else
-    {
-        cout << "[Error] Received unknown package" << endl;
+            // Second "to"
+            buffReceived = data["to"].asString();
+            sStream << buffReceived.substr(0, 1);
+            sStream >> buffPartial;
+            Event.toDirection = GetDir( buffPartial);
+
+            sStream << buffReceived.substr(1, 2);
+            sStream >> buffPartial;
+            Event.toLane = atoi( buffPartial.c_str());
+
+            _Arbitrator.AddEvent( Event);
+
+            /*// Debug
+            cout << data["type"].asString() << endl;
+            cout << data["light"].asString() << endl;
+            cout << data["loop"].asString() << endl;
+            cout << data["empty"].asString() << endl;
+            cout << data["to"].asString() << endl; //*/
+        }
+        else
+        {
+            cout << "[Error] Received unknown package" << endl;
+        }
     }
 }
 
