@@ -20,8 +20,8 @@ std::string  PacketMaster::GetInitPackage(int startTime, int multiplier)
     int min = startTime % 60;
 
     // create message
-    strStream << "{ \"starttime\": \"" << hours << ":" << min << "\"}\n";
-    strStream << "{ \"multiplier\": "  << multiplier << "}";
+    strStream << "[{ \"starttime\": \"" << hours << ":" << min << "\"}]\n";
+    strStream << "[{ \"multiplier\": "  << multiplier << "}]";
 
     return strStream.str();
 }
@@ -31,14 +31,10 @@ std::string  PacketMaster::GetTraLightPackage(int dir, int lane, int state)
     std::stringstream strStream;
 
     // light
-    strStream << "{"
-            << "\"light\": \"" << GetDir(dir) << lane << "\""
-            << "}";
+    strStream << "[{\"light\": \"" << GetDir(dir) << lane << "\", "
 
     //state
-    strStream << "{"
-         << "\"state\": \"" << GetLightState(state) << "\""
-         << "}";
+    strStream << "\"state\": \"" << GetLightState(state) << "\"}]\n";
 
    return strStream.str();
 }
@@ -48,7 +44,7 @@ std::string  PacketMaster::GetLoopPackage(int lightDir, int lightLane,
 {
     std::stringstream strStream;
 
-    strStream << "{\n"
+    strStream << "[{\n"
     // light
             << "\"light\": " << "\"" << GetDir(lightDir) << lightLane << "\",\n"
     //type
@@ -60,7 +56,7 @@ std::string  PacketMaster::GetLoopPackage(int lightDir, int lightLane,
     // to
             << "\"to\": " << "\"" << GetDir(toDir) << toLane << "\"\n";
 
-    strStream << "}";
+    strStream << "}]";
 
     return strStream.str();
 }
