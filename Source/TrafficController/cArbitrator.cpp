@@ -39,7 +39,7 @@ cArbitrator::cArbitrator() : _CurrentEvent( NULL), _NextLightState( ARBIT::GREEN
 void cArbitrator::EventConnectionEstablished( iNetworkObserver *view)
 {
     // TODO write this
-    //cout << "[debug]EventConnectionEstablished: Check if this function is actually called" << endl;
+    cout << "[debug]EventConnectionEstablished: Check if this function is actually called" << endl;
 
     // For every possible TrafficLight, put them on RED
     for(int dir = 0; dir < 4; dir++)
@@ -75,7 +75,7 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
     // Check if there is any iEvent for the current Event already (same direction/lane)
     iEvent* lane = _LaneControls[ Event.fromDirection].lane[ Event.fromLane];
 
-    cout << "[arbit] AddEvent: EventType= " << Event.type << " , LaneControl= " << lane << endl;
+    //cout << "[arbit] AddEvent: EventType= " << Event.type << " , LaneControl= " << lane << endl;
 
     // Switch on the type
     switch( Event.type)

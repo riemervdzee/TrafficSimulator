@@ -103,6 +103,9 @@ void cSimulationModel::ProcessMessage(const Json::Value& array)
         {
             // get the multiplier
             _Multiplier = data["multiplier"].asInt();
+
+            // DEBUG
+            cout << "Time-multiplier: " << _Multiplier << endl;
         }
 
         // The received package is a light loop package
