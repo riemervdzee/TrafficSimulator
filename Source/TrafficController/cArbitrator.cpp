@@ -19,7 +19,7 @@ cArbitrator::cArbitrator() : _CurrentEvent( NULL), _NextLightState( ARBIT::GREEN
     // Set every lane to NULL
     for(int i = 0; i < 4; i++)
         for(int j = 0; j < 8; j++)
-            _LaneControls[i].lane[8] = NULL;
+            _LaneControls[i].lane[j] = NULL;
 }
 
 /**
