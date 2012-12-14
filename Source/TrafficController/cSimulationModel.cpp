@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "cSimulationModel.h"
@@ -103,7 +104,7 @@ void cSimulationModel::ProcessMessage(const Json::Value& data)
 
         sStream << buffReceived.substr(1, 2);
         sStream >> buffPartial;
-        sStream >> Event.fromLane;// ? Event.fromLane : 0;
+        Event.fromLane = atoi( buffPartial.c_str());
 
         // Second "to"
         buffReceived = data["to"].asString();
@@ -113,7 +114,7 @@ void cSimulationModel::ProcessMessage(const Json::Value& data)
 
         sStream << buffReceived.substr(1, 2);
         sStream >> buffPartial;
-        sStream >> Event.toLane;// ? Event.fromLane : 0;
+        Event.toLane = atoi( buffPartial.c_str());
 
         _Arbitrator.AddEvent( Event);
 
