@@ -20,8 +20,8 @@ std::string  PacketMaster::GetInitPackage(int startTime, int multiplier)
     int min = startTime % 60;
 
     // create message
-    strStream << "[{ \"starttime\": \"" << hours << ":" << min << "\"}]\n";
-    strStream << "[{ \"multiplier\": "  << multiplier << "}]";
+    strStream << "[{ \"starttime\": \"" << hours << ":" << min << "\"}, \n";
+    strStream << "{ \"multiplier\": "  << multiplier << "}]";
 
     return strStream.str();
 }
