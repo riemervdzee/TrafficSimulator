@@ -111,8 +111,8 @@ void cSimulationModel::ProcessMessage(const Json::Value& array)
         // The received package is a light loop package
         else if(data.isMember("light"))
         {
-            //
-            cout << "Received loop package" << endl;
+            // Debug
+            //cout << "Received loop package" << endl;
 
             // Assemble event package
             TRADEFS::SimulationQueueParticipant_t Event;

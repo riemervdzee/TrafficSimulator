@@ -1,9 +1,10 @@
-// class cNetworkView
-
 #include "cNetworkView.h"
 #include "cTrafficController.h"
 using namespace std;
 using namespace RuneSocket;
+
+// Size of buffers used in the network class
+const int bufferSize = 4096;
 
 /*
  * Constructor
@@ -133,7 +134,7 @@ void cNetworkView::Update()
                     }
                     else
                     {
-                        std::cout << e.PrintError() << endl;
+                        std::cout <<"[FATAL ERROR] " << e.PrintError() << endl;
 
                         // must terminate server
                     }
@@ -142,7 +143,7 @@ void cNetworkView::Update()
                     {
                         ServerSocket.Close();
                         sockSet.RemoveSocket(ServerSocket);
-                        std::cout << "HOLY SHIT! " << __FILE__ << " " << __LINE__ << std::endl;
+                        std::cout << "[FATAL ERROR] HOLY SHIT! " << __FILE__ << " " << __LINE__ << std::endl;
 
                         // must terminate server
                     }
@@ -153,7 +154,7 @@ void cNetworkView::Update()
     }
     catch(Exception& e)
     {
-        std::cout << "Error: " << e.PrintError() << endl;
+        std::cout << "[FATAL ERROR] " << e.PrintError() << endl;
 
         // must terminate server
     }

@@ -17,7 +17,7 @@ public:
     inline void SetController( cTrafficController *TrafficController) { _TrafficController = TrafficController;}
 
 protected:
-    // Protected ref to controller NOTICE: CURRENT OBJECT IS _NOT_ OWNER OF THIS OBJECT
+    // Protected ref to controller NOTICE: CURRENT OBJECT IS _NOT_ THE OWNER OF THIS OBJECT
     cTrafficController *_TrafficController;
 };
 

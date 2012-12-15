@@ -7,8 +7,9 @@
 #include "iNetworkObserver.h"
 #include <queue>
 
-const int bufferSize = 4096;
-
+/*
+ * Implementer of our network
+ */
 class cNetworkView : public iAbstractView, public iNetworkObserver
 {
 public:

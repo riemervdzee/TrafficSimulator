@@ -27,9 +27,4 @@ inline void TC_Sleep( unsigned int t)
 #endif
 }
 
-/*
- * Get time function TODO actually do it
- */
-
-
 #endif // TC_UTIL_H

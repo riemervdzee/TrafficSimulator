@@ -19,8 +19,8 @@ using namespace TRADEFS;
 void cArbitrator::FlushCache()
 {
     // Set every lane to NULL
-    for(int i = 0; i < 4; i++)
-        for(int j = 0; j < 8; j++)
+    for(int i = 0; i < TRADEFS::MAXGROUPS; i++)
+        for(int j = 0; j < TRADEFS::MAXLANES; j++)
             _LaneControls[i].lane[j] = NULL;
 }
 
@@ -38,8 +38,8 @@ cArbitrator::cArbitrator() : _CurrentEvent( NULL), _NextLightState( ARBIT::GREEN
  */
 void cArbitrator::EventConnectionEstablished( iNetworkObserver *view)
 {
-    // TODO write this
-    cout << "[debug]EventConnectionEstablished: Check if this function is actually called" << endl;
+    // Debug
+    //cout << "[debug]EventConnectionEstablished: Check if this function is actually called" << endl;
 
     // For every possible TrafficLight, put them on RED
     for(int dir = 0; dir < 4; dir++)
@@ -52,7 +52,9 @@ void cArbitrator::EventConnectionEstablished( iNetworkObserver *view)
  */
 void cArbitrator::EventConnectionLost()
 {
+    // Debug
     //cout << "[debug]EventConnectionLost: Check if this function is actually called" << endl;
+
     // Go through the queue and remove every object
     for ( vector<iEvent*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
         delete (*i);

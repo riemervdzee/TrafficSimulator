@@ -22,12 +22,12 @@ namespace ARBIT
     // TODO extend for another layor/indirection
     struct LaneControl_t
     {
-        iEvent* lane[8];
+        iEvent* lane[ TRADEFS::MAXLANES];
     };
 }
 
 /*
- *
+ * Our Arbitrator/referee class
  */
 class cArbitrator
 {
@@ -36,7 +36,7 @@ private:
     std::vector<iEvent*> _Queue;
 
     // Caching
-    ARBIT::LaneControl_t _LaneControls[4];
+    ARBIT::LaneControl_t _LaneControls[ TRADEFS::MAXGROUPS];
 
     // Current iEvent object (may be oudated), depending on NextLightState =green (is outdated), otherwise up-to-date
     iEvent* _CurrentEvent;

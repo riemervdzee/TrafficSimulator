@@ -10,7 +10,7 @@
 #include "iConsoleObserver.h"
 #include "cArbitrator.h"
 
-// Class prototypesx
+// Class prototypes
 class iNetworkObserver;
 
 /*
@@ -57,6 +57,7 @@ public:
     // Sends a message to the console
     inline void NotifyConsole(const std::string& msg) { if(_ConsoleView != 0) _ConsoleView->Print(msg);}
 
+    // Processes a received message
     void ProcessMessage(const Json::Value& data);
 };
 

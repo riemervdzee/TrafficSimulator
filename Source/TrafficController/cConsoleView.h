@@ -6,18 +6,18 @@
 #include <string>
 
 /*
- *
+ * Our cConsole view, a class which handles output/input in a nice black screen!
  */
 class cConsoleView : public iAbstractView, public iConsoleObserver
 {
 public:
-    //
+    // Deconstructor
     ~cConsoleView() {}
 
     // Print function
     void Print(const std::string& msg);
 
-    // Reads keyboard input for the Q key
+    // Check if we got orders to quit the server
     bool GetQuitPress();
 };
 

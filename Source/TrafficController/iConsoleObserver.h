@@ -12,10 +12,10 @@ public:
     // Virtual deconstructor for inheritance
     virtual ~iConsoleObserver() {};
 
-    //
+    // Prints a string to console
     virtual void Print(const std::string& msg) = 0;
 
-    //
+    // Check if we got orders to quit the server
     virtual bool GetQuitPress() = 0;
 };
 
