@@ -49,8 +49,8 @@ public:
     // Calculates the current score of the event based on the current Time
     virtual void CalculateScore( int CurrentTime);
 
-    // Asks the event to add another event (same lane), returns true if succesfull
-    // If returned false, a new iAction inherited obj will be created for the new event
+    // Asks the iAction obj to add another event (same lane), returns true if succesful
+    // If returned false, a new iAction inherited obj will be created for the event
     virtual bool AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
 
     // Let the event control the TrafficLights, returns the time required for the next state-change
