@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "EventQueue/iEvent.h"
+#include "EventQueue/iAction.h"
 
 class iNetworkObserver;
 
@@ -22,7 +22,7 @@ namespace ARBIT
     // TODO extend for another layor/indirection
     struct LaneControl_t
     {
-        iEvent* lane[ TRADEFS::MAXLANES];
+        iAction* lane[ TRADEFS::MAXLANES];
     };
 }
 
@@ -33,13 +33,13 @@ class cArbitrator
 {
 private:
     // The event queue of actions we are executing
-    std::vector<iEvent*> _Queue;
+    std::vector<iAction*> _Queue;
 
     // Caching
     ARBIT::LaneControl_t _LaneControls[ TRADEFS::MAXGROUPS];
 
-    // Current iEvent object (may be oudated), depending on NextLightState =green (is outdated), otherwise up-to-date
-    iEvent* _CurrentEvent;
+    // Current iAction object (may be oudated), depending on NextLightState =green (is outdated), otherwise up-to-date
+    iAction* _CurrentEvent;
 
     // The next Event we are processing
     ARBIT::EVENTORDER _NextLightState;

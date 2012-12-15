@@ -5,8 +5,8 @@
 using namespace std;
 using namespace ARBIT;
 
-// Constructor, pass the argument straight to iEvent
-cPedestrian::cPedestrian( TRADEFS::SimulationQueueParticipant_t Event) : iEvent( Event) {}
+// Constructor, pass the argument straight to iAction
+cPedestrian::cPedestrian( TRADEFS::SimulationQueueParticipant_t Event) : iAction( Event) {}
 
 // Empty deconstructor
 cPedestrian::~cPedestrian() {}

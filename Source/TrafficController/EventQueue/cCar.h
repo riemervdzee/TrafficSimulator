@@ -1,14 +1,14 @@
 #ifndef CLASS_CAR_H
 #define CLASS_CAR_H
 
-#include "iEvent.h"
+#include "iAction.h"
 
 class cNetworkView;
 
 /*
  * Car class
  */
-class cCar : public iEvent
+class cCar : public iAction
 {
 protected:
     // Constants
@@ -24,7 +24,7 @@ public:
     ~cCar();
 
     // Asks the event to add another event (same lane), returns true if succesfull
-    // If returned false, a new iEvent inherited obj will be created for the new event
+    // If returned false, a new iAction inherited obj will be created for the new event
     // For bikes, this is always true, counts the amount of cars in the queue
     bool AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
 

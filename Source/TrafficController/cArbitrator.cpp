@@ -56,7 +56,7 @@ void cArbitrator::EventConnectionLost()
     //cout << "[debug]EventConnectionLost: Check if this function is actually called" << endl;
 
     // Go through the queue and remove every object
-    for ( vector<iEvent*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+    for ( vector<iAction*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
         delete (*i);
 
     // Clears the queue and flush the cache
@@ -74,8 +74,8 @@ void cArbitrator::EventConnectionLost()
  */
 void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 {
-    // Check if there is any iEvent for the current Event already (same direction/lane)
-    iEvent* lane = _LaneControls[ Event.fromDirection].lane[ Event.fromLane];
+    // Check if there is any iAction for the current Event already (same direction/lane)
+    iAction* lane = _LaneControls[ Event.fromDirection].lane[ Event.fromLane];
 
     //cout << "[arbit] AddEvent: EventType= " << Event.type << " , LaneControl= " << lane << endl;
 
@@ -88,8 +88,8 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
             // Is the lane empty?
             if( lane == NULL)
             {
-                // Create a new iEvent
-                iEvent* obj;
+                // Create a new iAction
+                iAction* obj;
 
                 // Only difference is the object itself of course
                 if( Event.type == TRADEFS::BIKE)
@@ -97,7 +97,7 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
                 else
                     obj = new cPedestrian( Event);
 
-                // Push it and set the Lane to this iEvent
+                // Push it and set the Lane to this iAction
                 _Queue.push_back ( obj);
                 _LaneControls[ Event.fromDirection].lane[ Event.fromLane] = obj;
             }
@@ -115,15 +115,15 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 
         // Is it a car?
         case TRADEFS::CAR:
-            // We only find close non-empty events important when there isn't an iEvent on that lane yet
+            // We only find close non-empty events important when there isn't an iAction on that lane yet
             if( lane == NULL)
             {
                 // Check if it is a close-loop non-empty event then..
                 // TODO this ain't working..
                 if( Event.empty == false && Event.loop == 0)
                 {
-                    // Create a new iEvent, push it and set the Lane to this iEvent
-                    iEvent* obj = new cCar( Event);
+                    // Create a new iAction, push it and set the Lane to this iAction
+                    iAction* obj = new cCar( Event);
                     _Queue.push_back ( obj);
                     _LaneControls[ Event.fromDirection].lane[ Event.fromLane] = obj;
                 }
@@ -168,7 +168,7 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
                 cout << "[arbit] Update: State is green" << endl;
 
                 // Go through all events, let them calculate the score
-                for ( vector<iEvent*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+                for ( vector<iAction*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
                     (*i)->CalculateScore( t);
 
 
@@ -198,7 +198,7 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
                 // Set the next Lightstate to Orange
                 _NextLightState = ARBIT::RED;
 
-                // Exception, some iEvent implementers return 0 here, if this is true, just re-execute the current function
+                // Exception, some iAction implementers return 0 here, if this is true, just re-execute the current function
                 if (val == 0)
                     Update( Observer, t);
             }

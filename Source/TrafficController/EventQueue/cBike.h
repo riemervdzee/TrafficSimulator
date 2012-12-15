@@ -1,14 +1,14 @@
 #ifndef CLASS_BIKE_H
 #define CLASS_BIKE_H
 
-#include "iEvent.h"
+#include "iAction.h"
 
 class cNetworkView;
 
 /*
  * Bike class
  */
-class cBike : public iEvent
+class cBike : public iAction
 {
 public:
     // Virtual (de)constructor for inheritance
@@ -19,7 +19,7 @@ public:
     void CalculateScore( int CurrentTime);
 
     // Asks the event to add another event (same lane), returns true if succesfull
-    // If returned false, a new iEvent inherited obj will be created for the new event
+    // If returned false, a new iAction inherited obj will be created for the new event
     // For bikes, this is always true, no counting either..
     bool AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
 

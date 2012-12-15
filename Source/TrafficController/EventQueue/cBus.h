@@ -1,14 +1,14 @@
 #ifndef CLASS_BUS_H
 #define CLASS_BUS_H
 
-#include "iEvent.h"
+#include "iAction.h"
 
 class cNetworkView;
 
 /*
  * Bus class
  */
-class cBus : public iEvent
+class cBus : public iAction
 {
 public:
     // Virtual (de)constructor for inheritance
@@ -19,7 +19,7 @@ public:
     void CalculateScore( int CurrentTime);
 
     // Asks the event to add another event (same lane), returns true if succesfull
-    // If returned false, a new iEvent inherited obj will be created for the new event
+    // If returned false, a new iAction inherited obj will be created for the new event
     // For busses, this is always false!
     bool AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
 

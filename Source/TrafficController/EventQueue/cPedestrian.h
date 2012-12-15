@@ -1,14 +1,14 @@
 #ifndef CLASS_PEDESTRIAN_H
 #define CLASS_PEDESTRIAN_H
 
-#include "iEvent.h"
+#include "iAction.h"
 
 class cNetworkView;
 
 /*
  * Pedestrian class
  */
-class cPedestrian : public iEvent
+class cPedestrian : public iAction
 {
 public:
     // Virtual (de)constructor for inheritance
@@ -16,7 +16,7 @@ public:
     ~cPedestrian();
 
     // Asks the event to add another event (same lane), returns true if succesfull
-    // If returned false, a new iEvent inherited obj will be created for the new event
+    // If returned false, a new iAction inherited obj will be created for the new event
     // For pedestrians, this is always true, no counting either..
     bool AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
 
