@@ -356,7 +356,7 @@ void CPedestrianTrafficLane::AddParticipant(std::list<CParticipant>& parList,con
     // create participant
     CParticipant par = CParticipant(info.type, info.fromDirection, info.toDirection, info.fromLane, pedStart, GetRotAngle(info.fromDirection));
     par.SetState(TRADEFS::GOTOSTOPLIGHT);
-    par.SetHidden(false);
+    par.SetHidden(true);
 
     // add participant to the head list
     parList.push_front( par );
@@ -427,7 +427,7 @@ void CPedestrianTrafficLane::UpdateParticipants( std::vector<CTrafficLight>& lig
             break;
             case TRADEFS::GOTOEXIT:
             {
-               GoToExit(*par, groups, dt);
+                GoToExit(*par, groups, dt);
                 if(par->Remove())
                 {
                     i = participantQueue.erase( i );
@@ -524,16 +524,58 @@ void CPedestrianTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTraffi
         // we need to check if it can proceed
         CTrafficLight& light = lightList[lightID];
 
-        if(light.GetState() != TRADEFS::OFF || light.GetState() != TRADEFS::STOP)
+        if(light.GetState() != TRADEFS::OFF 
+                || light.GetState() != TRADEFS::STOP
+                || light.GetState() != TRADEFS::BLINKING)
         {
             par.SetState(TRADEFS::ONCROSSROAD);
         }
     }
 }
 
+int ChangePedLane(int lane)
+{
+    if(lane == TRADEFS::LANE_PEDESTRIAN_ONE)
+        return TRADEFS::LANE_PEDESTRIAN_TWO;
+    else
+        lane == TRADEFS::LANE_PEDESTRIAN_ONE;
+}
+
+int ChangePedDir(int dir)
+{
+    switch(dir)
+    {
+        case TRADEFS::NORTH:
+            return TRADEFS::SOUTH;
+        case TRADEFS::SOUTH:
+            return TRADEFS::NORTH;
+        case TRADEFS::EAST:
+            return TRADEFS::WEST;
+        case TRADEFS::WEST:
+            return TRADEFS::EAST;
+    }
+}
+
 void CPedestrianTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* groups, float dt)
 {
-    wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
+    // get the correct end
+    int dir = ChangePedDir(par.GetFrom());
+    int lane = ChangePedLane(par.GetLaneFrom());
+    
+    // get new point
+    wmath::Vec3 A = this->wayStart;
+    wmath::Vec3 B = groups[dir][lane]->GetWayStart();
+    wmath::Vec3 C = ((CPedestrianTrafficLane*)groups[dir][lane])->GetPedStart();
+    
+    // calc
+    wmath::Vec3 D = B - A;
+    wmath::Vec3 E = C - A;
+    E.Norm();
+    float d = D * E;
+    
+    // get point to walk too
+    wmath::Vec3 end = A + E * d;
+    
     wmath::Vec3 laneDir = end - wayStart;
     wmath::Vec3 parPos = par.GetPosition();
     wmath::Vec3 moveDir = (end - parPos);
@@ -561,8 +603,15 @@ void CPedestrianTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* g
 
 void CPedestrianTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, float dt)
 {
-    wmath::Vec3 start = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
-    wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayEnd();
+    // get the correct end
+    int dir = ChangePedDir(par.GetFrom());
+    int lane = ChangePedLane(par.GetLaneFrom());
+    
+    
+    wmath::Vec3 start = par.GetPosition();
+    wmath::Vec3 end = ((CPedestrianTrafficLane*)groups[dir][lane])->GetPedStart();
+    
+    
     wmath::Vec3 laneDir = end - start;
     wmath::Vec3 parPos = par.GetPosition();
     wmath::Vec3 moveDir = (end - parPos);

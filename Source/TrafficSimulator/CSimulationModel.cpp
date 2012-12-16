@@ -13,7 +13,7 @@ CSimulationModel::CSimulationModel()
     mNetworkView = 0;
     mSimulationView = 0;
     simTime = 0;
-    speedMultiplier = 1;
+    speedMultiplier = 2;
     mSimStarted = false;
 }
 
@@ -99,7 +99,7 @@ void CSimulationModel::Disconnected()
 void CSimulationModel::UpdateSim()
 {
     mTimer.Tick();
-    float dt = mTimer.GetDeltaTime();
+    float dt = mTimer.GetDeltaTime() * speedMultiplier;
 
     if(mSimStarted)
     {

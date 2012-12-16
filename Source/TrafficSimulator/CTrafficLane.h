@@ -86,6 +86,7 @@ public:
     int GetMidLightID(){ return midLightID;}
 
     void SetPedStart(const wmath::Vec3& start){pedStart = start;}
+    wmath::Vec3 GetPedStart() { return pedStart; }
     wmath::Vec3 GetPedTo(int group, int lane, CTrafficLaneGroup* groups);
 
     void GoToStoplight(CParticipant& par, CTrafficLaneGroup* groups, int index, float dt);
