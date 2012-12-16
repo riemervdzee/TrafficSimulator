@@ -308,6 +308,7 @@ void CCommonTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, 
     wmath::Vec3 laneDir = end - start;
     wmath::Vec3 parPos = par.GetPosition();
     wmath::Vec3 moveDir = (end - parPos);
+    float parSize = CTrafficLane::GetParticipantSize(par.GetType());
 
     // get length between 2 lane waypoints, from start to end
     float laneLength = laneDir.Length();
@@ -331,7 +332,7 @@ void CCommonTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, 
         par.SetRotation( curRot + difRot * dt );
     }
     
-    if(parLength > laneLength)
+    if( parLength > laneLength)
     {
         par.FlagForRemoval();
     }
@@ -524,9 +525,10 @@ void CPedestrianTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTraffi
         // we need to check if it can proceed
         CTrafficLight& light = lightList[lightID];
 
-        if(light.GetState() != TRADEFS::OFF 
-                || light.GetState() != TRADEFS::STOP
-                || light.GetState() != TRADEFS::BLINKING)
+        if(light.GetState() == TRADEFS::PROCEED ||
+                light.GetState() == TRADEFS::BLINKING ||
+                light.GetState() == TRADEFS::OFF ||
+                light.GetState() == TRADEFS::STOP_ALMOST)
         {
             par.SetState(TRADEFS::ONCROSSROAD);
         }
@@ -563,7 +565,7 @@ void CPedestrianTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* g
     int lane = ChangePedLane(par.GetLaneFrom());
     
     // get new point
-    wmath::Vec3 A = this->wayStart;
+    wmath::Vec3 A = this->pedStart;
     wmath::Vec3 B = groups[dir][lane]->GetWayStart();
     wmath::Vec3 C = ((CPedestrianTrafficLane*)groups[dir][lane])->GetPedStart();
     
@@ -608,7 +610,7 @@ void CPedestrianTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* grou
     int lane = ChangePedLane(par.GetLaneFrom());
     
     
-    wmath::Vec3 start = par.GetPosition();
+    wmath::Vec3 start = ((CPedestrianTrafficLane*)groups[dir][lane])->GetWayStart();
     wmath::Vec3 end = ((CPedestrianTrafficLane*)groups[dir][lane])->GetPedStart();
     
     
@@ -623,8 +625,6 @@ void CPedestrianTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* grou
     float parLength = (parPos - start).Length();
 
     // check if we have reached our destination
-    laneDir.Norm();
-    moveDir.Norm();
     if(parLength > laneLength)
     {
         par.FlagForRemoval();
@@ -632,6 +632,7 @@ void CPedestrianTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* grou
     else
     {
         // set it's new position
+        moveDir.Norm();
         par.SetPosition(parPos + moveDir * GetParticipantSpeed( par.GetType()) * dt);
     }
 }
