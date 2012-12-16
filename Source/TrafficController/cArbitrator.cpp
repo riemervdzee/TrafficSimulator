@@ -189,16 +189,21 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
         case TRADEFS::BIKE:
         case TRADEFS::PEDESTRIAN:
             // Is the lane empty?
-            if( lane == NULL)
+            if( lane == NULL )
             {
-                // Only difference is the object itself of course
-                if( Event.type == TRADEFS::BIKE)
-                    obj = new cBike( Event);
-                else
-                    obj = new cPedestrian( Event);
+                // Is the loop close?
+                if( Event.loop == 0)
+                {
+                    // Only difference is the object itself of course
+                    if( Event.type == TRADEFS::BIKE)
+                        obj = new cBike( Event);
+                    else
+                        obj = new cPedestrian( Event);
 
-                // Push it and set the Lane to this iAction
-                _LaneControls[ Event.fromDirection].lane[ Event.fromLane] = obj;
+                    // Push it and set the Lane to this iAction
+                    _LaneControls[ Event.fromDirection].lane[ Event.fromLane] = obj;
+
+                }
             }
             else
             {
@@ -209,7 +214,11 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 
         // If it is a bus, always create a new event (never add to existing bus lanes)
         case TRADEFS::BUS:
-            obj = new cBus( Event);
+            // Is the loop close?
+            if( Event.loop == 0)
+            {
+                obj = new cBus( Event);
+            }
             break;
 
         // Is it a car?
