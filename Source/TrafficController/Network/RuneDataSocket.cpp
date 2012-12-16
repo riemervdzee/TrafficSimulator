@@ -55,6 +55,16 @@ namespace RuneSocket
                 throw Exception( GetError() );
             }
         }
+        
+        // Disable crappy windows Naggle
+        int nodelay = 1;
+        err = setsockopt( m_sock, SOL_SOCKET, TCP_NODELAY,
+                          (char*)(&nodelay), sizeof( nodelay ) );
+
+        if( err != 0 )
+        {
+            throw Exception( GetError() );
+        }
 
         // set up the socket address structure
         m_remoteinfo.sin_family = AF_INET;
