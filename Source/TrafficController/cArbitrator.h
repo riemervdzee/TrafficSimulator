@@ -3,7 +3,8 @@
 
 #include <vector>
 
-#include "EventQueue/iAction.h"
+#include "TrafficDefs.h"
+#include "EventQueue/cActionGroup.h"
 
 class iNetworkObserver;
 
@@ -33,13 +34,13 @@ class cArbitrator
 {
 private:
     // The event queue of actions we are executing
-    std::vector<iAction*> _Queue;
+    std::vector<cActionGroup*> _Queue;
 
     // Caching
     ARBIT::LaneControl_t _LaneControls[ TRADEFS::MAXGROUPS];
 
-    // Current iAction object (may be oudated), depending on NextLightState =green (is outdated), otherwise up-to-date
-    iAction* _CurrentEvent;
+    // Current cActionGroup object (may be oudated), depending on NextLightState =green (is outdated), otherwise up-to-date
+    cActionGroup* _CurrentEventGroup;
 
     // The next Event we are processing
     ARBIT::EVENTORDER _NextLightState;

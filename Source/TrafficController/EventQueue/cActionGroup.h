@@ -28,6 +28,9 @@ protected:
 #endif
 
 public:
+    // Constructor, adding an iAction straight away
+    cActionGroup( iAction *action);
+
     // For sorting
     bool operator < ( const cActionGroup &ag ) const {
         return  ag._Score < _Score;
@@ -41,6 +44,9 @@ public:
 
     // Tries to add an Action to the current group, true=successful false=failure
     bool AddAction( iAction* action);
+
+    // Remove any owned actions
+    void DeleteActions();
 
     // Let the event control the TrafficLights, returns the time required for the next state-change
     int ExecuteActionGreen  ( cArbitrator *arbi, cNetworkView *view);

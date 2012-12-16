@@ -5,6 +5,7 @@
 #include "PacketMaster.h"
 #include "cNetworkView.h"
 #include "cArbitrator.h"
+#include "EventQueue/cActionGroup.h"
 #include "EventQueue/cBike.h"
 #include "EventQueue/cBus.h"
 #include "EventQueue/cCar.h"
@@ -27,7 +28,7 @@ void cArbitrator::FlushCache()
 /**
  * Constructor
  */
-cArbitrator::cArbitrator() : _CurrentEvent( NULL), _NextLightState( ARBIT::GREEN), _TimeNextEvent( 0)
+cArbitrator::cArbitrator() : _CurrentEventGroup( NULL), _NextLightState( ARBIT::GREEN), _TimeNextEvent( 0)
 {
     // We start with an empty cache
     FlushCache();
@@ -56,17 +57,20 @@ void cArbitrator::EventConnectionLost()
     //cout << "[debug]EventConnectionLost: Check if this function is actually called" << endl;
 
     // Go through the queue and remove every object
-    for ( vector<iAction*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+    for ( vector<cActionGroup*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+    {
+        (*i)->DeleteActions();
         delete (*i);
+    }
 
     // Clears the queue and flush the cache
     _Queue.clear();
     FlushCache();
 
     // Reset the remaining variables (Same value as in constructor)
-    _CurrentEvent   = NULL;
-    _NextLightState = ARBIT::GREEN;
-    _TimeNextEvent  = 0;
+    _CurrentEventGroup = NULL;
+    _NextLightState    = ARBIT::GREEN;
+    _TimeNextEvent     = 0;
 }
 
 /**
@@ -89,16 +93,16 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
                 cout << "[arbit] Update: State is green" << endl;
 
                 // Go through all events, let them calculate the score
-                for ( vector<iAction*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+                for ( vector<cActionGroup*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
                     (*i)->CalculateScore( t);
 
 
                 // Sort it and load up the first element
                 sort ( _Queue.begin(), _Queue.end());
-                _CurrentEvent = _Queue.at(0);
+                _CurrentEventGroup = _Queue.at(0);
 
                 // Execute the green function, get the time required for the next state change
-                int val = _CurrentEvent->ExecuteActionGreen( (cNetworkView*) Observer);
+                int val = _CurrentEventGroup->ExecuteActionGreen( this, (cNetworkView*) Observer);
                 _TimeNextEvent = val + t;
 
                 // Set the next Lightstate to Orange
@@ -113,7 +117,7 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
                 cout << "[arbit] Update: State is orange" << endl;
 
                 // Orange is quite simple, just execute it and get to the choppah
-                int val = _CurrentEvent->ExecuteActionOrange( (cNetworkView*) Observer);
+                int val = _CurrentEventGroup->ExecuteActionOrange( this, (cNetworkView*) Observer);
                 _TimeNextEvent = val + t;
 
                 // Set the next Lightstate to Orange
@@ -130,22 +134,16 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
                 cout << "[arbit] Update: State is red" << endl;
 
                 // Execute the red function
-                bool ret = _CurrentEvent->ExecuteActionRed( (cNetworkView*) Observer);
+                bool ret = _CurrentEventGroup->ExecuteActionRed( this, (cNetworkView*) Observer, t);
 
                 // If ret is true, we can remove the bloody thing
                 if( ret)
                 {
-                    // Reset the lane entry and remove it from the queue
-                    ClearLane( _CurrentEvent->getFromDirection(), _CurrentEvent->getFromLane());
+                    // Remove it from the queue
                     _Queue.erase (_Queue.begin());
 
                     // Delete the obj itself
-                    delete _CurrentEvent;
-                }
-                else
-                {
-                    // Otherwise, reset the time
-                    _CurrentEvent->ResetTime( t);
+                    delete _CurrentEventGroup;
                 }
 
                 // Re-execute the current function
@@ -158,6 +156,9 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
 
 /**
  * Adds a loop Event to the Arbitrator
+ *
+ * This function is two phased, First we try to add the event to any existing iAction or create a new one
+ * The second is trying to find a suitable iActionGroup for the action, or create a new one
  */
 void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 {
@@ -165,6 +166,16 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
     iAction* lane = _LaneControls[ Event.fromDirection].lane[ Event.fromLane];
 
     //cout << "[arbit] AddEvent: EventType= " << Event.type << " , LaneControl= " << lane << endl;
+
+    // Here our new iAction will be stored if neccesary
+    iAction* obj = NULL;
+
+    /**
+     * This function is two phased, First we try to add the event to any existing iAction or create a new one
+     * The second is trying to find a suitable iActionGroup for the action, or create a new one
+     *
+     * First phase!
+     */
 
     // Switch on the type
     switch( Event.type)
@@ -175,9 +186,6 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
             // Is the lane empty?
             if( lane == NULL)
             {
-                // Create a new iAction
-                iAction* obj;
-
                 // Only difference is the object itself of course
                 if( Event.type == TRADEFS::BIKE)
                     obj = new cBike( Event);
@@ -185,7 +193,6 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
                     obj = new cPedestrian( Event);
 
                 // Push it and set the Lane to this iAction
-                _Queue.push_back ( obj);
                 _LaneControls[ Event.fromDirection].lane[ Event.fromLane] = obj;
             }
             else
@@ -197,7 +204,7 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 
         // If it is a bus, always create a new event (never add to existing bus lanes)
         case TRADEFS::BUS:
-            _Queue.push_back ( new cBus( Event));
+            obj = new cBus( Event);
             break;
 
         // Is it a car?
@@ -206,12 +213,11 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
             if( lane == NULL)
             {
                 // Check if it is a close-loop non-empty event then..
-                // TODO this ain't working..
+                // TODO this ain't working right with counting...
                 if( Event.empty == false && Event.loop == 0)
                 {
-                    // Create a new iAction, push it and set the Lane to this iAction
-                    iAction* obj = new cCar( Event);
-                    _Queue.push_back ( obj);
+                    // Create a new iAction and set the Lane to this iAction
+                    obj = new cCar( Event);
                     _LaneControls[ Event.fromDirection].lane[ Event.fromLane] = obj;
                 }
             }
@@ -233,6 +239,27 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
             break;
 
     }
+
+    /**
+     * This function is two phased, First we try to add the event to any existing iAction or create a new one
+     * The second is trying to find a suitable iActionGroup for the action, or create a new one
+     *
+     * Second phase!
+     */
+
+    // First check if we got an iAction anyway
+    if( obj == NULL)
+        return;
+
+#if ACTIONGROUP_USE_GROUPS
+    // TODO write this bugger
+
+#else
+    // Just create a single cActionGroup and add the iAction to it, and add the AG to the queue
+    cActionGroup* ag = new cActionGroup( obj);
+    _Queue.push_back ( ag);
+
+#endif
 }
 
 /**

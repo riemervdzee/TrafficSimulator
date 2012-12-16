@@ -24,6 +24,12 @@
  */
 #else
 
+// Constructor
+cActionGroup::cActionGroup( iAction *action)
+{
+    _Actions = action;
+}
+
 // Reset the timereceived on the iAction object(s)
 void cActionGroup::ResetTime( int time)
 {
@@ -41,6 +47,12 @@ bool cActionGroup::AddAction( iAction* action)
 {
     // Always return false, as we don't have grouping
     return false;
+}
+
+// Remove any owned actions
+void cActionGroup::DeleteActions()
+{
+    delete _Actions;
 }
 
 // Let the event control the TrafficLights, returns the time required for the next state-change
