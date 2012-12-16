@@ -21,7 +21,7 @@ void cArbitrator::FlushCache()
     // Set every lane to NULL
     for(int i = 0; i < TRADEFS::MAXGROUPS; i++)
         for(int j = 0; j < TRADEFS::MAXLANES; j++)
-            _LaneControls[i].lane[j] = NULL;
+            ClearLane( i, j);
 }
 
 /**
@@ -67,6 +67,93 @@ void cArbitrator::EventConnectionLost()
     _CurrentEvent   = NULL;
     _NextLightState = ARBIT::GREEN;
     _TimeNextEvent  = 0;
+}
+
+/**
+ * Update function
+ */
+void cArbitrator::Update( iNetworkObserver *Observer, int t)
+{
+    // Check if we even got events, and whether it is time or not
+    if( _Queue.size() > 0 && _TimeNextEvent <= t)
+    {
+        //
+        cout << "[arbit] Update: Time is up and queue size is " << _Queue.size() << endl;
+
+        // Switch on what the next state will be
+        switch( _NextLightState)
+        {
+            case ARBIT::GREEN:
+            {
+                // Debug
+                cout << "[arbit] Update: State is green" << endl;
+
+                // Go through all events, let them calculate the score
+                for ( vector<iAction*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+                    (*i)->CalculateScore( t);
+
+
+                // Sort it and load up the first element
+                sort ( _Queue.begin(), _Queue.end());
+                _CurrentEvent = _Queue.at(0);
+
+                // Execute the green function, get the time required for the next state change
+                int val = _CurrentEvent->ExecuteActionGreen( (cNetworkView*) Observer);
+                _TimeNextEvent = val + t;
+
+                // Set the next Lightstate to Orange
+                _NextLightState = ARBIT::ORANGE;
+
+                break;
+            }
+
+            case ARBIT::ORANGE:
+            {
+                // Debug
+                cout << "[arbit] Update: State is orange" << endl;
+
+                // Orange is quite simple, just execute it and get to the choppah
+                int val = _CurrentEvent->ExecuteActionOrange( (cNetworkView*) Observer);
+                _TimeNextEvent = val + t;
+
+                // Set the next Lightstate to Orange
+                _NextLightState = ARBIT::RED;
+
+                // Exception, some iAction implementers return 0 here, if this is true, just re-execute the current function
+                if (val == 0)
+                    Update( Observer, t);
+            }
+
+            case ARBIT::RED:
+            {
+                // Debug
+                cout << "[arbit] Update: State is red" << endl;
+
+                // Execute the red function
+                bool ret = _CurrentEvent->ExecuteActionRed( (cNetworkView*) Observer);
+
+                // If ret is true, we can remove the bloody thing
+                if( ret)
+                {
+                    // Reset the lane entry and remove it from the queue
+                    ClearLane( _CurrentEvent->getFromDirection(), _CurrentEvent->getFromLane());
+                    _Queue.erase (_Queue.begin());
+
+                    // Delete the obj itself
+                    delete _CurrentEvent;
+                }
+                else
+                {
+                    // Otherwise, reset the time
+                    _CurrentEvent->ResetTime( t);
+                }
+
+                // Re-execute the current function
+                _NextLightState = ARBIT::GREEN;
+                Update( Observer, t);
+            }
+        }
+    }
 }
 
 /**
@@ -149,88 +236,9 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 }
 
 /**
- * Update function
+ * Clears a specific lane
  */
-void cArbitrator::Update( iNetworkObserver *Observer, int t)
+void cArbitrator::ClearLane( int LaneGroup, int Lane)
 {
-    // Check if we even got events, and whether it is time or not
-    if( _Queue.size() > 0 && _TimeNextEvent <= t)
-    {
-        //
-        cout << "[arbit] Update: Time is up and queue size is " << _Queue.size() << endl;
-
-        // Switch on what the next state will be
-        switch( _NextLightState)
-        {
-            case ARBIT::GREEN:
-            {
-                // Debug
-                cout << "[arbit] Update: State is green" << endl;
-
-                // Go through all events, let them calculate the score
-                for ( vector<iAction*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
-                    (*i)->CalculateScore( t);
-
-
-                // Sort it and load up the first element
-                sort ( _Queue.begin(), _Queue.end());
-                _CurrentEvent = _Queue.at(0);
-
-                // Execute the green function, get the time required for the next state change
-                int val = _CurrentEvent->ExecuteActionGreen( (cNetworkView*) Observer);
-                _TimeNextEvent = val + t;
-
-                // Set the next Lightstate to Orange
-                _NextLightState = ARBIT::ORANGE;
-
-                break;
-            }
-
-            case ARBIT::ORANGE:
-            {
-                // Debug
-                cout << "[arbit] Update: State is orange" << endl;
-
-                // Orange is quite simple, just execute it and get to the choppah
-                int val = _CurrentEvent->ExecuteActionOrange( (cNetworkView*) Observer);
-                _TimeNextEvent = val + t;
-
-                // Set the next Lightstate to Orange
-                _NextLightState = ARBIT::RED;
-
-                // Exception, some iAction implementers return 0 here, if this is true, just re-execute the current function
-                if (val == 0)
-                    Update( Observer, t);
-            }
-
-            case ARBIT::RED:
-            {
-                // Debug
-                cout << "[arbit] Update: State is red" << endl;
-
-                // Execute the red function
-                bool ret = _CurrentEvent->ExecuteActionRed( (cNetworkView*) Observer);
-
-                // If ret is true, we can remove the bloody thing
-                if( ret)
-                {
-                    // Reset the lane entry and remove it from the queue
-                    _LaneControls[ _CurrentEvent->getFromDirection()].lane[ _CurrentEvent->getFromLane()] = NULL;
-                    _Queue.erase (_Queue.begin());
-
-                    // Delete the obj itself
-                    delete _CurrentEvent;
-                }
-                else
-                {
-                    // Otherwise, reset the time
-                    _CurrentEvent->ResetTime( t);
-                }
-
-                // Re-execute the current function
-                _NextLightState = ARBIT::GREEN;
-                Update( Observer, t);
-            }
-        }
-    }
+    _LaneControls[ LaneGroup ].lane[  Lane ] = NULL;
 }
