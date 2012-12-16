@@ -21,7 +21,7 @@ void cArbitrator::FlushCache()
 {
     // Set every lane to NULL
     for(int i = 0; i < TRADEFS::MAXGROUPS; i++)
-        for(int j = 0; j < 9; j++)
+        for(int j = 0; j < MAXLANES_CONTROLLER; j++)
             ClearLane( i, j);
 }
 
@@ -44,8 +44,8 @@ void cArbitrator::EventConnectionEstablished( iNetworkObserver *view)
 
     // For every possible TrafficLight, put them on RED
     for(int dir = 0; dir < TRADEFS::MAXGROUPS; dir++)
-        for(int lane = 0; lane < 9; lane++)
-            if( lane != 6) /* Filter lane 6 */
+        for(int lane = 0; lane < MAXLANES_CONTROLLER; lane++)
+            if( lane != 6) /* Filter lane 6, as that is an exit */
                 view->Send( PacketMaster::GetTraLightPackage( dir, lane, TRADEFS::STOP) );
 }
 

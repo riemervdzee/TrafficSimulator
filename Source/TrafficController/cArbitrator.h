@@ -24,7 +24,7 @@ namespace ARBIT
     // Helper struct
     struct LaneControl_t
     {
-        iAction* lane[ 9];
+        iAction* lane[ MAXLANES_CONTROLLER];
     };
 }
 
