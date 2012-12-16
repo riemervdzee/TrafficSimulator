@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../PacketMaster.h"
 #include "../cNetworkView.h"
 
@@ -24,6 +25,9 @@ bool cBike::AddEvent( TRADEFS::SimulationQueueParticipant_t Event)
 
 int cBike::ExecuteActionGreen ( cNetworkView *view)
 {
+    // Some debug
+    cout << "[BIKE] Green! Dir " << _FromDirection << ", lane " << _FromLane << endl;
+
     // Send message
     view->Send(
         PacketMaster::GetTraLightPackage(
