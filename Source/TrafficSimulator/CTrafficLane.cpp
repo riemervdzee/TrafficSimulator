@@ -260,7 +260,7 @@ void CCommonTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* group
         wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
         wmath::Vec3 end2 = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayEnd();
         wmath::Vec3 oEnd = end2 - end; oEnd.Norm();
-        oEnd = end - oEnd *6.0f;
+        oEnd = end - oEnd * 6.5f;
         laneDir = oEnd - wayEnd;
         moveDir = (oEnd - parPos);
 
@@ -310,11 +310,11 @@ void CCommonTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* groups, 
     wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayEnd();
     wmath::Vec3 laneDir = end - start;
     wmath::Vec3 parPos = par.GetPosition();
-    wmath::Vec3 moveDir = (end - parPos);
+    wmath::Vec3 moveDir = (end - start);
     float parSize = CTrafficLane::GetParticipantSize(par.GetType());
 
     // get length between 2 lane waypoints, from start to end
-    float laneLength = laneDir.Length();
+    float laneLength = laneDir.Length() + parSize + 0.5f;
 
     // get length between par pos and end waypoint
     float parLength = (parPos - start).Length();
@@ -521,23 +521,6 @@ void CPedestrianTrafficLane::GoToStoplight(CParticipant& par,
     }
 }
 
-void CPedestrianTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLight>& lightList, float dt)
-{
-    if(lightID != -1)
-    {
-        // we need to check if it can proceed
-        CTrafficLight& light = lightList[lightID];
-
-        if(light.GetState() == TRADEFS::PROCEED ||
-                light.GetState() == TRADEFS::BLINKING ||
-                light.GetState() == TRADEFS::OFF ||
-                light.GetState() == TRADEFS::STOP_ALMOST)
-        {
-            par.SetState(TRADEFS::ONCROSSROAD);
-        }
-    }
-}
-
 int ChangePedLane(int lane)
 {
     if(lane == TRADEFS::LANE_PEDESTRIAN_ONE)
@@ -558,6 +541,33 @@ int ChangePedDir(int dir)
             return TRADEFS::WEST;
         case TRADEFS::WEST:
             return TRADEFS::EAST;
+    }
+}
+
+void CPedestrianTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLight>& lightList, float dt)
+{
+    if(lightID != -1)
+    {
+        // we need to check if it can proceed
+        CTrafficLight& light = lightList[lightID];
+
+        if(light.GetState() == TRADEFS::PROCEED ||
+                light.GetState() == TRADEFS::BLINKING ||
+                light.GetState() == TRADEFS::OFF ||
+                light.GetState() == TRADEFS::STOP_ALMOST)
+        {
+            par.SetState(TRADEFS::ONCROSSROAD);
+            
+            if(network != 0)
+            {                
+                // create package
+                std::string pack = PacketMaster::GetLoopPackage(par.GetFrom(), par.GetLaneFrom(), par.GetType(), 0,
+                        false, par.GetTo(), ChangePedLane(par.GetLaneFrom()));
+
+                // send package
+                network->SendString(pack);
+            }
+        }
     }
 }
 
@@ -612,10 +622,8 @@ void CPedestrianTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* grou
     int dir = ChangePedDir(par.GetFrom());
     int lane = ChangePedLane(par.GetLaneFrom());
     
-    
     wmath::Vec3 start = ((CPedestrianTrafficLane*)groups[dir][lane])->GetWayStart();
     wmath::Vec3 end = ((CPedestrianTrafficLane*)groups[dir][lane])->GetPedStart();
-    
     
     wmath::Vec3 laneDir = end - start;
     wmath::Vec3 parPos = par.GetPosition();
@@ -628,7 +636,7 @@ void CPedestrianTrafficLane::GoToExit(CParticipant& par, CTrafficLaneGroup* grou
     float parLength = (parPos - start).Length();
 
     // check if we have reached our destination
-    if(parLength > laneLength)
+    if(parLength >= laneLength)
     {
         par.FlagForRemoval();
     }
