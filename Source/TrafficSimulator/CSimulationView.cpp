@@ -215,11 +215,12 @@ Vec3 GetLightColor(int state)
         case TRADEFS::OFF:
             return Vec3(0.1f, 0.1f, 0.1f);
         case TRADEFS::STOP_ALMOST:
+            return Vec3(0.8f, 0.8f, 0.0f);
         case TRADEFS::PROCEED_BLINKING:
         case TRADEFS::BLINKING:
             return Vec3(0.6f, 0.2f, 0.3f);
         default: 
-            return Vec3(0.0f, 0.8f, 0.0f); 
+            return Vec3(0.1f, 0.1f, 0.1f); 
     }
 }
 
