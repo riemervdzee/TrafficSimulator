@@ -378,25 +378,25 @@ void CPedestrianTrafficLane::UpdateParticipants( std::vector<CTrafficLight>& lig
         }
         else
         {
-//            // let's get the participant in the back
-//            CParticipant* last = participantQueue.back();
-//
-//            // start,end & participant positions
-//            wmath::Vec3 parPos = last->GetPosition();
-//            wmath::Vec3 traDis = (parPos - pedStart);
-//            float traLen = traDis.Length();
-//            float parSize = CTrafficLane::GetParticipantSize(last->GetType());
-//
-//            // if the participant in the back has traveled a bigger distance than it's size
-//            // we can add a the participant from the incoming queue to the participant queue
-//            if( traLen > parSize)
-//            {
-//                par->SetHidden(false);
-//                participantQueue.push_back(par);
-//                incomingQueue.erase(incomingQueue.begin());
-//            }
-//            else // we break out of the loop
-//                break;
+            // let's get the participant in the back
+            CParticipant* last = participantQueue.back();
+
+            // start,end & participant positions
+            wmath::Vec3 parPos = last->GetPosition();
+            wmath::Vec3 traDis = (parPos - pedStart);
+            float traLen = traDis.Length();
+            float parSize = CTrafficLane::GetParticipantSize(last->GetType());
+
+            // if the participant in the back has traveled a bigger distance than it's size
+            // we can add a the participant from the incoming queue to the participant queue
+           if( traLen > parSize)
+            {
+                par->SetHidden(false);
+                participantQueue.push_back(par);
+                incomingQueue.erase(incomingQueue.begin());
+            }
+            else // we break out of the loop
+                break;
         }
     }
 
@@ -414,18 +414,18 @@ void CPedestrianTrafficLane::UpdateParticipants( std::vector<CTrafficLight>& lig
                 GoToStoplight(*par, groups, counter++, dt);
             break;
             case TRADEFS::WAITATSTOPLIGHT:
-                //WaitStoplight(*par, lightList, dt); counter++;
+                WaitStoplight(*par, lightList, dt); counter++;
             break;
             case TRADEFS::ONCROSSROAD:
-                //OnCrossroad(*par, groups, dt);
+                OnCrossroad(*par, groups, dt);
             break;
             case TRADEFS::GOTOEXIT:
             {
-//                GoToExit(*par, groups, dt);
-//                if(par->Remove())
-//                {
-//                    i = participantQueue.erase( i );
-//                }
+               GoToExit(*par, groups, dt);
+                if(par->Remove())
+                {
+                    i = participantQueue.erase( i );
+                }
             }
 
             break;
@@ -518,13 +518,10 @@ void CPedestrianTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTraffi
         // we need to check if it can proceed
         CTrafficLight& light = lightList[lightID];
 
-        if(light.GetState() != TRADEFS::OFF)
+        if(light.GetState() != TRADEFS::OFF || light.GetState() != TRADEFS::STOP)
         {
-            light.SetState(TRADEFS::OFF);
             par.SetState(TRADEFS::ONCROSSROAD);
         }
-
-        // TODO TRAFFICLIGHT LOGIC BASED ON PARTICIPANT TYPE, LANE
     }
 }
 

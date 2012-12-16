@@ -336,8 +336,6 @@ void CSimulationModel::ParseLocation(const std::string& str, int& dir, int& lane
     {
        // check direction
        dir = GetDirection(str[0]);
-       
-       lane = TRADEFS::LANE_EXIT;
     }
 }
 
