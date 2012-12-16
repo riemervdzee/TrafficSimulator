@@ -15,6 +15,16 @@ using namespace ARBIT;
 using namespace TRADEFS;
 
 /**
+ * Sort helper function
+ */
+bool QueueSort( const cActionGroup *a, const cActionGroup *b)
+{
+    return (*a < *b);
+};
+
+
+
+/**
  * Clears the Cache
  */
 void cArbitrator::FlushCache()
@@ -97,10 +107,16 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
                 for ( vector<cActionGroup*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
                     (*i)->CalculateScore( t);
 
-
                 // Sort it and load up the first element
-                sort ( _Queue.begin(), _Queue.end());
+                sort ( _Queue.begin(), _Queue.end(), QueueSort);
+                reverse ( _Queue.begin(), _Queue.end());
                 _CurrentEventGroup = _Queue.at(0);
+
+                /*// Print
+                cout << "[DEBUG] Sorting test!" << endl;
+                for ( vector<cActionGroup*>::iterator i = _Queue.begin(); i != _Queue.end(); i++)
+                    cout << "[DEBUG] " << (*i)->GetScore() << endl; //*/
+
 
                 // Execute the green function, get the time required for the next state change
                 int val = _CurrentEventGroup->ExecuteActionGreen( this, (cNetworkView*) Observer);

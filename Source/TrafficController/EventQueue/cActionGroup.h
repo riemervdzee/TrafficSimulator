@@ -33,7 +33,7 @@ public:
 
     // For sorting
     bool operator < ( const cActionGroup &ag ) const {
-        return  ag._Score < _Score;
+        return  _Score < ag._Score;
     }
 
     // Reset the timereceived on the iAction object(s)

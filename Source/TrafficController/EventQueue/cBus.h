@@ -16,7 +16,7 @@ protected:
     // This way we avoid that multiple busses drive upto the crossroad
     static const int WAITTIME_GREEN   = 1;
     static const int WAITTIME_ORANGE  = 29;
-    static const float SCORE_PRIORITY = 1.5;
+    static const float SCORE_PRIORITY = 3;
 
 public:
     // Virtual (de)constructor for inheritance
