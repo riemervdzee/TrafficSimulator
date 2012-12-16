@@ -73,6 +73,8 @@
 		<Unit filename="..\..\Source\TrafficController\Util.h" />
 		<Unit filename="..\..\Source\TrafficController\cArbitrator.cpp" />
 		<Unit filename="..\..\Source\TrafficController\cArbitrator.h" />
+		<Unit filename="..\..\Source\TrafficController\cBlockControl.cpp" />
+		<Unit filename="..\..\Source\TrafficController\cBlockControl.h" />
 		<Unit filename="..\..\Source\TrafficController\cConsoleView.cpp" />
 		<Unit filename="..\..\Source\TrafficController\cConsoleView.h" />
 		<Unit filename="..\..\Source\TrafficController\cNetworkView.cpp" />
