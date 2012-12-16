@@ -12,7 +12,7 @@ class cBike : public iAction
 {
 protected:
     // Constants
-    static const int WAITTIME_GREEN   = 30;
+    static const int WAITTIME_GREEN   = 15;
     static const float SCORE_PRIORITY = 0.7;
 
 public:
