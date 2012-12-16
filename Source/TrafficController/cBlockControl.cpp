@@ -37,7 +37,7 @@ cBlockControl::cBlockControl( iAction* A) : _Blocking( 0)
                     SetBit( 5);
                     break;
 
-                case TRADEFS::SOUTH:
+                case TRADEFS::WEST:
                     SetBit( 6);
                     SetBit( 7);
                     break;
@@ -62,7 +62,7 @@ cBlockControl::cBlockControl( iAction* A) : _Blocking( 0)
                     SetBit( 13);
                     break;
 
-                case TRADEFS::SOUTH:
+                case TRADEFS::WEST:
                     SetBit( 14);
                     SetBit( 15);
                     break;
@@ -93,7 +93,7 @@ cBlockControl::cBlockControl( iAction* A) : _Blocking( 0)
                 SetBit( 19);
                 break;
 
-            case TRADEFS::SOUTH:
+            case TRADEFS::WEST:
                 SetBit( 6);
                 SetBit( 14);
                 SetBit( 18);
@@ -121,7 +121,7 @@ cBlockControl::cBlockControl( iAction* A) : _Blocking( 0)
                 SetBit( 18);
                 break;
 
-            case TRADEFS::SOUTH:
+            case TRADEFS::WEST:
                 SetBit( 7);
                 SetBit( 15);
                 SetBit( 16);
