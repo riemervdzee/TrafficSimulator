@@ -4,7 +4,7 @@
 #include <vector>
 #include "../cBlockControl.h"
 
-#define ACTIONGROUP_USE_GROUPS 0
+#define ACTIONGROUP_USE_GROUPS 1
 
 // Class prototype
 class iAction;
