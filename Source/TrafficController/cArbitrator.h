@@ -8,7 +8,9 @@
 
 class iNetworkObserver;
 
-/* Special defines for cArbitrator */
+/*
+ * Special defines for cArbitrator
+ */
 namespace ARBIT
 {
     // Defines the order of how the Arbitrator should behave
@@ -20,7 +22,6 @@ namespace ARBIT
     };
 
     // Helper struct
-    // TODO extend for another layor/indirection
     struct LaneControl_t
     {
         iAction* lane[ TRADEFS::MAXLANES];

@@ -126,6 +126,8 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
                 // Exception, some iAction implementers return 0 here, if this is true, just re-execute the current function
                 if (val == 0)
                     Update( Observer, t);
+
+                break;
             }
 
             case ARBIT::RED:
@@ -149,6 +151,8 @@ void cArbitrator::Update( iNetworkObserver *Observer, int t)
                 // Re-execute the current function
                 _NextLightState = ARBIT::GREEN;
                 Update( Observer, t);
+
+                break;
             }
         }
     }
