@@ -58,7 +58,6 @@ private:
     ShaderProgram   parShader;
     VertexBuffer    parVertexBuffer;
     
-    
     // trafficlight drawin
     ShaderProgram   traShader;
     VertexBuffer    traVertexBuffer;

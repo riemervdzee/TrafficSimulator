@@ -126,12 +126,13 @@ public:
 	Vec3(float px, float py, float pz)
 		: x(px), y(py), z(pz) {}
 	Vec3(const Vec3& v) { *this = v;}
-
-	void operator=(const Vec3& v)
+       
+        Vec3& operator=(const Vec3& v)
 	{
 		this->x = v.x;
 		this->y = v.y;
 		this->z = v.z;
+                return *this;
 	}
 
 	//------------------------------------

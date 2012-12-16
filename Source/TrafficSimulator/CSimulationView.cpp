@@ -137,69 +137,134 @@ void CSimulationView::Update(float dt)
 	// ########## END CAMERA KEYBOARD MOVEMENT ###########
 }
 
+wmath::Vec3 CreateColor(const wmath::Vec3& p1,const wmath::Vec3& p2,
+        const wmath::Vec3& p3, wmath::Vec3& color)
+{
+    static wmath::Vec3 dirLight(-0.5f, 0.5f, 1.0f);
+    static wmath::Vec3 ambient(64.0/255.0f, 64.0/255.0f, 64.0/255.0f);
+    dirLight.Norm();
+    
+    // get 2 edges
+    wmath::Vec3 A = p3 - p1;
+    wmath::Vec3 B = p2 - p1;
+    
+    // create triangle normal
+    wmath::Vec3 norm = A.Cross(B); norm.Norm();
+    
+    // create color
+    float dot = norm * dirLight;
+    float diffStrength = (dot < 0.0f)? 0.0f: dot;
+    wmath::Vec3 outcolor = (color * diffStrength) + color;
+    return outcolor;
+}
+
 void CSimulationView::addCube(dCube& cube, wmath::Vec3 pos, 
         float w, float h, float d, wmath::Vec3 color, float rotation, Vec3 extr)
 {     
+    wmath::Vec3 useColor;
+    
     // FRONT
     cube.verts[0].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
     cube.verts[1].position = Vec3(0.5f * w, -0.5f * h, -0.5f * d);
     cube.verts[2].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
     
+    // set color for this triangle
+    useColor = CreateColor(cube.verts[0].position, cube.verts[1].position,
+            cube.verts[2].position, color);
+    cube.verts[0].color = cube.verts[1].color = cube.verts[2].color = useColor;
+    
     cube.verts[3].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
     cube.verts[4].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
     cube.verts[5].position = Vec3(-0.5f * w, 0.5f * h, -0.5f * d);
+    
+    cube.verts[3].color = cube.verts[4].color = cube.verts[5].color = useColor;
     
     // BACK
     cube.verts[6].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[7].position = Vec3(-0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[8].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
     
+    // set color for this triangle
+    useColor = CreateColor(cube.verts[6].position, cube.verts[7].position,
+            cube.verts[8].position, color);
+    cube.verts[6].color = cube.verts[7].color = cube.verts[8].color = useColor;
+    
     cube.verts[9].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[10].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
     cube.verts[11].position = Vec3(0.5f * w, 0.5f * h, 0.5f * d);
+    
+    cube.verts[9].color = cube.verts[10].color = cube.verts[11].color = useColor;
     
     // LEFT
     cube.verts[12].position = Vec3(-0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[13].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
     cube.verts[14].position = Vec3(-0.5f * w, 0.5f * h, -0.5f * d);
     
+    // set color for this triangle
+    useColor = CreateColor(cube.verts[12].position, cube.verts[13].position,
+            cube.verts[14].position, color);
+    cube.verts[12].color = cube.verts[13].color = cube.verts[14].color = useColor;
+    
     cube.verts[15].position = Vec3(-0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[16].position = Vec3(-0.5f * w, 0.5f * h, -0.5f * d);
     cube.verts[17].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
+    
+    cube.verts[15].color = cube.verts[16].color = cube.verts[17].color = useColor;
     
     // RIGHT
     cube.verts[18].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[19].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
     cube.verts[20].position = Vec3(0.5f * w, -0.5f * h, -0.5f * d);
     
+    // set color for this triangle
+    useColor = CreateColor(cube.verts[18].position, cube.verts[19].position,
+            cube.verts[20].position, color);
+    cube.verts[18].color = cube.verts[19].color = cube.verts[20].color = useColor;
+    
     cube.verts[21].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[22].position = Vec3(0.5f * w, 0.5f * h, 0.5f * d);
     cube.verts[23].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
+    
+    cube.verts[21].color = cube.verts[22].color = cube.verts[23].color = useColor;
     
     // TOP
     cube.verts[24].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
     cube.verts[25].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
     cube.verts[26].position = Vec3(0.5f * w, 0.5f * h, 0.5f * d);
+ 
+    // set color for this triangle
+    useColor = CreateColor(cube.verts[24].position, cube.verts[25].position,
+            cube.verts[26].position, color);
+    cube.verts[24].color = cube.verts[25].color = cube.verts[26].color = useColor;
+
     
     cube.verts[27].position = Vec3(-0.5f * w, 0.5f * h, 0.5f * d);
     cube.verts[28].position = Vec3(-0.5f * w, 0.5f * h, -0.5f * d);
     cube.verts[29].position = Vec3(0.5f * w, 0.5f * h, -0.5f * d);
     
+    cube.verts[27].color = cube.verts[28].color = cube.verts[29].color = useColor;
+    
     // BOTTOM
     cube.verts[30].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
     cube.verts[31].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[32].position = Vec3(0.5f * w, -0.5f * h, -0.5f * d);
+            
+    // set color for this triangle
+    useColor = CreateColor(cube.verts[31].position, cube.verts[32].position,
+            cube.verts[33].position, color);
+    cube.verts[31].color = cube.verts[32].color = cube.verts[33].color = useColor;
     
     cube.verts[33].position = Vec3(-0.5f * w, -0.5f * h, -0.5f * d);
     cube.verts[34].position = Vec3(-0.5f * w, -0.5f * h, 0.5f * d);
     cube.verts[35].position = Vec3(0.5f * w, -0.5f * h, 0.5f * d);
+    
+    cube.verts[33].color = cube.verts[34].color = cube.verts[35].color = useColor;
     
     // put color and rotate vertices
     wmath::Mat3 rotMat = wmath::Mat3::RotationY(rotation);
     wmath::Mat4 tranMat = wmath::Mat4::Translate(pos);
     for(int i = 0; i < 36; ++i)
     {
-        cube.verts[i].color = color;
         cube.verts[i].position = tranMat * rotMat * (cube.verts[i].position + extr); 
     }
 }
