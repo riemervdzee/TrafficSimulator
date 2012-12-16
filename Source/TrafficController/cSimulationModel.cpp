@@ -126,22 +126,18 @@ void cSimulationModel::ProcessMessage(const Json::Value& array)
 
             // First "from"/"light"
             buffReceived = data["light"].asString();
-            sStream << buffReceived.substr(0, 1);
-            sStream >> buffPartial;
+            buffPartial  = buffReceived.substr(0, 1);
             Event.fromDirection = GetDir( buffPartial);
 
-            sStream << buffReceived.substr(1, 2);
-            sStream >> buffPartial;
+            buffPartial    = buffReceived.substr(1, 2);
             Event.fromLane = atoi( buffPartial.c_str());
 
             // Second "to"
             buffReceived = data["to"].asString();
-            sStream << buffReceived.substr(0, 1);
-            sStream >> buffPartial;
+            buffPartial  = buffReceived.substr(0, 1);
             Event.toDirection = GetDir( buffPartial);
 
-            sStream << buffReceived.substr(1, 2);
-            sStream >> buffPartial;
+            buffPartial  = buffReceived.substr(1, 2);
             Event.toLane = atoi( buffPartial.c_str());
 
             _Arbitrator.AddEvent( Event);
@@ -151,7 +147,9 @@ void cSimulationModel::ProcessMessage(const Json::Value& array)
             cout << data["light"].asString() << endl;
             cout << data["loop"].asString() << endl;
             cout << data["empty"].asString() << endl;
-            cout << data["to"].asString() << endl; //*/
+            cout << data["to"].asString() << endl;
+
+            cout << "[DEBUG] " << Event.fromLane << ", " << Event.toLane << endl;//*/
         }
         else
         {
