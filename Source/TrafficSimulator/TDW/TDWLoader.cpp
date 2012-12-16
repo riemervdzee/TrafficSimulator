@@ -82,23 +82,17 @@ void TDWLoader::LoadHeader(std::ifstream& fileStream, TDWFile& file)
 
 	// read version number
 	fileStream.read( (char*)&file.mHeader.mapVersion, sizeof(u16));
-        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 
 	// read map flags
 	fileStream.read( (char*)&file.mHeader.mapFlags, sizeof(u8));
-        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
                                         
 	// read name count & offset
 	fileStream.read( (char*)&file.mHeader.nameCount, sizeof(s32));
-        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 	fileStream.read( (char*)&file.mHeader.nameOffset, sizeof(s32));
-        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 
 	// read object count & offset
 	fileStream.read( (char*)&file.mHeader.objectCount, sizeof(s32));
-        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 	fileStream.read( (char*)&file.mHeader.objectOffset, sizeof(s32));
-        std::cout << "Bytes read: " << fileStream.gcount() << std::endl;
 }
 
 void TDWLoader::LoadNameTable(std::ifstream& fileStream, TDWFile& file)
@@ -226,7 +220,7 @@ void TDWLoader::LoadMaterial(std::ifstream& fileStream, TDWFile& file)
 	if( material.flags & EXTENSION)
 	{
 		// also load in extension index
-		fileStream.read( (char*)material.extensionName, sizeof(s32));
+		fileStream.read( (char*)&material.extensionName, sizeof(s32));
 	}
 
 	// add material to the file

@@ -31,7 +31,7 @@ public:
     // state
     void Connected();
     void Disconnected();
-    void ProcessMsg(const Json::Value& data);
+    void ProcessMsg(const Json::Value& array);
 
     // simulation updating
     void UpdateSim();

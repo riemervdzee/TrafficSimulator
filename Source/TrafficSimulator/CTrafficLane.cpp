@@ -1,4 +1,6 @@
 #include "CTrafficLane.h"
+#include "CNetworkView.h"
+#include "PacketMaster.h"
 #include <cstdio>
 
 float CTrafficLane::GetParticipantSpeed(TRADEFS::PARTICIPANTS type)
@@ -45,6 +47,14 @@ float GetRotAngle(int dir)
             return 90.0f;
         default: 
             return 0.0f;
+    }
+}
+
+void CTrafficLane::SetNetwork(CNetworkView* network)
+{
+    if( network != 0)
+    {
+        this->network = network;
     }
 }
 
@@ -196,13 +206,31 @@ void CCommonTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLig
         // we need to check if it can proceed
         CTrafficLight& light = lightList[lightID];
 
-        if(light.GetState() != TRADEFS::STOP)
+        // When the lights are green
+        if(light.GetState() == TRADEFS::PROCEED ||
+                light.GetState() == TRADEFS::BLINKING ||
+                light.GetState() == TRADEFS::OFF ||
+                light.GetState() == TRADEFS::STOP_ALMOST)
         {
-            //light.SetState(TRADEFS::STOP);
+            // alow the participant to cross the road..
             par.SetState(TRADEFS::ONCROSSROAD);
-        }
+            
+            if(network != 0)
+            {
+                bool empty = false;
+                // check if lane is empty
+                if( this->incomingQueue.size() < 1)
+                    empty = true;
+                
+                // create package
+                // loop type 1 is far
+                std::string pack = PacketMaster::GetLoopPackage(par.GetFrom(), par.GetLaneFrom(), par.GetType(), 0,
+                        empty, par.GetTo(), TRADEFS::LANE_EXIT);
 
-        // TODO TRAFFICLIGHT LOGIC BASED ON PARTICIPANT TYPE, LANE
+                // send package
+                network->SendString(pack);
+            }
+        }
     }
 }
 

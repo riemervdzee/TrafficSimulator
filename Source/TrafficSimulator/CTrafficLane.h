@@ -25,6 +25,8 @@ public:
     // traffic light
     void SetTrafficlight(int light){lightID = light;}
     int GetLightID(){ return lightID;}
+    
+    void SetNetwork(CNetworkView* network);
 
     // virtual methods
     virtual void AddParticipant(std::list<CParticipant>& parList,const TRADEFS::SimulationQueueParticipant_t& info) = 0;
@@ -40,6 +42,7 @@ protected:
     wmath::Vec3     wayStart;
     wmath::Vec3     wayEnd;
     int             lightID; // ID representing the trafficlight that belongs to this lane
+    CNetworkView        *network;
 };
 
 class CCommonTrafficLane : public CTrafficLane
