@@ -41,11 +41,6 @@ int cBus::ExecuteActionOrange ( cNetworkView *view)
     // We got no Orange Command
     // note: we are cheating here a bit for busses, after 1 sec we turn the light to red, and wait another 3 secs.
     // This way we avoid that multiple busses drive upto the crossroad
-    return WAITTIME_ORANGE;
-}
-
-bool cBus::ExecuteActionRed ( cNetworkView *view)
-{
     // Send message
     view->Send(
         PacketMaster::GetTraLightPackage(
@@ -54,6 +49,10 @@ bool cBus::ExecuteActionRed ( cNetworkView *view)
             TRADEFS::STOP
         )
     );
+    return WAITTIME_ORANGE;
+}
 
+bool cBus::ExecuteActionRed ( cNetworkView *view)
+{
     return true;
 }
