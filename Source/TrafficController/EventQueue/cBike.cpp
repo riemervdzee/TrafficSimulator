@@ -1,9 +1,8 @@
-#include "../cArbitrator.h"
+#include "../PacketMaster.h"
+#include "../cNetworkView.h"
 
 #include "cBike.h"
-
 using namespace std;
-using namespace ARBIT;
 
 // Constructor, pass the argument straight to iAction
 cBike::cBike( TRADEFS::SimulationQueueParticipant_t Event) : iAction( Event) {}

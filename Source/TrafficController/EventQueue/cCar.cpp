@@ -1,11 +1,8 @@
-#include "../cArbitrator.h"
 #include "../PacketMaster.h"
 #include "../cNetworkView.h"
 
 #include "cCar.h"
-
 using namespace std;
-using namespace ARBIT;
 
 // Constructor, pass the argument straight to iAction
 cCar::cCar( TRADEFS::SimulationQueueParticipant_t Event) : iAction( Event) {}

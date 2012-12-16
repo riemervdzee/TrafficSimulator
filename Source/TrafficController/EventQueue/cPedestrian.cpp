@@ -1,9 +1,8 @@
-#include "../cArbitrator.h"
+#include "../PacketMaster.h"
+#include "../cNetworkView.h"
 
 #include "cPedestrian.h"
-
 using namespace std;
-using namespace ARBIT;
 
 // Constructor, pass the argument straight to iAction
 cPedestrian::cPedestrian( TRADEFS::SimulationQueueParticipant_t Event) : iAction( Event) {}
