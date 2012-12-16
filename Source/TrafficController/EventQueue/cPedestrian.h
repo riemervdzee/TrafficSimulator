@@ -10,6 +10,12 @@ class cNetworkView;
  */
 class cPedestrian : public iAction
 {
+protected:
+    // Constants
+    static const int WAITTIME_GREEN   = 10;
+    static const int WAITTIME_ORANGE  = 0;
+    static const float SCORE_PRIORITY = 0.7;
+
 public:
     // Virtual (de)constructor for inheritance
     cPedestrian( TRADEFS::SimulationQueueParticipant_t Event);

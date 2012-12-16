@@ -14,7 +14,7 @@ cBus::~cBus() {}
 // The score is based upon time only
 int cBus::CalculateScore( int CurrentTime)
 {
-    return CurrentTime - _TimeReceived;
+    return (CurrentTime - _TimeReceived) * SCORE_PRIORITY;
 }
 
 // We can't combine busses, as their "TO" direction can be different.
@@ -25,21 +25,36 @@ bool cBus::AddEvent( TRADEFS::SimulationQueueParticipant_t Event)
 
 int cBus::ExecuteActionGreen ( cNetworkView *view)
 {
-    //TODO send message
+    // TODO send message right message (Direction!)
+    view->Send(
+        PacketMaster::GetTraLightPackage(
+            _FromDirection,
+            _FromLane,
+            TRADEFS::PROCEED
+        )
+    );
 
-    return 0;
+    return WAITTIME_GREEN;
 }
 
 int cBus::ExecuteActionOrange ( cNetworkView *view)
 {
-    //TODO send message
-
-    return 0;
+    // We got no Orange Command
+    // note: we are cheating here a bit for busses, after 1 sec we turn the light to red, and wait another 3 secs.
+    // This way we avoid that multiple busses drive upto the crossroad
+    return WAITTIME_ORANGE;
 }
 
 bool cBus::ExecuteActionRed ( cNetworkView *view)
 {
-    //TODO send message
+    // Send message
+    view->Send(
+        PacketMaster::GetTraLightPackage(
+            _FromDirection,
+            _FromLane,
+            TRADEFS::STOP
+        )
+    );
 
     return true;
 }

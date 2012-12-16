@@ -14,7 +14,7 @@ cBike::~cBike() {}
 // The score is based upon time only
 int cBike::CalculateScore( int CurrentTime)
 {
-    return CurrentTime - _TimeReceived;
+    return (CurrentTime - _TimeReceived) * SCORE_PRIORITY;
 }
 
 // As we don't count the amount of bikes, return true always
@@ -25,21 +25,36 @@ bool cBike::AddEvent( TRADEFS::SimulationQueueParticipant_t Event)
 
 int cBike::ExecuteActionGreen ( cNetworkView *view)
 {
-    //TODO send message
+    // Send message
+    view->Send(
+        PacketMaster::GetTraLightPackage(
+            _FromDirection,
+            _FromLane,
+            TRADEFS::PROCEED
+        )
+    );
 
-    return 0;
+    return WAITTIME_GREEN;
 }
 
 int cBike::ExecuteActionOrange ( cNetworkView *view)
 {
-    //TODO send message
-
+    // We got no Orange command
+    // If the ActionGroup do has a time for Orange, the bike lane is simply longer open
     return 0;
 }
 
 bool cBike::ExecuteActionRed ( cNetworkView *view)
 {
-    //TODO send message
+    // Send stop command
+    view->Send(
+        PacketMaster::GetTraLightPackage(
+            _FromDirection,
+            _FromLane,
+            TRADEFS::STOP
+        )
+    );
 
+    // As we don't count bikes, we just assume everything is alright
     return true;
 }

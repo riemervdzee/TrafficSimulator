@@ -16,7 +16,7 @@ cCar::~cCar() {}
 // The score is based upon time only
 int cCar::CalculateScore( int CurrentTime)
 {
-    return CurrentTime - _TimeReceived;
+    return (CurrentTime - _TimeReceived) * SCORE_PRIORITY;
 }
 
 // We can combine Car events, huraay

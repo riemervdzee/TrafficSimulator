@@ -14,7 +14,7 @@ cPedestrian::~cPedestrian() {}
 // The score is based upon time only
 int cPedestrian::CalculateScore( int CurrentTime)
 {
-    return CurrentTime - _TimeReceived;
+   return (CurrentTime - _TimeReceived) * SCORE_PRIORITY;
 }
 
 // As we don't count the amount of pedestrians, return true always
@@ -25,21 +25,36 @@ bool cPedestrian::AddEvent( TRADEFS::SimulationQueueParticipant_t Event)
 
 int cPedestrian::ExecuteActionGreen ( cNetworkView *view)
 {
-    //TODO send message
+    // Send message
+    view->Send(
+        PacketMaster::GetTraLightPackage(
+            _FromDirection,
+            _FromLane,
+            TRADEFS::PROCEED
+        )
+    );
 
-    return 0;
+    return WAITTIME_GREEN;
 }
 
 int cPedestrian::ExecuteActionOrange ( cNetworkView *view)
 {
-    //TODO send message
-
+    // We got no Orange command
+    // If the ActionGroup do has a time for Orange, the Pedestrian lane is simply longer open
     return 0;
 }
 
 bool cPedestrian::ExecuteActionRed ( cNetworkView *view)
 {
-    //TODO send message
+    // Send stop command
+    view->Send(
+        PacketMaster::GetTraLightPackage(
+            _FromDirection,
+            _FromLane,
+            TRADEFS::STOP
+        )
+    );
 
+    // As we don't count pedestrians, we'll just assume everything is alrighty
     return true;
 }

@@ -10,6 +10,14 @@ class cNetworkView;
  */
 class cBus : public iAction
 {
+protected:
+    // Constants
+    // note: we are cheating here a bit for busses, after 1 sec we turn the light to red, and wait another 3 secs.
+    // This way we avoid that multiple busses drive upto the crossroad
+    static const int WAITTIME_GREEN   = 1;
+    static const int WAITTIME_ORANGE  = 3;
+    static const float SCORE_PRIORITY = 1.5;
+
 public:
     // Virtual (de)constructor for inheritance
     cBus( TRADEFS::SimulationQueueParticipant_t Event);

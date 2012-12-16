@@ -12,8 +12,9 @@ class cCar : public iAction
 {
 protected:
     // Constants
-    static const int WAITTIME_GREEN = 10;
-    static const int WAITTIME_ORANGE = 3;
+    static const int WAITTIME_GREEN   = 10;
+    static const int WAITTIME_ORANGE  = 4;
+    static const float SCORE_PRIORITY = 1;
 
     // We count the amount of cars on the lane
     int _Count;
