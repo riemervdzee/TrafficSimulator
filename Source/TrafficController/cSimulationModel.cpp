@@ -163,59 +163,81 @@ void cSimulationModel::ProcessMessage(const Json::Value& array)
 /* PackageMaster inverter functions follow here */
 int GetLoop( string loop)
 {
-
-    if (strcmp( loop.c_str(), "close") == 0)
+    // Compare
+    if      ( loop.compare( "close") == 0)
         return 0;
-    else if (strcmp( loop.c_str(), "far") == 0)
+
+    else if ( loop.compare( "far") == 0)
         return 1;
 
+
+    // All hell breaks loose!
     cout << "[ERROR] Could not identify Loop Type! Abandon ship, it is sinking!" << endl;
     return -1;
 }
 
 TRADEFS::PARTICIPANTS GetType( string type)
 {
-    if (strcmp( type.c_str(), "car") == 0)
+    // Compare
+    if      ( type.compare( "car") == 0)
         return TRADEFS::CAR;
-    else if (strcmp( type.c_str(), "bus") == 0)
+
+    else if ( type.compare( "bus") == 0)
         return TRADEFS::BUS;
-    else if (strcmp( type.c_str(), "pedestrian") == 0)
+
+    else if ( type.compare( "pedestrian") == 0)
         return TRADEFS::PEDESTRIAN;
-    else if (strcmp( type.c_str(), "bicycle") == 0)
+
+    else if ( type.compare( "bicycle") == 0)
         return TRADEFS::BIKE;
 
+
+    // All hell breaks loose!
     cout << "[ERROR] Could not identify type! Abandon ship, it is sinking!" << endl;
     return TRADEFS::CAR;
 }
 
 TRADEFS::DIRECTION GetDir( string dir)
 {
-    if (strcmp( dir.c_str(), "N") == 0)
+    // Compare
+    if      ( dir.compare( "N") == 0)
         return TRADEFS::NORTH;
-    else if (strcmp( dir.c_str(), "S") == 0)
+
+    else if ( dir.compare( "S") == 0)
         return TRADEFS::SOUTH;
-    else if (strcmp( dir.c_str(), "W") == 0)
+
+    else if ( dir.compare( "W") == 0)
         return TRADEFS::WEST;
-    else if (strcmp( dir.c_str(), "E") == 0)
+
+    else if ( dir.compare( "E") == 0)
         return TRADEFS::EAST;
 
+
+    // Compare
     cout << "[ERROR] Could not identify type! Abandon ship, it is sinking!" << endl;
     return TRADEFS::NORTH;
 }
 
 TRADEFS::TRAFFICLIGHTSTATE GetLightState( string state)
 {
-    if (strcmp( state.c_str(), "green") == 0)
+    // Compare
+    if ( state.compare( "green") == 0)
         return TRADEFS::PROCEED;
-    else if (strcmp( state.c_str(), "red") == 0)
+
+    else if ( state.compare( "red") == 0)
         return TRADEFS::STOP;
-    else if (strcmp( state.c_str(), "yellow") == 0)
+
+    else if ( state.compare( "yellow") == 0)
         return TRADEFS::STOP_ALMOST;
-    else if (strcmp( state.c_str(), "blink") == 0)
+
+    else if ( state.compare( "blink") == 0)
         return TRADEFS::BLINKING;
-    else if (strcmp( state.c_str(), "off") == 0)
+
+    else if ( state.compare( "off") == 0)
         return TRADEFS::OFF;
 
+
+    // Compare
     cout << "[ERROR] Could not identify type! Abandon ship, it is sinking!" << endl;
-    return TRADEFS::PROCEED;
+    return TRADEFS::STOP;
 }
