@@ -17,7 +17,7 @@ using namespace std;
 // Constructor
 cActionGroup::cActionGroup( iAction *action)
 {
-    // TODO write some more shit
+    _BlockControl = cBlockControl( action);
     _Actions.push_back( action);
 }
 
@@ -46,10 +46,16 @@ void cActionGroup::CalculateScore( int CurrentTime)
 }
 
 // Tries to add an Action to the current group, true=successful false=failure
-bool cActionGroup::AddAction( iAction* action)
+bool cActionGroup::AddAction( iAction* action, cBlockControl BC)
 {
-    // TODO write this bugger
-    return false;
+    // Is the new iAction compatible with the current array?
+    if( !_BlockControl.Compare( BC))
+        return false;
+
+    // Update the BC, and push the new iAction to the array and return success
+    _BlockControl.Add( BC);
+    _Actions.push_back( action);
+    return true;
 }
 
 // Remove any owned actions
@@ -98,8 +104,34 @@ int cActionGroup::ExecuteActionOrange ( cArbitrator *arbi, cNetworkView *view)
 /* Returns whether all participants are gone (true) or not (false) */
 bool cActionGroup::ExecuteActionRed ( cArbitrator *arbi, cNetworkView *view, int time)
 {
-    // TODO write
-    return 0;
+    bool ret;
+
+    // Go through all Actions, but take the largest one as return value
+    vector<iAction*>::iterator i = _Actions.begin();
+    while ( i != _Actions.end())
+    {
+        ret = (*i)->ExecuteActionRed( view);
+
+        // If ret is true, we can remove the bloody thing
+        if( ret)
+        {
+            // Clears that lane
+            arbi->ClearLane( (*i)->getFromDirection(),  (*i)->getFromLane());
+
+            // Delete the obj itself
+            delete (*i);
+            i = _Actions.erase(i);
+        }
+        else
+        {
+            // Otherwise, reset the time and increase the counter
+            (*i)->ResetTime( time);
+            i++;
+        }
+    }
+
+    // We can delete this cActionGroup when the Actions are 0
+    return (_Actions.size() == 0);
 }
 
 /*
@@ -126,7 +158,7 @@ void cActionGroup::CalculateScore( int CurrentTime)
 }
 
 // Tries to add an Action to the current group, true=successful false=failure
-bool cActionGroup::AddAction( iAction* action)
+bool cActionGroup::AddAction( iAction* action, cBlockControl BC)
 {
     // Always return false, as we don't have grouping
     return false;

@@ -282,11 +282,12 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
         return;
 
 #if ACTIONGROUP_USE_GROUPS
-    // Go through all ActionGroups to see if they can accept this new iAction
+    // Create a new cBlockControl
     bool result = false;
+    cBlockControl BC( obj);
 
     for ( vector<cActionGroup*>::iterator i = _Queue.begin(); i != _Queue.end() && result == false; i++)
-        result = (*i)->AddAction( obj);
+        result = (*i)->AddAction( obj, BC);
 
     // If we failed to find a nice home for the iAction, create a new one
     if( result == false)

@@ -1,6 +1,9 @@
 #ifndef CLASS_ACTIONGROUP_H
 #define CLASS_ACTIONGROUP_H
 
+#include <vector>
+#include "../cBlockControl.h"
+
 #define ACTIONGROUP_USE_GROUPS 0
 
 // Class prototype
@@ -17,10 +20,10 @@ protected:
     // Current "score" of the iAction(s), the higher the earlier processed
     int _Score;
 
-// If we want groups, get a vector of iAction objects
+// If we want groups, get a vector of iAction objects and a BlockControl
 #if ACTIONGROUP_USE_GROUPS
     std::vector<iAction*> _Actions;
-    // TODO probably more variables
+    cBlockControl _BlockControl;
 
 // Otherwise, just have a single pointer
 #else
@@ -43,7 +46,7 @@ public:
     void CalculateScore( int CurrentTime);
 
     // Tries to add an Action to the current group, true=successful false=failure
-    bool AddAction( iAction* action);
+    bool AddAction( iAction* action, cBlockControl BC);
 
     // Remove any owned actions
     void DeleteActions();
