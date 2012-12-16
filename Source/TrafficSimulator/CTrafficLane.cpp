@@ -190,6 +190,17 @@ void CCommonTrafficLane::GoToStoplight(CParticipant& par, int index, float dt)
         {
             // change state
             par.SetState(TRADEFS::WAITATSTOPLIGHT);
+            
+            if(network != 0)
+            {               
+                // create package
+                // loop type 1 is far
+                std::string pack = PacketMaster::GetLoopPackage(par.GetFrom(), par.GetLaneFrom(), par.GetType(), 0,
+                        false, par.GetTo(), TRADEFS::LANE_EXIT);
+
+                // send package
+                network->SendString(pack);
+            }
         }
     }
     else
@@ -216,16 +227,11 @@ void CCommonTrafficLane::WaitStoplight(CParticipant& par,std::vector<CTrafficLig
             par.SetState(TRADEFS::ONCROSSROAD);
             
             if(network != 0)
-            {
-                bool empty = false;
-                // check if lane is empty
-                if( this->incomingQueue.size() < 1)
-                    empty = true;
-                
+            {                
                 // create package
                 // loop type 1 is far
                 std::string pack = PacketMaster::GetLoopPackage(par.GetFrom(), par.GetLaneFrom(), par.GetType(), 0,
-                        empty, par.GetTo(), TRADEFS::LANE_EXIT);
+                        true, par.GetTo(), TRADEFS::LANE_EXIT);
 
                 // send package
                 network->SendString(pack);

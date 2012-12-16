@@ -121,7 +121,7 @@ void CSimulationModel::UpdateSim()
                 // create package
                 // loop type 0 is close
                 std::string pack = PacketMaster::GetLoopPackage(qPar.fromDirection, qPar.fromLane, qPar.type, 1,
-                        false, qPar.toDirection, qPar.toLane);
+                        true, qPar.toDirection, qPar.toLane);
 
                 // send package
                 mNetworkView->SendString(pack);
