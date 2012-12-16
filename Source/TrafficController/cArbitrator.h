@@ -59,12 +59,14 @@ public:
     void EventConnectionEstablished( iNetworkObserver *view);
     void EventConnectionLost();
 
-    // Adds a loop Event to the Arbitrator
-    void AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
-
     // Update function
     void Update( iNetworkObserver*, int t);
 
+    // Adds a loop Event to the Arbitrator
+    void AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
+
+    // Clears a specific lane
+    void ClearLane( int LaneGroup, int Lane);
 };
 
 #endif // CLASS_ARBITRATOR_H

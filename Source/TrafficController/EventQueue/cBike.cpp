@@ -12,9 +12,9 @@ cBike::cBike( TRADEFS::SimulationQueueParticipant_t Event) : iAction( Event) {}
 cBike::~cBike() {}
 
 // The score is based upon time only
-void cBike::CalculateScore( int CurrentTime)
+int cBike::CalculateScore( int CurrentTime)
 {
-    _Score = CurrentTime - _TimeReceived;
+    return CurrentTime - _TimeReceived;
 }
 
 // As we don't count the amount of bikes, return true always

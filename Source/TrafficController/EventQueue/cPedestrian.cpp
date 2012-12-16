@@ -12,9 +12,9 @@ cPedestrian::cPedestrian( TRADEFS::SimulationQueueParticipant_t Event) : iAction
 cPedestrian::~cPedestrian() {}
 
 // The score is based upon time only
-void cPedestrian::CalculateScore( int CurrentTime)
+int cPedestrian::CalculateScore( int CurrentTime)
 {
-    _Score = CurrentTime - _TimeReceived;
+    return CurrentTime - _TimeReceived;
 }
 
 // As we don't count the amount of pedestrians, return true always

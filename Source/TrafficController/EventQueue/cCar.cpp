@@ -14,9 +14,9 @@ cCar::cCar( TRADEFS::SimulationQueueParticipant_t Event) : iAction( Event) {}
 cCar::~cCar() {}
 
 // The score is based upon time only
-void cCar::CalculateScore( int CurrentTime)
+int cCar::CalculateScore( int CurrentTime)
 {
-    _Score = CurrentTime - _TimeReceived;
+    return CurrentTime - _TimeReceived;
 }
 
 // We can combine Car events, huraay

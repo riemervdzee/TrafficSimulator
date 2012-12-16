@@ -16,7 +16,7 @@ iAction::iAction( TRADEFS::SimulationQueueParticipant_t Event)
 
 // As we have a constructor, all other functions need to be declared as well. Mostly bogus
 iAction::~iAction() { }
-void iAction::CalculateScore      ( int CurrentTime) { }
+int  iAction::CalculateScore      ( int CurrentTime) { return 0;}
 bool iAction::AddEvent            ( TRADEFS::SimulationQueueParticipant_t Event) {return true;}
 int  iAction::ExecuteActionGreen  ( cNetworkView *) { return 0;}
 int  iAction::ExecuteActionOrange ( cNetworkView *) { return 0;}

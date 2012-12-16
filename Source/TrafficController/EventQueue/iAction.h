@@ -23,20 +23,12 @@ protected:
     int _FromLane;
     int _ToLane;
 
-    // Current "score" of the object, the higher the earlier processed
-    int _Score;
-
 public:
     // Standard constructor to fill in the most basic variables
     iAction( TRADEFS::SimulationQueueParticipant_t Event);
 
     // Virtual deconstructor for inheritance
     virtual ~iAction();
-
-    // For sorting
-    bool operator < ( const iAction &a ) const {
-        return  a._Score < _Score;
-    }
 
     // Reset the timereceived on this package
     inline void ResetTime( int time) { _TimeReceived = time;}
@@ -47,7 +39,7 @@ public:
     inline int                   getFromLane()      { return _FromLane;}
 
     // Calculates the current score of the event based on the current Time
-    virtual void CalculateScore( int CurrentTime);
+    virtual int CalculateScore( int CurrentTime);
 
     // Asks the iAction obj to add another event (same lane), returns true if succesful
     // If returned false, a new iAction inherited obj will be created for the event

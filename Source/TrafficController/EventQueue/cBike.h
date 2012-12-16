@@ -16,7 +16,7 @@ public:
     ~cBike();
 
     // Calculates the current score of the event based on the current Time
-    void CalculateScore( int CurrentTime);
+    int CalculateScore( int CurrentTime);
 
     // Asks the event to add another event (same lane), returns true if succesfull
     // If returned false, a new iAction inherited obj will be created for the new event

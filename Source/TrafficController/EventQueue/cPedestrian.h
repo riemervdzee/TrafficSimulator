@@ -21,7 +21,7 @@ public:
     bool AddEvent( TRADEFS::SimulationQueueParticipant_t Event);
 
     // Calculates the current score of the event based on the current Time
-    void CalculateScore( int CurrentTime);
+    int CalculateScore( int CurrentTime);
 
     // Let the event control the TrafficLights, returns the time required for the next state-change
     int  ExecuteActionGreen  ( cNetworkView *);

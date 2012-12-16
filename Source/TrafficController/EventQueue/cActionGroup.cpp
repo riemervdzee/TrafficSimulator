@@ -33,7 +33,7 @@ void cActionGroup::ResetTime( int time)
 // Calculates the current score of the event based on the current Time
 void cActionGroup::CalculateScore( int CurrentTime)
 {
-
+    _Score = _Actions->CalculateScore( CurrentTime);
 }
 
 // Tries to add an Action to the current group, true=successful false=failure
@@ -65,7 +65,7 @@ bool cActionGroup::ExecuteActionRed ( cArbitrator *arbi, cNetworkView *view, int
     if( ret)
     {
         // Clears that lane
-        arbi->ClearLane( _Actions->getFromDirection()].lane,  _Actions->getFromLane());
+        arbi->ClearLane( _Actions->getFromDirection(),  _Actions->getFromLane());
 
         // Delete the obj itself
         delete _Actions;

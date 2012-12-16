@@ -12,9 +12,9 @@ cBus::cBus( TRADEFS::SimulationQueueParticipant_t Event) : iAction( Event) {}
 cBus::~cBus() {}
 
 // The score is based upon time only
-void cBus::CalculateScore( int CurrentTime)
+int cBus::CalculateScore( int CurrentTime)
 {
-    _Score = CurrentTime - _TimeReceived;
+    return CurrentTime - _TimeReceived;
 }
 
 // We can't combine busses, as their "TO" direction can be different.
