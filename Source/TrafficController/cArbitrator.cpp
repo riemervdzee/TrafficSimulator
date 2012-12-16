@@ -252,7 +252,18 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
         return;
 
 #if ACTIONGROUP_USE_GROUPS
-    // TODO write this bugger
+    // Go through all ActionGroups to see if they can accept this new iAction
+    bool result = false;
+
+    for ( vector<cActionGroup*>::iterator i = _Queue.begin(); i != _Queue.end() && result == false; i++)
+        result = (*i)->AddAction( obj);
+
+    // If we failed to find a nice home for the iAction, create a new one
+    if( result == false)
+    {
+        cActionGroup* ag = new cActionGroup( obj);
+        _Queue.push_back ( ag);
+    }
 
 #else
     // Just create a single cActionGroup and add the iAction to it, and add the AG to the queue
