@@ -36,6 +36,7 @@
     #include <arpa/inet.h>      // contains all inet_* functions
     #include <errno.h>          // contains the error functions
     #include <fcntl.h>          // file control
+    #include <netinet/tcp.h>    // for TCP no delay
 #endif
 
 namespace RuneSocket

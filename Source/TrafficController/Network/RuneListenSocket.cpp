@@ -52,15 +52,6 @@ namespace RuneSocket
             throw Exception( GetError() );
         }
 
-        // Disable crappy windows Naggle
-        err = setsockopt( m_sock, SOL_SOCKET, TCP_NODELAY,
-                          (char*)(&reuse), sizeof( reuse ) );
-
-        if( err != 0 )
-        {
-            throw Exception( GetError() );
-        }
-
         // set up the socket address structure
         m_localinfo.sin_family = AF_INET;
         m_localinfo.sin_port = htons( p_port );
