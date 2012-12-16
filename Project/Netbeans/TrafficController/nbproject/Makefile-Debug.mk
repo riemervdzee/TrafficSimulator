@@ -35,17 +35,24 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/1329216428/jsoncpp.o \
 	${OBJECTDIR}/_ext/178741075/BaseSocket.o \
+	${OBJECTDIR}/_ext/1329216428/jsoncpp.o \
 	${OBJECTDIR}/_ext/1329216428/main.o \
 	${OBJECTDIR}/_ext/178741075/RuneSocketUtil.o \
 	${OBJECTDIR}/_ext/1329216428/cConsoleView.o \
+	${OBJECTDIR}/_ext/565703506/cPedestrian.o \
+	${OBJECTDIR}/_ext/565703506/cBus.o \
+	${OBJECTDIR}/_ext/565703506/iAction.o \
 	${OBJECTDIR}/_ext/1329216428/cSimulationModel.o \
 	${OBJECTDIR}/_ext/1329216428/cNetworkView.o \
+	${OBJECTDIR}/_ext/565703506/cActionGroup.o \
 	${OBJECTDIR}/_ext/1329216428/cTrafficController.o \
 	${OBJECTDIR}/_ext/178741075/RuneSocketError.o \
 	${OBJECTDIR}/_ext/1329216428/PacketMaster.o \
+	${OBJECTDIR}/_ext/1329216428/cArbitrator.o \
 	${OBJECTDIR}/_ext/178741075/RuneListenSocket.o \
+	${OBJECTDIR}/_ext/565703506/cBike.o \
+	${OBJECTDIR}/_ext/565703506/cCar.o \
 	${OBJECTDIR}/_ext/178741075/RuneSocketSet.o \
 	${OBJECTDIR}/_ext/178741075/RuneDataSocket.o
 
@@ -74,15 +81,15 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trafficcontroller: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/trafficcontroller ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/_ext/1329216428/jsoncpp.o: ../../../Source/TrafficController/jsoncpp.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1329216428
-	${RM} $@.d
-	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1329216428/jsoncpp.o ../../../Source/TrafficController/jsoncpp.cpp
-
 ${OBJECTDIR}/_ext/178741075/BaseSocket.o: ../../../Source/TrafficController/Network/BaseSocket.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/178741075
 	${RM} $@.d
 	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/178741075/BaseSocket.o ../../../Source/TrafficController/Network/BaseSocket.cpp
+
+${OBJECTDIR}/_ext/1329216428/jsoncpp.o: ../../../Source/TrafficController/jsoncpp.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1329216428
+	${RM} $@.d
+	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1329216428/jsoncpp.o ../../../Source/TrafficController/jsoncpp.cpp
 
 ${OBJECTDIR}/_ext/1329216428/main.o: ../../../Source/TrafficController/main.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1329216428
@@ -99,6 +106,21 @@ ${OBJECTDIR}/_ext/1329216428/cConsoleView.o: ../../../Source/TrafficController/c
 	${RM} $@.d
 	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1329216428/cConsoleView.o ../../../Source/TrafficController/cConsoleView.cpp
 
+${OBJECTDIR}/_ext/565703506/cPedestrian.o: ../../../Source/TrafficController/EventQueue/cPedestrian.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/565703506
+	${RM} $@.d
+	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/565703506/cPedestrian.o ../../../Source/TrafficController/EventQueue/cPedestrian.cpp
+
+${OBJECTDIR}/_ext/565703506/cBus.o: ../../../Source/TrafficController/EventQueue/cBus.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/565703506
+	${RM} $@.d
+	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/565703506/cBus.o ../../../Source/TrafficController/EventQueue/cBus.cpp
+
+${OBJECTDIR}/_ext/565703506/iAction.o: ../../../Source/TrafficController/EventQueue/iAction.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/565703506
+	${RM} $@.d
+	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/565703506/iAction.o ../../../Source/TrafficController/EventQueue/iAction.cpp
+
 ${OBJECTDIR}/_ext/1329216428/cSimulationModel.o: ../../../Source/TrafficController/cSimulationModel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1329216428
 	${RM} $@.d
@@ -108,6 +130,11 @@ ${OBJECTDIR}/_ext/1329216428/cNetworkView.o: ../../../Source/TrafficController/c
 	${MKDIR} -p ${OBJECTDIR}/_ext/1329216428
 	${RM} $@.d
 	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1329216428/cNetworkView.o ../../../Source/TrafficController/cNetworkView.cpp
+
+${OBJECTDIR}/_ext/565703506/cActionGroup.o: ../../../Source/TrafficController/EventQueue/cActionGroup.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/565703506
+	${RM} $@.d
+	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/565703506/cActionGroup.o ../../../Source/TrafficController/EventQueue/cActionGroup.cpp
 
 ${OBJECTDIR}/_ext/1329216428/cTrafficController.o: ../../../Source/TrafficController/cTrafficController.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1329216428
@@ -124,10 +151,25 @@ ${OBJECTDIR}/_ext/1329216428/PacketMaster.o: ../../../Source/TrafficController/P
 	${RM} $@.d
 	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1329216428/PacketMaster.o ../../../Source/TrafficController/PacketMaster.cpp
 
+${OBJECTDIR}/_ext/1329216428/cArbitrator.o: ../../../Source/TrafficController/cArbitrator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1329216428
+	${RM} $@.d
+	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/1329216428/cArbitrator.o ../../../Source/TrafficController/cArbitrator.cpp
+
 ${OBJECTDIR}/_ext/178741075/RuneListenSocket.o: ../../../Source/TrafficController/Network/RuneListenSocket.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/178741075
 	${RM} $@.d
 	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/178741075/RuneListenSocket.o ../../../Source/TrafficController/Network/RuneListenSocket.cpp
+
+${OBJECTDIR}/_ext/565703506/cBike.o: ../../../Source/TrafficController/EventQueue/cBike.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/565703506
+	${RM} $@.d
+	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/565703506/cBike.o ../../../Source/TrafficController/EventQueue/cBike.cpp
+
+${OBJECTDIR}/_ext/565703506/cCar.o: ../../../Source/TrafficController/EventQueue/cCar.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/565703506
+	${RM} $@.d
+	$(COMPILE.cc) -g -DJSON_IS_AMALGAMATION -I../../../Source/Libs/JSoncpp-0.6 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/565703506/cCar.o ../../../Source/TrafficController/EventQueue/cCar.cpp
 
 ${OBJECTDIR}/_ext/178741075/RuneSocketSet.o: ../../../Source/TrafficController/Network/RuneSocketSet.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/178741075

@@ -53,7 +53,7 @@ void cNetworkView::Update()
     try
     {
         // Poll for socket activity
-        if(sockSet.Poll(32))
+        if(sockSet.Poll(10))
         {
             try
             {
@@ -109,8 +109,10 @@ void cNetworkView::Update()
                     while(!msgQueue.empty())
                     {
                         std::string& msg = msgQueue.front();
-                        ClientSocket.Send(msg.c_str(), msg.size());
+                        ClientSocket.Send(msg.c_str(), msg.size() + 1);
                         msgQueue.pop();
+                        
+                        //std::cout << "Msg send" << std::endl;
                     }
                 }
 

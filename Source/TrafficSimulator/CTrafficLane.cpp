@@ -245,27 +245,30 @@ void CCommonTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* group
     // Vectors
     wmath::Vec3 parPos = par.GetPosition();
     wmath::Vec3 laneDir = wayEnd - wayStart;
-    wmath::Vec3 moveDir = (wayEnd - parPos); moveDir.Norm();
+    wmath::Vec3 moveDir = laneDir; moveDir.Norm();
     float parSize = CTrafficLane::GetParticipantSize(par.GetType());
 
     // get length between 2 lane waypoints, from start to end
-    float laneLength = laneDir.Length();// + parSize + TRADEFS::CHEATLEN;
+    float laneLength = laneDir.Length() + parSize;
 
     // get length between par pos and end waypoint
     float parLength = (parPos - wayStart).Length();
 
     // check if we have reached our destination
-    if(parLength > laneLength)
+    if(parLength >= laneLength)
     {
         wmath::Vec3 end = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayStart();
-        laneDir = end - wayStart;
-        moveDir = (end - parPos);
+        wmath::Vec3 end2 = groups[par.GetTo()][TRADEFS::LANE_EXIT]->GetWayEnd();
+        wmath::Vec3 oEnd = end2 - end; oEnd.Norm();
+        oEnd = end - oEnd *6.0f;
+        laneDir = oEnd - wayEnd;
+        moveDir = (oEnd - parPos);
 
         // get length between 2 lane waypoints, from start to end
         laneLength = laneDir.Length();
 
         // get length between par pos and end waypoint
-        parLength = (parPos - wayStart).Length();
+        parLength = (parPos - wayEnd).Length();
 
         // check if we have reached our destination
         laneDir.Norm();
@@ -273,17 +276,17 @@ void CCommonTrafficLane::OnCrossroad(CParticipant& par, CTrafficLaneGroup* group
 
         // get new rot
         float wantRot = atan2(laneDir.x, laneDir.z);
-        float curRot = par.GetRotation() * wmath::DEG2RAD;
+        float curRot =  par.GetRotation() * wmath::DEG2RAD;
         float difRot = wmath::ShortestAngleBetween(curRot, wantRot);
         curRot *= wmath::RAD2DEG;
         difRot *= wmath::RAD2DEG;
 
-        if( !(difRot >= -0.1f && difRot <= 0.1f))
+        if( !wmath::IsCloseEnough(difRot, 0.0f) )
         {
             par.SetRotation( curRot + difRot * dt );
         }
 
-        if(parLength > laneLength)
+        if(parLength >= laneLength)
         {
             // change state
             par.SetState(TRADEFS::GOTOEXIT);

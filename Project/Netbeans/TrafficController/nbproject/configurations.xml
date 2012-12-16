@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="84">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="f1"
+                   displayName="EventQueue"
+                   projectFiles="true"
+                   kind="ROOT">
+      <itemPath>../../../Source/TrafficController/EventQueue/cActionGroup.cpp</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cActionGroup.h</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cBike.cpp</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cBike.h</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cBus.cpp</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cBus.h</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cCar.cpp</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cCar.h</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cPedestrian.cpp</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/cPedestrian.h</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/iAction.cpp</itemPath>
+      <itemPath>../../../Source/TrafficController/EventQueue/iAction.h</itemPath>
+    </logicalFolder>
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>../../../Source/TrafficController/PacketMaster.h</itemPath>
       <itemPath>../../../Source/TrafficController/TrafficDefs.h</itemPath>
+      <itemPath>../../../Source/TrafficController/Util.h</itemPath>
+      <itemPath>../../../Source/TrafficController/cArbitrator.h</itemPath>
       <itemPath>../../../Source/TrafficController/cConsoleView.h</itemPath>
       <itemPath>../../../Source/TrafficController/cNetworkView.h</itemPath>
       <itemPath>../../../Source/TrafficController/cSimulationModel.h</itemPath>
@@ -38,6 +57,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>../../../Source/TrafficController/PacketMaster.cpp</itemPath>
+      <itemPath>../../../Source/TrafficController/cArbitrator.cpp</itemPath>
       <itemPath>../../../Source/TrafficController/cConsoleView.cpp</itemPath>
       <itemPath>../../../Source/TrafficController/cNetworkView.cpp</itemPath>
       <itemPath>../../../Source/TrafficController/cSimulationModel.cpp</itemPath>
