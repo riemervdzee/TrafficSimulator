@@ -36,6 +36,7 @@ public:
     // A few getters
     inline TRADEFS::PARTICIPANTS getType()          { return _Type;}
     inline TRADEFS::DIRECTION    getFromDirection() { return _FromDirection;}
+    inline TRADEFS::DIRECTION    getToDirection()   { return _ToDirection;}
     inline int                   getFromLane()      { return _FromLane;}
 
     // Calculates the current score of the event based on the current Time
