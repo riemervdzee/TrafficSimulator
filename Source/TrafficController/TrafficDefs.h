@@ -8,7 +8,6 @@ namespace TRADEFS
     const int CHEATLEN = 3;
     const int MAXGROUPS = 4;
     const int MAXLANES = 8;
-    const int MAXLANES_CONTROLLER = MAXLANES + 1; // The Controller does reserve space for the exit-lane
     const int BUMPDIST = 2;
 
     const float CARSIZE = 11.0f;
