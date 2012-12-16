@@ -2,6 +2,7 @@
 #define CTRAFFICLANEGROUP_H
 
 class CTrafficLane;
+class CNetworkView;
 
 class CTrafficLaneGroup
 {
@@ -11,6 +12,7 @@ public:
 
     CTrafficLane* operator[](int index);
     void Clear();
+    void SetNetwork(CNetworkView* network);
 
 private:
     CTrafficLane* lanes[8];

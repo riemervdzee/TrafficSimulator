@@ -39,27 +39,33 @@ bool CNetworkView::Connect(std::string ip, short port)
 void CNetworkView::Translate(const char* buffer, int br)
 {
     std::cout << "Bytes received: " << br << std::endl;
-    std::string buff;
     int start = 0;
-    
-    // DEBUG, show messages
+
     while(br > 0)
     {
-        buff = buffer + start; // puts the chars in to the string until '\0'
-        std::cout << buff << std::endl; // debug
-        br -= (buff.size() + 1);
-        start += (buff.size() + 1);
-        
+        std::string buff = buffer + start; // puts the chars in to the string until '\0'
+
         // parse data and send to model
         Json::Value root;   // will contains the root value after parsing.
         Json::Reader reader;
-        bool parsingSuccessful = reader.parse( buff, root );
-        if ( !parsingSuccessful )
+        std::cout << buff << std::endl; // debug
+        
+        if ( reader.parse( buff, root ) )
         {
+            mModel->ProcessMsg(root);
+        }
+        else
+        {
+            std::cout << "ERORRR" << std::endl;
             // report to the user the failure and their locations in the document.
             std::cout  << "Failed to parse configuration\n"
                        << reader.getFormattedErrorMessages();
+            break;
         }
+        
+                
+        br -= (buff.size() + 1);
+        start += (buff.size() + 1);
     }
 }
 

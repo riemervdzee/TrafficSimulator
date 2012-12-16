@@ -36,7 +36,15 @@ CSimulationModel::~CSimulationModel()
 void CSimulationModel::RegisterNetworkView(CNetworkView* observer)
 {
     if(observer != 0)
+    {
         mNetworkView = observer;
+        
+        // allow the lanes to use the network module
+        for(int i = 0; i < 4; ++i)
+        {
+            laneGroups[i].SetNetwork(observer);
+        }
+    }
 }
 
 void CSimulationModel::RegisterSimulationView(CSimulationView* observer)
@@ -111,7 +119,8 @@ void CSimulationModel::UpdateSim()
             if(mNetworkView != 0)
             {
                 // create package
-                std::string pack = PacketMaster::GetLoopPackage(qPar.fromDirection, qPar.fromLane, qPar.type, 0,
+                // loop type 0 is close
+                std::string pack = PacketMaster::GetLoopPackage(qPar.fromDirection, qPar.fromLane, qPar.type, 1,
                         false, qPar.toDirection, qPar.toLane);
 
                 // send package
@@ -327,6 +336,8 @@ void CSimulationModel::ParseLocation(const std::string& str, int& dir, int& lane
     {
        // check direction
        dir = GetDirection(str[0]);
+       
+       lane = TRADEFS::LANE_EXIT;
     }
 }
 
@@ -358,31 +369,34 @@ void CSimulationModel::ParseLightState(const std::string& str, int& state)
     }
 }
 
-void CSimulationModel::ProcessMsg(const Json::Value& data)
+void CSimulationModel::ProcessMsg(const Json::Value& array)
 {
-    // handle msg
-    if( data.isMember("light") )
+    for(unsigned int i = 0; i < array.size(); ++i)
     {
-        int dir, lane, state;
-
-        std::string lightLocation = data["light"].asString();
-        std::string lightState = data["state"].asString();
-
-        // parse strings
-        ParseLocation(lightLocation, dir, lane);
-        ParseLightState(lightState, state);
-
-        if((dir >= 0 && dir < 4) && (lane >= 0 && lane < 8))
+        const Json::Value& data = array[i];
+        
+        // handle msg
+        if( data.isMember("light") )
         {
-            std::cout << "TrafficLight message processed!" << std::endl;
+            int dir, lane, state;
 
-            // change state of the corresponding light
-            int lightID = laneGroups[dir][lane]->GetLightID();
-            trafficLights.at(lightID).SetState((TRADEFS::TRAFFICLIGHTSTATE)state);
-        }
-        else
-        {
-            std::cout << "Could not process network light update!" << std::endl;
+            std::string lightLocation = data["light"].asString();
+            std::string lightState = data["state"].asString();
+
+            // parse strings
+            ParseLocation(lightLocation, dir, lane);
+            ParseLightState(lightState, state);
+
+            if((dir >= 0 && dir < 4) && (lane >= 0 && lane < 8))
+            {
+                // change state of the corresponding light
+                int lightID = laneGroups[dir][lane]->GetLightID();
+                trafficLights.at(lightID).SetState((TRADEFS::TRAFFICLIGHTSTATE)state);
+            }
+            else
+            {
+                std::cout << "Could not process network light update!" << std::endl;
+            }
         }
     }
 }

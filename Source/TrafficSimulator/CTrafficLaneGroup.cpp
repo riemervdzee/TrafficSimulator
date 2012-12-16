@@ -15,6 +15,15 @@ CTrafficLaneGroup::CTrafficLaneGroup()
     }
 }
 
+void CTrafficLaneGroup::SetNetwork(CNetworkView* network)
+{
+    // set network module for all lanes
+    for(int i = 1; i < 7; ++i)
+    {
+        lanes[i]->SetNetwork(network);
+    } 
+}
+
 void CTrafficLaneGroup::Clear()
 {
     for(int i = 0; i < 7; i++)
