@@ -45,7 +45,8 @@ void cArbitrator::EventConnectionEstablished( iNetworkObserver *view)
     // For every possible TrafficLight, put them on RED
     for(int dir = 0; dir < 4; dir++)
         for(int lane = 0; lane < 8; lane++)
-            view->Send( PacketMaster::GetTraLightPackage( dir, lane, TRADEFS::STOP) );
+            if( lane != 6) /* Filter lane 6 */
+                view->Send( PacketMaster::GetTraLightPackage( dir, lane, TRADEFS::STOP) );
 }
 
 /**
