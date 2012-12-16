@@ -29,6 +29,9 @@ protected:
     // Tells which points we are blocking already
     int _Blocking;
 
+    // Set a specific bit
+    inline void SetBit( int bit) { _Blocking |= 1 << bit;}
+
 public:
     // Empty constructor
     cBlockControl() : _Blocking(0)  {}

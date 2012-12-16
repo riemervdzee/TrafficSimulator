@@ -19,14 +19,14 @@ bool CNetworkView::Connect(std::string ip, short port)
     {
         // try to connect
         dSocket.Connect( RuneSocket::GetIPAddress(ip), port);
-        
+
         // message
         std::cout << "Connected to: " << RuneSocket::GetIPString(dSocket.GetRemoteAddress())
                 << std::endl;
-        
+
         // add to the socket set
         socketSet.AddSocket(dSocket);
-        
+
         return true;
     }
     catch(RuneSocket::Exception& e)
@@ -48,8 +48,8 @@ void CNetworkView::Translate(const char* buffer, int br)
         // parse data and send to model
         Json::Value root;   // will contains the root value after parsing.
         Json::Reader reader;
-        std::cout << buff << std::endl; // debug
-        
+        //std::cout << buff << std::endl; // debug
+
         if ( reader.parse( buff, root ) )
         {
             mModel->ProcessMsg(root);
@@ -62,8 +62,8 @@ void CNetworkView::Translate(const char* buffer, int br)
                        << reader.getFormattedErrorMessages();
             break;
         }
-        
-                
+
+
         br -= (buff.size() + 1);
         start += (buff.size() + 1);
     }
@@ -96,12 +96,12 @@ void CNetworkView::UpdateNetwork()
                 {
                     // receive data
                     int br = dSocket.Receive(recBuffer, bufferSize);
-                    
+
                     // handle data
                     Translate(recBuffer, br);
                     recBuffer[0] = '\0';
                 }
-                
+
                 // send data if possible
                 if(socketSet.HasActivity(dSocket, RuneSocket::WRITE))
                 {
@@ -109,17 +109,17 @@ void CNetworkView::UpdateNetwork()
                     while(!sendQueue.empty() && !(sendCount > maxSend) )
                     {
                         std::string& data = sendQueue.front();
-                        
+
                         // send the data, + 1 is for '\0' as it is a c-string
                         dSocket.Send( data.c_str(), data.size() + 1 );
-                        
+
                         // get rid of the message
                         sendQueue.pop();
                         sendCount++;
                     }
                 }
             }
-            
+
         }
         catch(RuneSocket::Exception& e)
         {
@@ -129,13 +129,13 @@ void CNetworkView::UpdateNetwork()
                 std::cout << "Disconnected from the server!" << std::endl;
                 socketSet.RemoveSocket(dSocket);
                 dSocket.Close();
-                
+
                 // tell the model we disconnected
                 if(mModel != 0)
                 {
                     mModel->Disconnected();
                 }
             }
-        } 
+        }
     }
 }

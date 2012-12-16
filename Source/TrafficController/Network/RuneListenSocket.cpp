@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   RuneListenSocket.cpp
  * Author: wilds
- * 
+ *
  * Created on November 26, 2012, 1:54 PM
  */
 
@@ -21,8 +21,8 @@ namespace RuneSocket
 
     // ====================================================================
     // Function:    Listen
-    // Purpose:     this function will tell the socket to listen on a 
-    //              certain port 
+    // Purpose:     this function will tell the socket to listen on a
+    //              certain port
     // p_port:      This is the port that the socket will listen on.
     // ====================================================================
     void RuneListenSocket::Listen( port p_port )
@@ -45,8 +45,17 @@ namespace RuneSocket
         // set the SO_REUSEADDR option on the socket, so that it doesn't
         // hog the port after it closes.
         int reuse = 1;
-        err = setsockopt( m_sock, SOL_SOCKET, SO_REUSEADDR, 
+        err = setsockopt( m_sock, SOL_SOCKET, SO_REUSEADDR,
                           (char*)(&reuse), sizeof( reuse ) );
+        if( err != 0 )
+        {
+            throw Exception( GetError() );
+        }
+
+        // Disable crappy windows Naggle
+        err = setsockopt( m_sock, SOL_SOCKET, TCP_NODELAY,
+                          (char*)(&reuse), sizeof( reuse ) );
+
         if( err != 0 )
         {
             throw Exception( GetError() );
@@ -59,7 +68,7 @@ namespace RuneSocket
         memset( &(m_localinfo.sin_zero), 0, 8 );
 
         // bind the socket
-        err = bind( m_sock, (struct sockaddr*)&m_localinfo, 
+        err = bind( m_sock, (struct sockaddr*)&m_localinfo,
             sizeof(struct sockaddr));
         if( err == -1 )
         {
@@ -81,7 +90,7 @@ namespace RuneSocket
 
     // ====================================================================
     // Function:    Accept
-    // Purpose:     This is a blocking function that will accept an 
+    // Purpose:     This is a blocking function that will accept an
     //              incomming connection and return a data socket with info
     //              about the new connection.
     // ====================================================================

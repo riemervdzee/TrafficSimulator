@@ -207,8 +207,8 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
             // Is the lane empty?
             if( lane == NULL )
             {
-                // Is the loop close?
-                if( Event.loop == 0)
+                // Is the loop close? and non-empty?
+                if( Event.empty == false && Event.loop == 0)
                 {
                     // Only difference is the object itself of course
                     if( Event.type == TRADEFS::BIKE)
@@ -230,8 +230,8 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
 
         // If it is a bus, always create a new event (never add to existing bus lanes)
         case TRADEFS::BUS:
-            // Is the loop close?
-            if( Event.loop == 0)
+            // Is the loop close? and non-empty?
+            if( Event.empty == false && Event.loop == 0)
             {
                 obj = new cBus( Event);
             }
@@ -286,6 +286,7 @@ void cArbitrator::AddEvent( SimulationQueueParticipant_t Event)
     bool result = false;
     cBlockControl BC( obj);
 
+    // Go through all ActionGroups to see if they can accept this new iAction
     for ( vector<cActionGroup*>::iterator i = _Queue.begin(); i != _Queue.end() && result == false; i++)
         result = (*i)->AddAction( obj, BC);
 
