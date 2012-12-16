@@ -113,7 +113,7 @@
 	{
 		"time": 0,
 		"type": "car",
-		"from": "S2",
+		"from": "S3",
 		"to": "N"
 	}
 	,
@@ -121,7 +121,7 @@
 		"time": 0,
 		"type": "car",
 		"from": "S4",
-		"to": "N"
+		"to": "W"
 	}
 	,
 	{
@@ -149,14 +149,14 @@
 		"time": 0,
 		"type": "car",
 		"from": "W2",
-		"to": "E"
+		"to": "S"
 	}
 	,
 	{
 		"time": 0,
 		"type": "car",
 		"from": "W4",
-		"to": "E"
+		"to": "N"
 	}
 	,
 	{
@@ -183,7 +183,7 @@
 	{
 		"time": 0,
 		"type": "car",
-		"from": "E2",
+		"from": "E3",
 		"to": "W"
 	}
 	,
@@ -191,7 +191,7 @@
 		"time": 0,
 		"type": "car",
 		"from": "E4",
-		"to": "W"
+		"to": "S"
 	}
 	,
 	{
@@ -219,14 +219,14 @@
 		"time": 0,
 		"type": "car",
 		"from": "N2",
-		"to": "S"
+		"to": "W"
 	}
 	,
 	{
 		"time": 0,
 		"type": "car",
 		"from": "N4",
-		"to": "S"
+		"to": "E"
 	}
 	,
 	{
@@ -254,14 +254,14 @@
 		"time": 0,
 		"type": "car",
 		"from": "S2",
-		"to": "N"
+		"to": "E"
 	}
 	,
 	{
 		"time": 0,
 		"type": "car",
 		"from": "S4",
-		"to": "N"
+		"to": "W"
 	}
 	,
 	{
@@ -289,14 +289,14 @@
 		"time": 0,
 		"type": "car",
 		"from": "W2",
-		"to": "E"
+		"to": "S"
 	}
 	,
 	{
 		"time": 0,
 		"type": "car",
 		"from": "W4",
-		"to": "E"
+		"to": "N"
 	}
 	,
 	{
@@ -324,14 +324,14 @@
 		"time": 0,
 		"type": "car",
 		"from": "E2",
-		"to": "W"
+		"to": "N"
 	}
 	,
 	{
 		"time": 0,
 		"type": "car",
 		"from": "E4",
-		"to": "W"
+		"to": "S"
 	}
 	,
 	{
