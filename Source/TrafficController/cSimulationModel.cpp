@@ -92,7 +92,7 @@ void cSimulationModel::ProcessMessage(const Json::Value& array)
             cout << "H: " << hours * 3600 << "  M: " << minutes * 60 << endl;
 
             // get the multiplier
-            //_Multiplier = 1;
+            _Multiplier = 1;
 
             // Set the current time RealTime
             _CurrentRealTime = time (NULL);
@@ -142,8 +142,8 @@ void cSimulationModel::ProcessMessage(const Json::Value& array)
 
             _Arbitrator.AddEvent( Event);
 
-            /*// Debug
-            cout << data["type"].asString() << endl;
+            // Debug
+            /*cout << data["type"].asString() << endl;
             cout << data["light"].asString() << endl;
             cout << data["loop"].asString() << endl;
             cout << data["empty"].asString() << endl;
@@ -168,9 +168,12 @@ int GetLoop( string loop)
     else if ( loop.compare( "far") == 0)
         return 1;
 
+    else if ( loop.compare( "null") == 0)
+        return -1;
+
 
     // All hell breaks loose!
-    cout << "[ERROR] Could not identify Loop Type! Abandon ship, it is sinking!" << endl;
+    cout << "[ERROR] Unknown Loop Type! Abandon ship, it is sinking!" << endl;
     return -1;
 }
 
@@ -178,6 +181,12 @@ TRADEFS::PARTICIPANTS GetType( string type)
 {
     // Compare
     if      ( type.compare( "car") == 0)
+        return TRADEFS::CAR;
+
+    else if ( type.compare( "truck") == 0)
+        return TRADEFS::CAR;
+
+    else if ( type.compare( "godzilla") == 0)
         return TRADEFS::CAR;
 
     else if ( type.compare( "bus") == 0)
@@ -191,7 +200,7 @@ TRADEFS::PARTICIPANTS GetType( string type)
 
 
     // All hell breaks loose!
-    cout << "[ERROR] Could not identify type! Abandon ship, it is sinking!" << endl;
+    cout << "[ERROR] Unknown Type! Abandon ship, it is sinking! Type: " << type << endl;
     return TRADEFS::CAR;
 }
 
@@ -212,7 +221,7 @@ TRADEFS::DIRECTION GetDir( string dir)
 
 
     // Compare
-    cout << "[ERROR] Could not identify type! Abandon ship, it is sinking!" << endl;
+    cout << "[ERROR] Unknown Direction! Abandon ship, it is sinking!" << endl;
     return TRADEFS::NORTH;
 }
 
@@ -236,6 +245,6 @@ TRADEFS::TRAFFICLIGHTSTATE GetLightState( string state)
 
 
     // Compare
-    cout << "[ERROR] Could not identify type! Abandon ship, it is sinking!" << endl;
+    cout << "[ERROR] Unknown LightState! Abandon ship, it is sinking!" << endl;
     return TRADEFS::STOP;
 }
