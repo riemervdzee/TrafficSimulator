@@ -11,13 +11,32 @@ const int bufferSize = 4096;
  */
 cNetworkView::cNetworkView()
 {
+    // Buffer
+    char szBuffer[1024];
+    struct hostent *host;
+    struct in_addr *adr;
+
     // init
     ServerSocket.Listen(1337);
     ServerSocket.SetBlocking( false);
     sockSet.AddSocket( ServerSocket);
 
     // Output something nice
-    cout << "Server started!" << std::endl;
+    cout << "Server started!" << endl;
+
+    // Output hostname
+    if(gethostname(szBuffer, sizeof(szBuffer)) == SOCKET_ERROR)
+        return;
+
+    host = gethostbyname(szBuffer);
+    if(host == NULL)
+        return;
+
+    adr = (struct in_addr *) host->h_addr;
+    cout << (int) adr->S_un.S_un_b.s_b1 << ".";
+    cout << (int) adr->S_un.S_un_b.s_b2 << ".";
+    cout << (int) adr->S_un.S_un_b.s_b3 << ".";
+    cout << (int) adr->S_un.S_un_b.s_b4 << endl;
 }
 
 /*
@@ -111,7 +130,7 @@ void cNetworkView::Update()
                         std::string& msg = msgQueue.front();
                         ClientSocket.Send(msg.c_str(), msg.size() + 1);
                         msgQueue.pop();
-                        
+
                         //std::cout << "Msg send" << std::endl;
                     }
                 }
